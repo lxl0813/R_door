@@ -1,0 +1,194 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <script src="/static/js/time.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--财务流水中心--总览页面</b></div>
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+
+            <div class="input-group">
+                <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Finance/water_add')}">添加流水账单</a></span>
+            </div>
+
+            <div style="height:10px"></div>
+
+            <div class="input-group">
+                <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Finance/company_index')}">公司中心</a></span>
+            </div>
+
+            <div style="height:10px"></div>
+
+            <div class="input-group">
+                <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Finance/water_excel')}">流水文件中心</a></span>
+            </div>
+
+            <div style="height:10px"></div>
+
+            <div class="input-group">
+                <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Finance/water_personal')}">个人中心</a></span>
+            </div>
+
+            <div style="height:10px"></div>
+
+            <!--公司搜索-->
+            <div class="form-group" style="float:right;margin-left: 10px" >
+                <div class="input-group">
+                    <select id="company" style="float: left">
+                        <option value="0">根据公司搜索</option>
+                        {volist name="company" id="data"}
+                            <option value="{$data.id}" name="form_type_id">{$data.company}</option>
+                        {/volist}
+                    </select>
+                    <div style="float:right;">
+                        <div class="form-group" style="width: 150px;float: left">
+                            <input type="text" id="start_time" placeholder="开始日期" onClick="new Calendar().show(this)" class="inpMain form-control" />
+                        </div>
+                        <div class="form-group" style="width: 150px;float: left">
+                            <input type="text" id="end_time" placeholder="结束日期" onClick="new Calendar().show(this)" class="inpMain form-control" />
+                        </div>
+                        <button type="submit"  id="search" class="btn btn-default">查询</button>
+                        <button type="submit"  id="see" class="btn btn-default">整体预览</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--类型搜索-->
+            <div style="margin-top: 20px;;text-align:center">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">流水单ID</th>
+                            <th style="text-align: center">添加人</th>
+                            <th style="text-align: center">流水单日期</th>
+                            <th style="text-align: center">流水单公司</th>
+                            <th style="text-align: center">流水银行</th>
+                            <th style="text-align: center">操作</th>
+                        </tr>
+                    </thead>
+
+                        {if empty($water_list)}
+                            <tr>
+                                <td colspan="11">还没有上传过流水账单哦！</td>
+                            </tr>
+                        {else}
+                            {volist name="water_list" id="data"}
+                                <tr>
+                                    <td>{$no++}</td>
+                                    <td>{$data.admin_name}</td>
+                                    <td>{$data.water_time}</td>
+                                    <td>{$data.company_name}</td>
+                                    <td>{$data.bank_name}</td>
+                                    <td>
+                                        <!--   在线查看    -->
+                                        <a href="{$data.water_url}" title="查看">
+                                            <svg t="1591088539947" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9089" width="32" height="32">
+                                                <path d="M965.7 497.5c13.8 16.1 13.8 39.9 0 56-61.4 72-240.9 258.6-452.7 258.6S121.7 625.5 60.3 553.4c-13.8-16.1-13.8-39.9 0-56 61.4-72.1 240.9-258.7 452.7-258.7 211.8 0.1 391.3 186.6 452.7 258.8zM513 746c172.7 0 329.2-153.4 389.3-220.5-60.1-67.2-216.6-220.6-389.3-220.6S183.8 458.3 123.7 525.4C183.8 592.6 340.3 746 513 746z m0-143.4c-42.6 0-77.2-34.6-77.2-77.2s34.6-77.2 77.2-77.2 77.2 34.6 77.2 77.2-34.6 77.2-77.2 77.2z m0-220.5c-79.1 0.1-143.2 64.2-143.3 143.3 0 79 64.3 143.3 143.3 143.3s143.3-64.3 143.3-143.3S592 382.1 513 382.1" fill="#409EFF" p-id="9090"></path>
+                                            </svg>
+                                        </a>
+                                        <a href="{:url('Finance/water_update',['id'=>$data.id])}" class="update" id="{$data.id}">修改</a>
+                                    </td>
+                                </tr>
+                            {/volist}
+                        {/if}
+                </table>
+            </div>
+
+        </div>
+        <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+
+
+<script type="application/javascript">
+
+    function post(URL, PARAMS) {
+        var temp = document.createElement("form");
+        temp.action = URL;
+        temp.method = "post";
+        temp.style.display = "none";
+        for (var x in PARAMS){
+            var opt = document.createElement("textarea");
+            opt.name = x;
+            opt.value = PARAMS[x];
+            temp.appendChild(opt);
+        }
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+
+
+    $("#search").click(function(){
+        var start_time = $("#start_time").val();
+        var end_time   = $("#end_time").val();
+        var company_id = $("select[id='company'] option:selected").val();
+        if(start_time==""){
+            layer.msg("请选择开始日期");return;
+        }
+        if(end_time==""){
+            layer.msg("请选择结束日期");return;
+        }
+        if(company_id==""){
+            layer.msg("请选择公司");return;
+        }
+        var data = {
+            "start_time": start_time,
+            "end_time": end_time,
+            "company_id":company_id,
+        }
+        post("{:url('Finance/water_index')}",data);
+    })
+
+    $("#see").click(function(){
+        var start_time = $("#start_time").val();
+        var end_time   = $("#end_time").val();
+        var company_id = $("select[id='company'] option:selected").val();
+        if(start_time==""){
+            layer.msg("请选择开始日期");return;
+        }
+        if(end_time==""){
+            layer.msg("请选择结束日期");return;
+        }
+        if(company_id==""){
+            layer.msg("请选择公司");return;
+        }
+        var data = {
+            "start_time": start_time,
+            "end_time": end_time,
+            "company_id":company_id,
+        }
+        post("{:url('Finance/water_see')}",data);
+
+
+    })
+</script>
+
+
+
+</body>
+</html>

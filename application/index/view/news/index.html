@@ -1,0 +1,97 @@
+<!--头部引入-->
+{include file="common:top"}
+
+
+{if Cookie::get('think_var')=='en_us'}
+<script type="text/javascript">
+	$("#menu_div a:contains('News Center')").attr("id","redcolor");
+</script>
+{else/}
+<script type="text/javascript">
+	$("#menu_div a:contains('新闻中心')").attr("id","redcolor");
+</script>
+{/if}
+	<div id="middle_part"><div class="banner news-banner"></div>
+<div class="content news-content">
+	<div class="fyy-section">
+		<div class="inner-tit"><img src="/static/picture/fd99b8b7a8.png" alt=""></div>
+		<div class="inner-cnt">
+			<div class="news-theme">
+			<h6></h6>
+				<p><br><a href="{:url('Culture/index')}" target="_self" title="企业文化">
+                <img src="/static/picture/89111496644940180.png"></a></p>
+			</div>
+			<div class="news-list">
+				<ul>
+					{volist name="new" id="data"}
+						<li>
+							<a href="{:url('News/news_show',['news_id'=>$data.id])}">
+								<h4>{$data.time_d}<p><span class="englishtime">{$data.time_m}</span><em>{$data.time_year}</em></p></h4>
+								<div class="news-list-img"><img src="{$data.img}" alt="{$data.title}" data-holder-rendered="true"></div>
+								<div class="news-text"s>
+									<h5>{$data.title}</h5>
+									<div class="btn">查看详细</div>
+								</div>
+							</a>
+						</li>
+					{/volist}
+				</ul>
+			</div>
+			<div style="text-align: center">
+				{$new|raw}
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(function(){
+	$("#indexNews").width($(this).find("li").width()*308);
+	$(".englishtime").each(function() {
+		//alert(1);exit;
+		if ($(this).text()=="01") {
+			$(this).text("Jan")
+		}
+		if ($(this).text()=="02") {
+			$(this).text("Feb")
+		}
+		if ($(this).text()=="03") {
+			$(this).text("Mar")
+		}
+		if ($(this).text()=="04") {
+			$(this).text("Apr")
+		}
+		if ($(this).text()=="05") {
+			$(this).text("May")
+		}
+		if ($(this).text()=="06") {
+			$(this).text("Jun")
+		}
+		if ($(this).text()=="07") {
+			$(this).text("Jul")
+		}
+		if ($(this).text()=="08") {
+			$(this).text("Aug")
+		}
+		if ($(this).text()=="09") {
+			$(this).text("Sept")
+		}
+		if ($(this).text()=="10") {
+			$(this).text("Oct")
+		}
+		if ($(this).text()=="11") {
+			$(this).text("Nov")
+		}
+		if ($(this).text()=="12") {
+			$(this).text("Dec")
+		}
+	})
+});
+</script>
+</div>
+{include file="common:foot"}
+</div>
+<div class="back-top">
+	<a id="backTop"></a>
+</div>
+
+</body></html>

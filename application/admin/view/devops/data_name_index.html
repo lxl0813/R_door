@@ -1,0 +1,138 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--运维看板</b></div>
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+
+            <div class="input-group">
+                <a href="javascript:window.history.back(-1)" target="_self" style="margin-left: 20px"><img src="/static/picture/go.png" title="返回上一页" style="height:20px"></a>
+
+                <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Devops/data_name_index')}">新增信息点</a></span>
+            </div>
+            <div style="margin-top: 20px;;text-align:center">
+                <table class="table table-hover">
+                    <tr>
+                        <th style="text-align: center">序号</th>
+                        <th style="text-align: center">名称</th>
+                        <th style="text-align: center">状态</th>
+                        <th style="text-align: center">创建时间</th>
+                        <th style="text-align: center">创建人</th>
+                        <th style="text-align: center">操作</th>
+                    </tr>
+                    {volist name="devops" id="data"}
+                        <tr>
+                            <th style="text-align: center">{$data.id}</th>
+                            <th style="text-align: center">{$data.data_name}</th>
+                            <th style="text-align: center">{if $data.state==1}<a id="{$data.id}" class="yes">启用</a>{else}<a id="{$data.id}" class="no">禁用</a>{/if}</th>
+                            <th style="text-align: center">{$data.create_time}</th>
+                            <th style="text-align: center">{$data.create_by}</th>
+                            <td style="text-align: center">
+                                <a href="#" class="delete" id="{$data.id}">删除</a>
+                                |
+                                <a href="{:url('Finance/form_update',['form_id'=>$data.id])}">编辑</a>
+                            </td>
+                        </tr>
+                    {/volist}
+                </table>
+            </div>
+        </div>
+        <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+<script>
+
+    $(".delete").click(function(){
+        var id = $(this).attr("id");
+        $.ajax({
+            type: "post",
+            url: "{:url('Devops/data_delete')}",
+            data: {
+                id:id,
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200) {
+                    layer.msg(data.msg);
+                    setTimeout(function(){
+                        window.location.reload();//刷新当前页面
+                    },1000)
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        })
+    })
+
+
+    //启用改成禁用
+    $(".yes").click(function(){
+        var id = $(this).attr("id");
+        $.ajax({
+            type: "post",
+            url: "{:url('Devops/data_update')}",
+            data: {
+                id:id,
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200) {
+                    layer.msg(data.msg);
+                    setTimeout(function(){
+                        window.location.reload();//刷新当前页面
+                    },1000)
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        })
+    })
+
+
+    //禁用改成启用
+    $(".no").click(function(){
+        var id = $(this).attr("id");
+        $.ajax({
+            type: "post",
+            url: "{:url('Devops/data_update')}",
+            data: {
+                id:id,
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200) {
+                    layer.msg(data.msg);
+                    setTimeout(function(){
+                        window.location.reload();//刷新当前页面.
+                    },1000)
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        })
+    })
+
+
+</script>
+</body>
+</html>

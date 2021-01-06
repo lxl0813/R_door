@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>让雷客户留言管理</title>
+    <script src="/static/js/time.js"></script>
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    {include file='pub:bootstrop'/}
+    <style>
+        td{
+          text-align: center;
+        }
+        th{
+            text-align: center  ;
+        }
+    </style>
+</head>
+<body>
+
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div  style="text-align: center"><b><h3>上海让雷智能科技有限公司--客户留言管理</h3></b></div>
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+    <div style="float: right">
+
+        <select id="status">
+            <option value="0">按状态查询</option>
+            <option value="1">已查看</option>
+            <option value="2">未查看</option>
+        </select>
+        <button type="button" id="search">查询</button>
+    </div>
+    <div style="height:10px"></div>
+    <table  class="table table-striped" border="0">
+        <tr>
+            <th>序号</th>
+            <th>用户昵称时间</th>
+            <th>联系方式</th>
+            <td>状态</td>
+            <th>操作</th>
+        </tr>
+        {if empty($book)}
+            <tr>
+                <td colspan="8">未查询到相关询单数据</td>
+            </tr>
+        {else}
+        {volist name="book" id="data"}
+        <tr>
+            <td>{$no++}</td>
+            <td>{$data.name}</td>
+            <td>{$data.phone}</td>
+            <td>
+                {if $data.status==0}
+                未查看
+                {else}
+                已查看
+                {/if}
+            </td>
+            <td >
+                <a href="javascript:void(0);" id="{$data.id}" class="delete">删除</a>
+                |
+                <a href="javascript:void(0);" id="{$data.id}" class="see">查看</a>
+            </td>
+        </tr>
+        {/volist}
+        {/if}
+    </table>
+</div>
+{if empty($book)}
+
+{else}
+<div style="text-align: center">
+    {$book|raw}
+</div>
+{/if}
+
+
+<script type="application/javascript"  src="/static/js/jquery.min.js"></script>
+
+<script type="application/javascript"  src="/static/layer/layer.js"></script>
+<script>
+$(".delete").click(function(){
+    var id = $(this).attr('id');
+    $.ajax({
+        type: "post",
+        url: "{:url('Book/delete')}",
+        data: {
+            id:id
+        },
+        dataType: "json",
+        success: function (data) {
+            if (data.status == 1) {
+                layer.msg(data.msg);
+                setTimeout(function(){
+                    window.location.reload();//刷新当前页面.
+                },1000)
+            }else{
+                layer.msg(data.msg);
+            }
+        }
+    })
+})
+
+$(".see").click(function(){
+    var id = $(this).attr('id');
+    $.ajax({
+        type: "post",
+        url: "{:url('Book/see')}",
+        data: {
+            id:id
+        },
+        dataType: "json",
+        success: function (data) {
+            if (data.status == 1){
+
+                layer.open({
+                    type: 1,
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['620px', '440px'], //宽高
+                    content: data.data
+                });
+
+            }else{
+                layer.msg(data.msg);
+            }
+        }
+    })
+})
+
+function post(URL, PARAMS) {
+    var temp = document.createElement("form");
+    temp.action = URL;
+    temp.method = "post";
+    temp.style.display = "none";
+    for (var x in PARAMS){
+        var opt = document.createElement("textarea");
+        opt.name = x;
+        opt.value = PARAMS[x];
+        temp.appendChild(opt);
+    }
+    document.body.appendChild(temp);
+    temp.submit();
+    return temp;
+}
+
+
+    $("#search").click(function(){
+        var status = $("select option:checked").val();
+        if(status==0){
+            layer.msg('请选择查询条件');return;
+        }
+        var data = {
+            "status": status,
+        }
+        post("{:url('Book/index')}",data);
+
+    })
+
+
+</script>
+</body>
+</html>

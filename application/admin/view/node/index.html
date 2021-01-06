@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--权限中心</b></div>
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+
+            <div class="input-group">
+                <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Role/add')}">添加权限</a></span>
+            </div>
+
+            <div style="margin-top: 20px;;text-align:center">
+                <table class="table table-hover">
+                    <tr>
+                        <th style="text-align: center">角色ID</th>
+                        <th style="text-align: center">权限名称</th>
+                        <th style="text-align: center">权限控制器名称</th>
+                        <th style="text-align: center">权限方法名称</th>
+                        <th style="text-align: center">操作</th>
+                    </tr>
+                    {foreach $node as $key=>$item}
+                        <tr class="info">
+                            <td style="text-align: center">{$item.id}</td>
+                            <td style="text-align: center">{$item.node}</td>
+                            <td style="text-align: center">{$item.controller}</td>
+                            <td style="text-align: center">{$item.action}</td>
+                            <td style="text-align: center">
+                                <a href="">删除</a>
+                                |
+                                <a href="">编辑</a>
+                            </td>
+                        </tr>
+                        {foreach $item['son'] as $k=>$v}
+                            <tr>
+                                <td style="background-color: #EFFAFF">{$v.id}</td>
+                                <td style="background-color: #EFFAFF">{$v.node}</td>
+                                <td style="background-color: #EFFAFF">{$v.controller}</td>
+                                <td style="background-color: #EFFAFF">{$v.action}</td>
+                                <td style="background-color: #EFFAFF">
+                                    <a href="">删除</a>
+                                    |
+                                    <a href="">编辑</a>
+                                </td>
+                            </tr>
+                            {if isset($v.son)}
+                                {foreach $v.son as $k1=>$v1}
+                                    <tr>
+                                        <td style="text-align: center">{$v1.id}</td>
+                                        <td style="text-align: center">{$v1.node}</td>
+                                        <td style="text-align: center">{$v1.controller}</td>
+                                        <td style="text-align: center">{$v1.action}</td>
+                                        <td style="text-align: center">
+                                            <a href="">删除</a>
+                                            |
+                                            <a href="">编辑</a>
+                                        </td>
+                                    </tr>
+                                {/foreach}
+                            {else}
+                            {/if}
+                        {/foreach}
+                    {/foreach}
+                </table>
+            </div>
+        </div>
+        <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+
+<script>
+    $(".delete").click(function(){
+        var admin_id = $(this).attr("id");
+        $.ajax({
+            type: "post",
+            url: "{:url('Admin/delete')}",
+            data: {
+                admin_id:admin_id,
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.msg);
+                    setTimeout(function(){
+                        window.location.reload();//刷新当前页面.
+                    },1000)
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

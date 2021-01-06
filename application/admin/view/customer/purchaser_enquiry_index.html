@@ -1,0 +1,236 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+    <style type="text/css">
+        th{
+          text-align: center;
+        }
+        td{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--客户营销系统--采购商询单管理中心</b></div>
+        <div style="margin-top: 20px">
+            <ol class="breadcrumb" style="height:50px">
+                <li class="active"><a href="javascript:window.history.back(-1)" target="_self" style="margin-left: 20px"><img src="/static/picture/go.png" title="返回上一页" style="height:20px"></a>&nbsp;&nbsp;询单管理中心</li>
+                <div style="float: right">
+                    <div style="float:left">
+                        <a href="{:url('Customer/purchaser_add')}"><button class="btn btn-default" type="submit">添加采购商</button></a>
+                        <a href="{:url('Customer/purchaser_enquiry_add')}"><button class="btn btn-default" type="submit">新增询单</button></a>
+                        <button type="button" class="btn btn-info" id="no_enquiry">未报价询单</button>
+                        <button type="button" class="btn btn-info" id="in_enquiry">报价中询单</button>
+                        <button type="button" class="btn btn-info" id="over_enquiry">已完成询单</button>
+                    </div>
+                    <div class="input-group" style="width: 200px;float: right">
+                        <input type="text" id="search_content" class="form-control" placeholder="询单编号/单位名称">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" id="search" type="button">搜索</button>
+                        </span>
+                    </div>
+                </div>
+            </ol>
+        </div>
+        <table class="table table-hover">
+            <tr>
+                <th>序号</th>
+                <th>询单编号</th>
+                <th>询单时间</th>
+                <th>采购商</th>
+                <th>采购人</th>
+                <th>询单商品</th>
+                <th>联系方式</th>
+                <th>报价详情</th>
+                <th>询单跟踪</th>
+                <th>操作</th>
+            </tr>
+            {if empty($enquiry)}
+                <tr>
+                    <td colspan="11">对不起！没有查询到相关询单信息！</td>
+                </tr>
+            {else}
+                {volist name="enquiry" id="data"}
+                    <tr>
+                        <td>{$no++}</td>
+                        <td>{$data.enquiry_sn}</td>
+                        <td>{$data.enquiry_time}</td>
+                        <td>{$data.purchaser_name}</td>
+                        <td>{$data.contact_name}</td>
+                        <td>{$data.product_name}</td>
+                        <td>{$data.contact_phone}</td>
+                        <td>查看详情</td>
+                        <td>
+                            {if $data.status==1}
+                            <font color="red">待报价</font>
+                            {elseif $data.status==2}
+                            <font color="#1e90ff">报价中</font>
+                            {else}
+                            <font color="#228b22">已完成</font>
+                            {/if}
+                        </td>
+                        <td>
+                            {if $data.status==3}
+                                <a href="{:url('Customer/purchaser_enquiry_see',['enquiry_id'=>$data.id])}">查看</a>
+                            {else}
+                                <a href="javascript:void (0);" class="enquiry_offer" id="{$data.id}">进行报价</a>
+                                |
+                                <a href="{:url('Customer/purchaser_enquiry_see',['enquiry_id'=>$data.id])}">查看</a>
+                            {/if}
+
+                        </td>
+                    </tr>
+                {/volist}
+            {/if}
+        </table>
+        <div>
+            {if empty($enquiry)}
+
+            {else}
+                {$enquiry|raw}
+            {/if}
+
+        </div>
+
+        <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+
+<!--下拉栏平台类型查询-->
+<script type="application/javascript">
+
+    function post(URL, PARAMS) {
+        var temp = document.createElement("form");
+        temp.action = URL;
+        temp.method = "post";
+        temp.style.display = "none";
+        for (var x in PARAMS){
+            var opt = document.createElement("textarea");
+            opt.name = x;
+            opt.value = PARAMS[x];
+            temp.appendChild(opt);
+        }
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+
+    //未报价询单
+    $("#no_enquiry").click(function () {
+        var data={
+            status:1
+        }
+        post("{:url('Customer/purchaser_enquiry_search_status')}",data);
+    })
+
+    //报价中询单
+    $("#in_enquiry").click(function(){
+        var data={
+            status:2
+        }
+        post("{:url('Customer/purchaser_enquiry_search_status')}",data);
+    })
+
+    //报价中询单
+    $("#over_enquiry").click(function(){
+        var data={
+            status:3
+        }
+        post("{:url('Customer/purchaser_enquiry_search_status')}",data);
+    })
+
+
+
+    //询单进行报价
+    $(".enquiry_offer").click(function(){
+        var enquiry_id = $(this).attr('id');
+        layer.prompt({title: '请填写该询单的对应报价，填写单位，价格和单位用"|"隔开', formType: 2}, function(price,index){
+            layer.close(index);
+            $.ajax({
+                type: "POST",
+                url: "{:url('Customer/enquiry_offer')}",
+                data: {
+                    price:price,
+                    enquiry_id:enquiry_id
+                },
+                dataType: "json",
+                success:function(result){
+                    if(result.code==200){
+                        layer.msg(result.msg);
+                        setTimeout(function(){
+                            window.location.reload();
+                        } ,1000)
+                    }else{
+                        layer.msg(result.msg);
+                    }
+                }
+            })
+        });
+
+    })
+
+    //询单进行报价
+    //询单进行报价
+    $(".enquiry_offer").click(function(){
+        var enquiry_id = $(this).attr('id');
+        layer.prompt({title: '请填写该询单的对应报价，填写单位，价格和单位用"|"隔开', formType: 2}, function(price,index){
+            $.ajax({
+                type: "POST",
+                url: "{:url('Customer/enquiry_offer')}",
+                data: {
+                    price:price,
+                    enquiry_id:enquiry_id
+                },
+                dataType: "json",
+                success:function(result){
+                    if(result.code==200){
+                        layer.msg(result.msg);
+                        setTimeout(function(){
+                            window.location.reload();
+                        } ,1000)
+                    }else{
+                        layer.msg(result.msg);
+                    }
+                }
+            })
+            layer.close(index);
+        });
+    })
+
+
+    //按钮查询
+    $("#search").click(function(){
+        var search_content = $("#search_content").val().trim();
+        if(search_content==""){
+            layer.msg("请输入要查询的内容！");return;
+        }
+        var data={
+            search_content:search_content
+        };
+        post("{:url('Customer/purchaser_enquiry_search_content')}",data);
+    })
+
+
+</script>
+
+
+</body>
+</html>

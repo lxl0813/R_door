@@ -1,0 +1,124 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+    <style type="text/css">
+        th{
+            text-align: center;
+        }
+        td{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--客户营销管理</b></div>
+        <div style="height: 30px"></div>
+        <a href="javascript:window.history.back(-1)" target="_self" style="margin-left: 20px"><img src="/static/picture/go.png" title="返回上一页" style="height:20px"></a>
+        <div style="height: 30px">
+            <div style="float:right">
+                <a href="{:url('Customer/customer_market_add',['customer_id'=>$customer_id])}"><button class="btn btn-default" type="submit">今日管理</button></a>
+            </div>
+        </div>
+        <div style="height: 10px"></div>
+
+        <table class="table table-hover">
+            <tr>
+                <th>序号</th>
+                <th>管理时间</th>
+                <th>客户</th>
+                <th>客户类型</th>
+                <th>简称</th>
+                <th>联系人</th>
+                {volist name="market_type" id="data"}
+                    <th>{$data.type_name}</th>
+                {/volist}
+                <th>操作</th>
+            </tr>
+            {volist name="customer" id="data"}
+            <tr>
+                <td>{$no++}</td>
+                <td>{$data.customer.market_time}</td>
+                <td>{$data.customer.customer_name}</td>
+                <td>
+                    {if $data.customer.is_fob==1}
+                    化纤平台
+                    {else}
+                    无纺平台
+                    {/if}
+                </td>
+                <td>{$data.customer.customer_short_name}</td>
+                <td>{$data.customer.contact_name}</td>
+                {if $data.market}
+                {volist name="data.market" id="datas"}
+                <td>
+                    {if $datas.market_type_id==6}
+                    {if $datas.status==1}
+                    <!-- 未交易 ×-->
+                    <img src="/market/img/no.png">
+                    {elseif $datas.status==2}
+                    <!-- 线下交易 √ -->
+                    <img src="/market/img/yes.png">
+                    {elseif $datas.status==3}
+                    <img src="/market/img/yes.png">
+                    <!-- 线上交易 √ -->
+                    {else}
+                    <!-- 双线交易 √ -->
+                    <img src="/market/img/yes.png">
+                    {/if}
+                    {else}
+                    {if $datas.status==1}
+                    <!-- × -->
+                    <img src="/market/img/no.png">
+                    {else}
+                    <!-- √ -->
+                    <img src="/market/img/yes.png">
+                    {/if}
+                    {/if}
+                </td>
+                {/volist}
+                {else}
+                <td colspan="11">今日还未对该客户进行营销管理</td>
+                {/if}
+
+                <td>
+                    <a href="{:url('Customer/customer_market_detail_index',['customer_id'=>$data.customer.id])}">
+                        前往管理
+                    </a>
+                </td>
+            </tr>
+            {/volist}
+            </table>
+
+       
+
+        <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+
+<script type="application/javascript">
+
+
+</script>
+
+
+
+</body>
+</html>

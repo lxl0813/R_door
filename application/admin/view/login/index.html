@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>让雷门户网站管理后台登录</title>
+    <link type="text/css" rel="stylesheet" href="/admin/css/normalize.css" />
+    <link type="text/css" rel="stylesheet" href="/admin/css/demo.css" />
+    <!--必要样式-->
+    <link type="text/css" rel="stylesheet" href="/admin/css/component.css" />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+</head>
+
+<body class="login" onkeydown="keyLogin(event);">
+<div class="container demo-1">
+    <div class="content">
+        <div id="large-header" class="large-header">
+            <canvas id="demo-canvas"></canvas>
+            <div class="logo_box">
+                <h3>让雷门户网站管理后台</h3>
+                <form action="#" name="f" method="post">
+                    <div class="input_outer">
+                        <span class="u_user"></span>
+                        <input name="admin_name" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户">
+                    </div>
+                    <div class="input_outer">
+                        <span class="us_uer"></span>
+                        <input name="admin_pwd" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码">
+                    </div>
+                    <div class="mb2"><a class="act-but submit" onclick='login()' href="javascript:;" style="color: #FFFFFF">登录</a></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/admin/js/TweenLite.min.js"></script>
+<script type="text/javascript" src="/admin/js/EasePack.min.js"></script>
+<script type="text/javascript" src="/admin/js/rAF.js"></script>
+<script type="text/javascript" src="/admin/js/demo-1.js"></script>
+
+<script>
+
+    $(document).ready(function() {
+        var validate = {
+            checkName: false,
+            checkPwd: false,
+        };
+        //账号
+        $("input[name=admin_name]").blur(function () {
+            var admin_name = $(this).val().trim();
+            if (admin_name == "") {
+                layer.tips('请输入账号', $(this));
+                validate.checkName = false;
+                return false
+            }
+        });
+        //密码
+        $("input[name=admin_pwd]").blur(function () {
+            var admin_pwd = $(this).val().trim();
+            if (admin_pwd == "") {
+                layer.tips('请输入密码', $(this));
+                validate.checkPwd = false;
+                return false
+            }
+        });
+
+
+
+        //提交登录
+
+        $('.act-but').click(function login () {
+            //alert(1);exit;
+            $("input[name=admin_name]").trigger("blur");
+            $("input[name=admin_pwd]").trigger("blur");
+            var admin_name = $("input[name=admin_name]").val().trim();
+            var admin_pwd = $("input[name=admin_pwd]").val().trim();
+            //alert(1);
+            //发送ajax验证
+            $.ajax({
+                type: "post",
+                url: "{:url('Login/index')}",
+                data: {
+                    admin_name: admin_name,
+                    admin_pwd: admin_pwd,
+                },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    if (data.status == 1) {
+                        //alert(1);exit;
+                        layer.msg(data.msg);
+                        setTimeout(function(){
+                            window.location.href = "{:url('Index/index')}";
+                        },1000)
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            })
+        });
+
+        //触发回车登录
+        $(document).keyup(function(event){
+            if(event.keyCode ==13){
+                $(".act-but").trigger("click");
+            }
+        });
+    })
+
+</script>
+
+
+
+</body>
+</html>

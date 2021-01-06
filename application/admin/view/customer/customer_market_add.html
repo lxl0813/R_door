@@ -1,0 +1,152 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <script src="/huadong/Sliding_Validation_Gu.js" type="text/javascript" charset="utf-8"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--客户营销管理--今日管理</b></div>
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:650px;min-height:650px;">
+            <div style="height: 50px">
+
+            </div>
+            <a href="javascript:window.history.back(-1)" target="_self" style="margin-left: 20px"><img src="/static/picture/go.png" title="返回上一页" style="height:20px"/></a>
+            <div style="height:20px;text-align: center">
+                <h2>{$customer.customer_name}&nbsp;&nbsp;{:date("Y-m-d",time())}&nbsp;&nbsp;营销管理</h2>
+            </div>
+            <div style="height: 50px"></div>
+
+            <div style="width: 800px;margin: auto">
+
+                <form style="margin-left: 100px">
+                    {foreach $market_type as $key=>$vo }
+                    {if $vo.type==1}
+                    <div class="form-group" style="width:600px;font-size:125%">
+                        <label for="exampleInputText1">{$vo.type_name}</label>
+                        <div style="float: right">
+                            <input type="radio" name="{$vo.id}" id="optionsRadios2" value="1">没有交易
+                            &nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="{$vo.id}" value="2">线下交易
+                            &nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="{$vo.id}" value="3">线上交易
+                            &nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="{$vo.id}" value="4">双线交易
+                        </div>
+                        <hr>
+                    </div>
+
+                    {else}
+                    <div class="form-group" style="width:600px;font-size:125%">
+                        <label for="exampleInputText1">{$vo.type_name}</label>
+                        <div style="float: right">
+                            <input type="radio" name="{$vo.id}" value="2">是
+                            &nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="{$vo.id}" value="1">否
+                        </div>
+                        <hr>
+                    </div>
+
+                    {/if}
+                    {/foreach}
+
+                    <input type="text" id="customer_id" value="{$customer_id}" hidden="">
+                    <div style="height:30px"></div>
+                    <div id="verification">
+                        <a href="javascript:void(0);">填写完成后请点此进行验证！</a>
+                    </div>
+
+                    <div class="form-group" id="a" style="display: none">
+                        <label for="exampleInputText1">安全验证</label>
+                        <div id="huadong" name="1">
+                        </div>
+                    </div>
+                    <div style="height: 30px"></div>
+                </form>
+                <div style="text-align: center">
+                    <a href="javascript:void(0);" id="button" ><button type="submit" id="buttons" disabled="disabled" class="btn btn-default" >确认提交</button></a>
+                </div>
+            </div>
+        </div>
+        <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+<script type="text/javascript">
+    var sliding_validation = SlidingValidation.create($("#huadong"),{},function(){});
+</script>
+<script>
+
+    $("#verification").click(function(){
+        var change = new Array();
+        $('input:radio:checked').each(function(){
+            change.push($(this).val());
+        })
+        if(change.length!=11){
+            layer.msg("请填写完整");
+        }else{
+            $(this).css('display','none');
+            $("#a").css('display','block');
+            $('#buttons').attr("disabled",false);
+        }
+
+
+    })
+
+    //提交
+    $("#button").click(function(){
+        var num = $("#huadong").attr("name");
+        if(num!=2){
+            layer.msg("请进行安全验证");
+        }else{
+            var change = new Array();
+            $('input:radio:checked').each(function(){
+                change.push($(this).attr('name')+"-"+$(this).val());
+            })
+            var customer_id = $("#customer_id").val();
+
+            $.ajax({
+                type: "post",
+                url: "{:url('Customer/customer_market_add_do')}",
+                data: {
+                    customer_id:customer_id,
+                    change:change
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 200) {
+                        layer.msg(data.msg);
+                        setTimeout(function(){
+                            history.back();
+                        },1000)
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            })
+
+        }
+    })
+
+
+
+</script>
+
+
+</body>
+</html>

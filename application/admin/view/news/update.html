@@ -1,0 +1,271 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--新闻中心--修改</b></div>
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+<a href="javascript:window.history.back(-1)" target="_self" style="margin-left: 20px"><img src="/static/picture/go.png" title="返回上一页" style="height:20px"/></a>
+
+            <form action="{:url('News/update')}" method="post" enctype="multipart/form-data">
+                <input type="text" hidden="" id="id" value="{$news.id}">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">新闻标题（中文版）</span>
+                    <input type="text" id="title_ch" name="title_ch" class="form-control" value="{$news.title_ch}" placeholder="请输入新闻标题(中文)" aria-describedby="basic-addon1">
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">新闻标题（英文版）</span>
+                    <input type="text" id="title_en" name="title_en" class="form-control" value="{$news.title_en}" placeholder="请输入新闻标题(英文)" aria-describedby="basic-addon1">
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">新闻时间</span>
+                    <input type="text" name="news_time" id="billing_time" value="{$news.news_time}" placeholder="填写新闻日期" onClick="new Calendar().show(this)" class="inpMain form-control" />
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div style="height:10px"></div>
+
+                {if $news.type == 1}
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                           <input type="checkbox" name="type" aria-label="..." value = "1" checked>新闻
+                        </span>
+                        <span class="input-group-addon">
+                           <input type="checkbox" name="type" aria-label="..." value = "2">企业活动
+                        </span>
+                        <input type="text" name="bg_type" class="form-control" placeholder="选择类型" disabled  aria-label="...">
+                    </div>
+                {else /}
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                           <input type="checkbox" name="type" aria-label="..." value = "1" >新闻
+                        </span>
+                        <span class="input-group-addon">
+                           <input type="checkbox" name="type" aria-label="..." value = "2" checked>企业活动
+                        </span>
+                        <input type="text" name="bg_type" class="form-control" placeholder="选择类型" disabled  aria-label="...">
+                    </div>
+                {/if}
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                       <input type="checkbox" name="status" aria-label="..." value = "1" {if $news.status==1}checked='checked'{/if}>
+                    </span>
+                    <input type="text" name="bg_type" class="form-control" placeholder="新闻默认状态，勾选后显示" disabled  aria-label="...">
+                </div>
+                <div style="height:10px"></div>
+
+                <a href="#" onclick="img_show('图片详情','{:url('News/old_img')}','{$news.img}')"><img src="{$news.img}" alt=""  class="img-thumbnail" style="width: 100px;height: 100px"></a>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">新图片</span>
+                    <input type="file" id="img" name="img" class="form-control"  aria-describedby="basic-addon1">
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div style="background-color: #bbbbbb;height:30px">
+                    <div style="text-align: center">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        <font size="3">编辑新闻内容(中文版)</font>
+                    </div>
+                </div>
+                <div style="height:10px;"></div>
+                <div style="margin: auto">
+                    <script id="editor" name="editor" type="text/plain" style="width:70%;height:400px;margin-left:25%">{$news.content_ch|raw}</script>
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div style="background-color: #bbbbbb;height:30px">
+                    <div style="text-align: center">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        <font size="3">编辑新闻内容(英文版)</font>
+                    </div>
+                </div>
+                <div style="height:10px;"></div>
+                <div style="margin: auto">
+                    <script id="ywen" name="ywen" type="text/plain" style="width:70%;height:400px;margin-left:25%">{$news.content_en|raw}</script>
+                </div>
+
+            </form>
+            <div style="text-align: center;margin-top:10px">
+                <input type="submit" class="btn btn-info" id="submit" value="提交">
+            </div>
+        </div>
+    </div>
+    <!--引入尾部-->
+    {include file="pub:foot"}
+</div>
+
+<script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/static/ueditor/ueditor.all.min.js"></script>
+
+<script type="text/javascript">
+    var ue = UE.getEditor('editor');
+</script>
+
+<script type="text/javascript">
+    var ue = UE.getEditor('ywen');
+</script>
+
+<script>
+
+
+    $("#submit").click(function(){
+        var id       = $("#id").val();
+        var title_ch = $("#title_ch").val();
+        var title_en = $("#title_en").val();
+        var news_time= $("#news_time").val();
+        var type     = $("input[name='type']:checked").val();
+        var status   = $("input[name='status']:checked").val()
+        var editor   = UE.getEditor('editor').getContent();
+        var ywen     = UE.getEditor('ywen').getContent();
+
+        if(editor==""){
+            layer.msg('请填写中文版内容');return;
+        }
+        if(ywen==""){
+            layer.msg('请填写英文版内容');return;
+        }
+        if(title_ch==""){
+            layer.msg('请填写中文版标题');return;
+        }
+        if(title_en==""){
+            layer.msg('请填写英文版标题');return;
+        }
+        if(news_time==""){
+            layer.msg('请选择英文日期');return;
+        }
+        if(!status){
+            layer.msg('请选择新闻状态');return;
+        }
+        $.ajax({
+            //几个参数需要注意一下
+            type: "POST",
+            dataType: "json",
+            url: "{:url('News/update')}",
+            data: {
+                id:id,
+                title_ch:title_ch,
+                title_en:title_en,
+                news_time:news_time,
+                type:type,
+                status:status,
+                content_ch:editor,
+                content_en:ywen
+            },
+            beforeSend:function(){
+                this.layerIndex=layer.load(1, {
+                    shade: [0.1,'#fff'] //0.1透明度的白色背景
+                });
+            },
+            complete: function () {
+                layer.close(this.layerIndex);
+            },
+            success: function (result) {
+                if(result.status == 1) {
+                    layer.msg(result.msg);
+                    setTimeout(function(){
+                        window.location.href="{:url('News/index')}";
+                    },600);
+                }else{
+                    layer.msg(result.msg);
+                }
+            },
+        });
+    })
+
+    //图片修改
+    $("#img").change(function(){
+        var id = $("#id").val();
+        var file=$("#img")[0].files[0];
+        console.log(file);
+        if(file==undefined){
+            layer.msg('请选择图片');
+            return false;
+        }
+        if(file.size>5120000){
+            layer.msg('图片大小不能超过5M');
+            return false;
+        }
+        var fr=new FileReader();
+        //读取文件内容
+        fr.readAsDataURL(file);
+        //获取图片读取状态
+        fr.onload=function() {
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",
+                dataType: "json",
+                url: "{:url('News/img_update')}",
+                data: {
+                    id: id,
+                    img: this.result,
+                },
+                beforeSend: function () {
+                    this.layerIndex = layer.load(1, {
+                        shade: [0.1, '#fff'] //0.1透明度的白色背景
+                    });
+                },
+                complete: function () {
+                    layer.close(this.layerIndex);
+                },
+                success: function (result) {
+                    if (result.status == 1) {
+                        layer.msg(result.msg);
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 600);
+                    } else {
+                        layer.msg(result.msg);
+                    }
+                },
+            });
+        }
+    })
+
+
+
+
+</script>
+
+</body>
+</html>

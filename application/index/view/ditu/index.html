@@ -1,0 +1,101 @@
+
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    .dt-warp {
+        width: 1300px;
+        margin: auto;
+        margin-top: 40px;
+          height: 536px;
+    }
+    .dt-warp h5 {
+        font-size: 18px;
+        line-height: 20px;
+        font-weight: bold;
+        padding: 15px 0;
+        color: #000;
+        text-align: center;
+    }
+    .dt-content li {
+        float: left;
+        list-style: none;
+        width: 156px;
+        height: 60px;
+        border-bottom: 1px solid #dcdcdc;
+    }
+    .dt-content li a {
+        text-decoration: none;
+        text-align: center;
+        display: block;
+        line-height: 60px;
+        color: #d00000;
+        font-weight: bold;
+    }
+    .dt-content ol a {
+        color: #333333;
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>
+<!--头部引入-->
+{include file="common:top"}
+{if Cookie::get('think_var')=='en_us'}
+<script type="text/javascript">
+    $("#menu_div a:contains('Contact Us')").attr("id","redcolor");
+</script>
+{else/}
+<script type="text/javascript">
+    $("#menu_div a:contains('联系我们')").attr("id","redcolor");
+</script>
+{/if}
+    <div class="dt-warp">
+        <h5>{:lang('网站地图')}</h5>
+        <div class="dt-content">
+            <ul>
+                <li><a href="index.html">{:lang('首页')}</a></li>
+                <li><a href="{:url('Walk/index')}">{:lang('走进让雷')}</a>
+                    <ol>
+                        <a href="{:url('Walk/index')}">{:lang('公司概述')}</a>
+                        <a href="{:url('Walk/chairman')}">{:lang('董事长致词')}</a>
+                        <a href="{:url('Walk/manage')}">{:lang('管理层')}</a>
+                        <a href="{:url('Walk/core')}">{:lang('核心价值观')}</a>
+                        <a href="{:url('Walk/course')}">{:lang('让雷历程')}</a>
+                        <a href="{:url('Walk/duty')}">{:lang('社会责任')}</a>
+                    </ol>
+                </li>
+                <li><a href="{:url('News/index')}">{:lang('新闻中心')}</a></li>
+                <li><a href="{:url('Industry/index')}">{:lang('让雷产业')}</a>
+                    <ol>
+                        <a href="{:url('Industry/index')}">{:lang('福布化纤平台')}</a>
+                        <a href="{:url('Industry/wufang')}">{:lang('福布无纺平台')}</a>
+
+                    </ol>
+                </li>
+                <li><a href="{:url('Culture/index')}">{:lang('让雷文化')}</a>
+                    <ol>
+                        <a href="{:url('Culture/index')}">{:lang('核心价值观')}</a>
+                        <a href="{:url('Culture/culture_activity')}">{:lang('企业文化活动')}</a>
+                        <a href="{:url('Culture/regulation')}">{:lang('员工行为规范')}</a>
+                    </ol>
+                </li>
+                <li><a href="{:url('Join/index')}">{:lang('加入让雷')}</a>
+                    <ol>
+                        <a href="{:url('Join/index')}">{:lang('职业发展')}</a>
+                        <a href="{:url('Join/recruit')}">{:lang('职业招募')}</a>
+                    </ol>
+                </li>
+                <li><a href="{:url('About/index')}">{:lang('联系我们')}</a></li>
+				<li><a href="{:url('Member/index')}">{:lang('公司报表')}</a></li>
+            </ul>
+        </div>
+    </div>
+   {include file="common:foot"}
+
+<div class="back-top">
+	<a id="backTop"></a>
+</div>
+</body>
+
+</html>

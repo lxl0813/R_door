@@ -1,0 +1,256 @@
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <script type="text/javascript" src="/static/js/time.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+    <style>
+        .form-group {
+            height: 33px;
+        }
+    </style>
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--客户营销系统--供应商添加</b></div>
+        <div style="height: 30px"></div>
+        <a href="javascript:window.history.back(-1)" target="_self" style="margin-left: 20px"><img src="/static/picture/go.png" title="返回上一页" style="height:20px"></a>
+        <div style="height: 50px"></div>
+        <div style="margin:0 auto;width:800px">
+            <form class="form-horizontal"  role="form">
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">供应商类型：</label>
+                    <div class="col-sm-10">
+                        <select id="status">
+                            <option value="0">供应商类型</option>
+                            <option value="1">化纤供应商</option>
+                            <option value="2">无纺供应商</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">供应商：</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="suppliers_name" placeholder="供应商名称(必填)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">联系人：</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="contact_name" placeholder="联系人名称(必填)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">简称：</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="suppliers_short_name" placeholder="供应商简称">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">联系人号码：</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="contact_phone" placeholder="联系人号码(必填)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">联系人微信：</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="contact_wx" placeholder="联系人微信">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">供应商地址：</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="suppliers_address" placeholder="供应商详细地址(必填)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">邮箱：</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email" placeholder="邮箱账户">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">生产线：</label>
+                    <div class="col-sm-10">
+                        <input  type="email" class="form-control" id="line_name" placeholder="生产线">
+                        <font color="red">注：可后续补充！每个生产线之间请用 ”-“ 隔开 </font>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">产品：</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="product_name" placeholder="产品名称">
+                        <font color="red">注：可后续补充！每个产品之间请用 ”-“ 隔开 </font>
+                    </div>
+                </div>
+
+            </form>
+
+            <div style="margin-top: 50px">
+                <button type="submit" id="submit" class="btn btn-default">确认提交</button>
+            </div>
+
+            <div style="height: 50px"></div>
+            <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+
+</div>
+<script type="application/javascript">
+
+    $("#suppliers_name").focus(function () {
+        var status                  =   $("#status").find("option:selected").val();
+        if(status==0){
+            layer.msg("请选择供应商类型");return;
+        }
+    })
+    $("#contact_name").focus(function () {
+        var suppliers_name          =   $("#suppliers_name").val().trim();
+        if(suppliers_name==""){
+            layer.msg("请填写供应商名称");return;
+        }
+    })
+
+    $("#contact_name").blur(function () {
+        var contact_name            =   $("#contact_name").val().trim();
+        var suppliers_name          =   $("#suppliers_name").val().trim();
+        var is_fob                  =   $("#status").find("option:selected").val();
+        if(contact_name==""){
+            layer.msg("请填写联系人名称");return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "{:url('Customer/supplier_match_search')}",
+            data: {
+                contact_name:contact_name,
+                suppliers_name:suppliers_name,
+                is_fob:is_fob,
+            },
+            dataType: "json",
+            success:function (result) {
+                if(result.code==200){
+                    layer.confirm(result.msg, {
+                        btn: ['是','否'] //按钮
+                    }, function(){
+                        layer.close(layer.index);
+                        $("#suppliers_short_name").val(result.data.purchaser_short_name);
+                        $("#suppliers_address").val(result.data.purchaser_address);
+                        $("#contact_phone").val(result.data.contact_phone);
+                        $("#contact_wx").val(result.data.contact_wx);
+                        $("#email").val(result.data.email);
+                    }, function(){
+                    });
+                }else{
+                    layer.msg(result.msg);
+                }
+
+            }
+        })
+
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+    $("#submit").click(function () {
+        var suppliers_name          =   $("#suppliers_name").val().trim();
+        var suppliers_short_name    =   $("#suppliers_short_name").val().trim();
+        var status                  =   $("#status").find("option:selected").val();
+        var contact_name            =   $("#contact_name").val().trim();
+        var contact_phone           =   $("#contact_phone").val().trim();
+        var contact_wx              =   $("#contact_wx").val().trim();
+        var suppliers_address       =   $("#suppliers_address").val().trim();
+        var email                   =   $("#email").val().trim();
+        var line_name               =   $("#line_name").val().trim();
+        var product_name            =   $("#product_name").val().trim();
+        if(suppliers_name==""){
+            layer.msg("请填写供应商名称");return;
+        }
+        if(status=="0"){
+            layer.msg("请选择供应商类型");return;
+        }
+        if(contact_name==""){
+            layer.msg("请填写联系人名称");return;
+        }
+        if(contact_phone==""){
+            layer.msg("请填写联系人号码");return;
+        }
+        if(suppliers_address==""){
+            layer.msg("请填写供应商地址");return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "{:url('Customer/supplier_add_do')}",
+            data: {
+                suppliers_name:suppliers_name,
+                suppliers_short_name:suppliers_short_name,
+                status:status,
+                contact_name:contact_name,
+                contact_phone:contact_phone,
+                contact_wx:contact_wx,
+                suppliers_address:suppliers_address,
+                email:email,
+                line_name:line_name,
+                product_name:product_name,
+            },
+            dataType: "json",
+            success:function (result) {
+                if(result.code==200){
+                    layer.msg(result.msg);
+                    setTimeout(function(){
+                        window.location.href="{:url('Customer/supplier_offer_price_index')}";//刷新当前页面.
+                    },1500)
+                }else{
+                    layer.msg(result.msg);
+                }
+
+            }
+        })
+
+
+    })
+
+
+</script>
+
+
+
+
+</body>
+</html>

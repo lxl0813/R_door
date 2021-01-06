@@ -1,0 +1,174 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <script src="/static/js/time.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--财务流水中心--流水文件</b></div>
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+
+            <a onclick="javascript:history.back(-1);">
+                <svg t="1591249841815" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7239" width="32" height="32"><path d="M734.4 1024c-25.6 0-51.2-6.4-70.4-25.6L216 576c-38.4-38.4-38.4-89.6 0-128l448-422.4C702.4-6.4 766.4-6.4 804.8 25.6s38.4 89.6 0 128L420.8 512l377.6 358.4c38.4 38.4 38.4 89.6 0 128-12.8 19.2-38.4 25.6-64 25.6z" fill="#409EFF" p-id="7240"></path></svg>
+            </a>
+
+            <div style="height:10px"></div>
+
+            <!--公司搜索-->
+            <div class="form-group" style="float:right;margin-left: 10px" >
+                <font color="red">注：根据所选公司和日期，查询数据，生成excel表后，即可下载excel文件</font>
+                <div class="input-group">
+                    <select id="company" style="float: left">
+                        <option value="0">根据公司搜索</option>
+                        {volist name="company" id="data"}
+                            <option value="{$data.id}" name="form_type_id">{$data.company}</option>
+                        {/volist}
+                    </select>
+                    <div style="float:right;">
+                        <div class="form-group" style="width: 150px;float: left">
+                            <input type="text" id="start_time" placeholder="开始日期" onClick="new Calendar().show(this)" class="inpMain form-control" />
+                        </div>
+                        <div class="form-group" style="width: 150px;float: left">
+                            <input type="text" id="end_time" placeholder="结束日期" onClick="new Calendar().show(this)" class="inpMain form-control" />
+                        </div>
+                        <button type="submit"  id="search" class="btn btn-default">excel生成</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--类型搜索-->
+            <div style="margin-top: 20px;;text-align:center">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">ID</th>
+                            <th style="text-align: center">文件生成者</th>
+                            <th style="text-align: center">文件生成日期</th>
+                            <th style="text-align: center">标题</th>
+                            <th style="text-align: center">操作</th>
+                        </tr>
+                    </thead>
+
+                        {if empty($excel)}
+                            <tr>
+                                <td colspan="5">还没有excel文件生成哦！</td>
+                            </tr>
+                        {else}
+                            {volist name="excel" id="data"}
+                                <tr>
+                                    <td>{$no++}</td>
+                                    <td>{$data.admin_name}</td>
+                                    <td>{$data.time}</td>
+                                    <td>{$data.title}</td>
+                                    <td>
+                                        <!--   下载    -->
+                                        <a href="{$data.excel_url}">
+                                            <svg t="1591168972093" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8020" width="32" height="32"><path d="M896 608a32 32 0 0 1 31.488 26.24l0.512 5.76v185.152a96 96 0 0 1-86.784 95.552l-9.216 0.448H192a96 96 0 0 1-95.552-86.784l-0.448-9.216V640a32 32 0 0 1 63.488-5.76L160 640v185.152a32 32 0 0 0 26.24 31.488l5.76 0.512h640a32 32 0 0 0 31.488-26.24l0.512-5.76V640a32 32 0 0 1 32-32z m-384-448a32 32 0 0 1 32 32v370.176l135.424-136.704a32 32 0 0 1 45.44 45.056l-190.08 192-0.896 0.768a32.192 32.192 0 0 1-2.368 2.048l3.2-2.816A32.064 32.064 0 0 1 512 672h-1.28a32.192 32.192 0 0 1-3.2-0.32L512 672a32.128 32.128 0 0 1-22.656-9.344l-192-192a32 32 0 1 1 45.312-45.312L480 562.752V192a32 32 0 0 1 32-32z" fill="#1274FF" p-id="8021"></path></svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {/volist}
+                        {/if}
+                </table>
+            </div>
+            {if empty($excel)}
+
+            {else}
+                <div style="text-align: center">
+                    {$excel|raw}
+                </div>
+            {/if}
+
+        </div>
+        <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+
+<script>
+    $(".see").click(function(){
+        var id = $(this).attr("id");
+        //alert(id);exit;
+        var searchUrl = encodeURI("form_pdf.html?id=" + id); //使用encodeURI编码
+        location.href = searchUrl;
+    })
+</script>
+
+<script type="application/javascript">
+
+    function post(URL, PARAMS) {
+        var temp = document.createElement("form");
+        temp.action = URL;
+        temp.method = "post";
+        temp.style.display = "none";
+        for (var x in PARAMS){
+            var opt = document.createElement("textarea");
+            opt.name = x;
+            opt.value = PARAMS[x];
+            temp.appendChild(opt);
+        }
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+
+
+    $("#search").click(function(){
+        var start_time = $("#start_time").val();
+        var end_time   = $("#end_time").val();
+        var company_id = $("select[id='company'] option:selected").val();
+        var company_name = $("select[id='company'] option:selected").text();
+        if(start_time==""){
+            layer.msg("请选择开始日期");return;
+        }
+        if(end_time==""){
+            layer.msg("请选择结束日期");return;
+        }
+        $.ajax({
+            type: "post",
+            url: "{:url('Finance/water_excel')}",
+            data :{
+                start_time: start_time,
+                end_time: end_time,
+                company_id:company_id,
+                company_name:company_name
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.msg);
+                    setTimeout(function(){
+                        window.location.reload();//刷新当前页面.
+                    },1000)
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        })
+
+
+    })
+</script>
+
+
+
+</body>
+</html>

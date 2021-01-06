@@ -1,0 +1,190 @@
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <script type="text/javascript" src="/static/js/time.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+    <style>
+        .form-group {
+            height: 33px;
+        }
+    </style>
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--客户营销系统--采购商修改</b></div>
+        <div style="height: 30px"></div>
+        <a href="javascript:window.history.back(-1)" target="_self" style="margin-left: 20px"><img src="/static/picture/go.png" title="返回上一页" style="height:20px"></a>
+
+        <div style="margin-top: 30px">
+
+            <!--  采购商基本信息  -->
+                <button type="button" id="j_button" style="width: 100%;float: left;background: #00FFFF"  class="btn btn-default btn-lg">供应商基础信息</button>
+        </div>
+        <div style="height: 50px"></div>
+        <div style="margin:0 auto;width:800px">
+            <div id="j">
+                <form class="form-horizontal" >
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">采购商：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="purchaser_name" value="{$purchaser.purchaser_name}" placeholder="供应商名称(必填)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">简称：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="purchaser_short_name" value="{$purchaser.purchaser_short_name}" placeholder="供应商简称">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">采购商类型：</label>
+                        <div class="col-sm-10">
+                            <select id="status">
+                                {if $purchaser.type==1}
+                                    <option value="0">采购商类型</option>
+                                    <option value="1" selected>化纤采购商</option>
+                                    <option value="2">无纺采购商</option>
+                                {else}
+                                    <option value="0">采购商类型</option>
+                                    <option value="1">化纤采购商</option>
+                                    <option value="2" selected>无纺采购商</option>
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">联系人：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="contact_name" value="{$purchaser.contact_name}" placeholder="联系人名称(必填)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">联系人号码：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="contact_phone" value="{$purchaser.contact_phone}" placeholder="联系人号码(必填)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">联系人微信：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="contact_wx" value="{$purchaser.contact_wx}" placeholder="联系人微信">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">供应商地址：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="purchaser_address" value="{$purchaser.purchaser_address}" placeholder="供应商详细地址(必填)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">邮箱：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="email" value="{$purchaser.email}" placeholder="邮箱账户">
+                        </div>
+                    </div>
+                </form>
+                <div style="margin-top: 50px">
+                    <button type="submit" id="j_submit" class="btn btn-default">确认修改</button>
+                </div>
+            </div>
+
+
+            <input type="text" id="id" value="{$purchaser.id}" hidden>
+
+
+
+            <div style="height: 50px"></div>
+            <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+
+</div>
+<script type="application/javascript">
+
+
+    //基本信息提交
+    $("#j_submit").click(function () {
+        var id                      =   $("#id").val().trim();
+        var purchaser_name          =   $("#purchaser_name").val().trim();
+        var purchaser_short_name    =   $("#purchaser_short_name").val().trim();
+        var status                  =   $("#status").find("option:selected").val();
+        var contact_name            =   $("#contact_name").val().trim();
+        var contact_phone           =   $("#contact_phone").val().trim();
+        var contact_wx              =   $("#contact_wx").val().trim();
+        var purchaser_address       =   $("#purchaser_address").val().trim();
+        var email                   =   $("#email").val().trim();
+        if(purchaser_name==""){
+            layer.msg("请填写采购商名称");return;
+        }
+        if(status=="0"){
+            layer.msg("请选择采购商类型");return;
+        }
+        if(contact_name==""){
+            layer.msg("请填写联系人名称");return;
+        }
+        if(contact_phone==""){
+            layer.msg("请填写联系人号码");return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "{:url('Customer/purchaser_update_do')}",
+            data: {
+                id:id,
+                purchaser_name:purchaser_name,
+                purchaser_short_name:purchaser_short_name,
+                status:status,
+                contact_name:contact_name,
+                contact_phone:contact_phone,
+                contact_wx:contact_wx,
+                purchaser_address:purchaser_address,
+                email:email,
+            },
+            dataType: "json",
+            success:function (result) {
+                console.log(result.code);
+                if(result.code==200){
+
+                    layer.msg(result.msg);
+
+                    setTimeout(function(){
+                        window.location.href="{:url('Customer/purchaser_index')}";//刷新当前页面.
+                    },1500)
+
+                }else{
+                    layer.msg(result.msg);
+                }
+            }
+        })
+    })
+
+</script>
+
+
+
+
+</body>
+</html>

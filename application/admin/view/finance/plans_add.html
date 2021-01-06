@@ -1,0 +1,111 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <script type="text/javascript" src="/static/js/time.js"></script>
+    <!--引入bootstrop-->
+    {include file="pub:bootstrop"}
+
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain">
+        <div id="urHere"><b>上海让雷智能科技有限公司--报表中心--商业计划书添加</b></div>
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+            <a onclick="javascript:history.back(-1);">
+                <svg t="1591249841815" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7239" width="32" height="32"><path d="M734.4 1024c-25.6 0-51.2-6.4-70.4-25.6L216 576c-38.4-38.4-38.4-89.6 0-128l448-422.4C702.4-6.4 766.4-6.4 804.8 25.6s38.4 89.6 0 128L420.8 512l377.6 358.4c38.4 38.4 38.4 89.6 0 128-12.8 19.2-38.4 25.6-64 25.6z" fill="#409EFF" p-id="7240"></path></svg>
+            </a>
+            <div style="width: 800px;margin: auto">
+
+            <form action="{:url('Finance/report_add')}" method="post" enctype="multipart/form-data">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">商业计划书标题</span>
+                    <input type="text" id="title" name="title" class="form-control" placeholder="请输入商业计划书的标题" aria-describedby="basic-addon1">
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">商业计划书时间</span>
+                    <input type="text" name="form_time" id="plan_time" placeholder="点击选择日期" onClick="new Calendar().show(this)" class="inpMain form-control" />
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">上传商业计划书</span>
+                    <input type="file" id="plan_url" name="report_url" class="form-control"  aria-describedby="basic-addon1">
+                </div>
+
+            </form>
+                <div style="text-align: center;margin-top:10px">
+                    <input type="submit" id="submit" class="btn btn-info" value="提交">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--引入尾部-->
+    {include file="pub:foot"}
+</div>
+<script type="application/javascript">
+    $("#submit").click(function () {
+        var plan_title=$("#title").val();
+        var plan_time =$("#plan_time").val();
+        var file =$('#plan_url')[0].files[0];
+
+        if(file.name==undefined){
+            layer.msg("请选择商业计划书文件！");return;
+        }
+        if(file.size>8388608){
+            layer.msg('图片大小不能超过8M');
+            return false;
+        }
+        if(file.name.substr(file.name.lastIndexOf(".")).toUpperCase()!=".PDF"){
+            layer.msg('仅限上传pdf文件！');return;
+        }
+
+        if(plan_title==""){
+            layer.msg("请填写商业计划书标题！");return;
+        }
+        if(plan_time==""){
+            layer.msg("请选择时间！");return;
+        }
+        var formData = new FormData();
+
+        formData.append('file', file);
+        formData.append('plan_title', plan_title);
+        formData.append('plan_time', plan_time);
+
+        $.ajax({
+            type: "POST",
+            url: "{:url('Finance/plans_add')}",
+            data: formData,
+            processData: false,//这个必须有，不然会报错
+            contentType: false,//这个必须有，不然会报错
+            dataType: "json",
+            success:function(result){
+                if(result.code==200){
+                    layer.msg(result.msg);
+                    setTimeout(function(){
+                        window.location.href="{:url('Finance/operation_report')}";
+                    } ,1000)
+                }else{
+                    layer.msg(result.msg);
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

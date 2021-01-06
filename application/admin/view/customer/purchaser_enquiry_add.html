@@ -1,0 +1,299 @@
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <script type="text/javascript" src="/static/js/time.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--客户营销系统--采购商询单新增</b></div>
+        <div style="height: 30px"></div>
+        <a href="javascript:window.history.back(-1)" target="_self" style="margin-left: 20px"><img src="/static/picture/go.png" title="返回上一页" style="height:20px"></a>
+        <div style="height: 50px"></div>
+        <div style="margin: auto;width:800px">
+            <form>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">询单类型：</label>
+                    <select id="enquiry_type">
+                        <option value="0">选择类型</option>
+                        <option value="1">化纤询单</option>
+                        <option value="2">无纺询单</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">询单编号：</label><img src="/market/img/generate.png" id="generate" style="width: 20px;height: 20px">
+                    <input type="text" class="form-control" id="enquiry_sn" placeholder="不强制填写，可点击上方符号自动生成,不生成则后台自动生成">
+                </div>
+
+                <div class="section">
+                    <label>询单时间</label>
+                    <div style="display: flex">
+                        <input type="text" name="date" id="date" placeholder="" onClick="new Calendar().show(this)" class="inpMain form-control" />
+                        <div style="display: flex; line-height: 34px;margin-left: 10px;">
+                            时：
+                            <select id="h">
+                                {volist name="h" id="data"}
+                                <option>{$data}</option>
+                                {/volist}
+                            </select>
+                            分：
+                            <select id="m">
+                                {volist name="m" id="data"}
+                                <option>{$data}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="text" hidden id="admin_id"  >
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">采购商名称：</label>
+                    <input type="text" class="form-control" id="purchaser_name"  placeholder="填写采购商名称" >
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">采购商类型：</label>
+                    <select id="purchaser_type">
+                        <option value="0">选择采购商类型</option>
+                        <option value="1">化纤采购商</option>
+                        <option value="2">无纺采购商</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">联系人：</label>
+                    <input type="text" class="form-control" id="contact_name" placeholder="填写联系人姓名" >
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">联系电话：</label>
+                    <input type="text" class="form-control" id="contact_phone" placeholder="填写联系人电话" >
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">邮箱地址：</label>
+                    <input type="text" class="form-control" id="email" placeholder="填写联系人电话" >
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">微信：</label>
+                    <input type="text" class="form-control" id="contact_wx" placeholder="填写联系人电话" >
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">单位地址：</label>
+                    <input type="text" class="form-control" id="purchaser_address"  placeholder="填写单位地址" >
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">记录人：</label>
+                    <input type="text" class="form-control" id="admin_name" value="{$admin.name}" placeholder="填写记录人姓名" >
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">记录人联系电话</label>
+                    <input type="text" class="form-control" id="admin_phone" value="{$admin.phone}" placeholder="填写记录人联系电话" >
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">产品名称</label>
+                    <input type="text" class="form-control" id="product_name" placeholder="填写产品名称">
+                </div>
+
+                <!-- 化纤 -->
+                <div id="hx" style="display: none">
+                    {volist name="enquiry_type.hx" id="data"}
+                    <div class="form-group">
+                        <label for="exampleInputtext1">{$data.enquiry_type_name}</label>
+                        <input type="text" class="form-control hx_type" id="{$data.id}" placeholder="{$data.enquiry_type_name}">
+                    </div>
+                    {/volist}
+                </div>
+
+                <!-- 无纺 -->
+                <div id="wf" style="display: none">
+                    {volist name="enquiry_type.wf" id="data"}
+                    <div class="form-group" >
+                        <label for="exampleInputtext1">{$data.enquiry_type_name}</label>
+                        <input type="text" class="form-control wf_type" id="{$data.id}" placeholder="{$data.enquiry_type_name}">
+                    </div>
+                    {/volist}
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">备注：</label>
+                    <textarea class="form-control" id="contents" rows="3"></textarea>
+                </div>
+            </form>
+            <div style="height: 20px"></div>
+            <button type="submit" id="submit" class="btn btn-default">确认提交</button>
+            <div style="height: 50px"></div>
+            <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+
+</div>
+<script type="application/javascript">
+    //询单编号自动生成
+    $("#generate").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "{:url('Customer/generate')}",
+            data: {},
+            dataType: "json",
+            success:function(result){
+                if(result.code==200){
+                    layer.msg(result.msg)
+                    setTimeout(function(){
+                        $("#enquiry_sn").val(result.enquiry_sn);
+                    },500)
+                }else{
+                    layer.msg(result.msg);
+                }
+            }
+        })
+    })
+
+    //询单类型选择，出现对应的规格填写
+    $("#enquiry_type").change(function(){
+        var type = $(this).find("option:selected").val();
+        if(type==1){
+            $("#hx").css('display','block');
+            $("#wf").css('display','none');
+        }else{
+            $("#hx").css('display','none');
+            $("#wf").css('display','block')
+        }
+    })
+
+    //表单提交
+    $("#submit").click(function(){
+        //alert(1);exit;
+        var enquiry_type    = $("#enquiry_type").find("option:selected").val();  //询单类型
+        var enquiry_sn      = $("#enquiry_sn").val().trim();                     //询单编号
+        var date            = $("#date").val().trim();                           //询单年月日
+        var h               = $("#h").find("option:selected").text();            //询单时
+        var m               = $("#m").find("option:selected").text();            //询单分
+        var purchaser_name  = $("#purchaser_name").val().trim();                 //采购商名称
+        var purchaser_type  = $("#purchaser_type").find("option:selected").val();//采购商类型
+        var contact_name    = $("#contact_name").val().trim();                    //联系人名称
+        var contact_phone   = $("#contact_phone").val().trim();                   //联系人号码
+        var purchaser_address= $("#purchaser_address").val().trim();                //单位地址
+        var admin_name      = $("#admin_name").val().trim();                      //记录人名称
+        var admin_phone     = $("#admin_phone").val().trim();                     //记录人联系
+        var product_name    = $("#product_name").val().trim();                    //产品名称
+        var contents        = $("#contents").val().trim();                        //备注
+        var email           = $("#email").val().trim();                           //邮箱
+        var contact_wx      = $("#contact_wx").val().trim();                      //微信
+        var type = new Array();                                                  //定义数组
+        if(enquiry_type==1){                                                     //根据不同的询单类型，进行遍历选择
+            $(".hx_type").each(function(){
+                type.push($(this).attr('id')+ " | " +$(this).val().trim());
+            });
+        }else{
+            $(".wf_type").each(function(){
+                type.push($(this).attr('id')+ " | " +$(this).val().trim());
+            });
+        }
+        if(enquiry_type=="0"){
+            layer.msg('请选择询单类型');return;
+        }
+        if(purchaser_type=="0"){
+            layer.msg('请选择采购商类型');return;
+        }
+        if(date==""){
+            layer.msg('请选择询单日期');return;
+        }
+        if(h==""){
+            layer.msg('请选择询单时');return;
+        }
+        if(m==""){
+            layer.msg('请选择询单分');return;
+        }
+        if(purchaser_name==""){
+            layer.msg('请填写单位名称');return;
+        }
+        if(contact_name==""){
+            layer.msg('请填写联系人名称');return;
+        }
+        if(contact_phone==""){
+            layer.msg('请填写联系人号码');return;
+        }
+        if(purchaser_address==""){
+            layer.msg('请填写单位地址');return;
+        }
+        if(product_name==""){
+            layer.msg('请填写产品名称');return;
+        }
+
+        $.ajax({
+            type: "post",
+            url: "{:url('Customer/purchaser_enquiry_add_do')}",
+            data: {
+                enquiry_type:enquiry_type,
+                enquiry_sn:enquiry_sn,
+                date:date,
+                h:h,
+                m:m,
+                purchaser_name:purchaser_name,
+                purchaser_type:purchaser_type,
+                contact_name:contact_name,
+                contact_phone:contact_phone,
+                purchaser_address:purchaser_address,
+                admin_name:admin_name,
+                admin_phone:admin_phone,
+                product_name:product_name,
+                contents:contents,
+                email:email,
+                contact_wx:contact_wx,
+                type:type
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200) {
+                    layer.msg(data.msg);
+                    setTimeout(function(){
+                        window.location.href="{:url('Customer/purchaser_enquiry_index')}";//刷新当前页面.
+                    },1000)
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        })
+
+
+
+    })
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>

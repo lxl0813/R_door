@@ -1,0 +1,56 @@
+<!--头部引入-->
+{include file="common:top"}
+{include file="common:bootstrop"}
+{if Cookie::get('think_var')=='en_us'}
+    <script type="text/javascript">
+        $("#menu_div a:contains('Company Report Forms')").attr("id","redcolor");
+    </script>
+{else/}
+<script type="text/javascript">
+    $("#menu_div a:contains('公司报表')").attr("id","redcolor");
+</script>
+{/if}
+
+<div id="middle_part">
+    <div class="banner contact-banner" style="background:url(/static/image/contact_banners.jpg) no-repeat center center; height:100px;"></div>
+    <div class="content contact-content">
+        <div class="fyy-section">
+            <div class="inner-tit"> <img src="/static/picture/aaaaa.jpg" alt=""></div>
+            <div class="inner-cnt">
+                <div class="panel panel-default">
+                    <!--公司名称-->
+                    <div class="panel-heading">{$company['company']}</div>
+                    <div class="panel-body" style="text-align:center">
+                        <!--报表类型-->
+                        <p>{$form_type}</p>
+                    </div>
+                    <!--报表-->
+                    <ul class="list-group">
+                        {volist name="form" id="data"}
+                        <li class="list-group-item" id="{$data.form_url}"><a href="#">{$data.title}</a></li>
+                        {/volist}
+                    </ul>
+                </div>
+                <p><br></p>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="common:foot"}
+<div class="back-top">
+	<a id="backTop"></a>
+</div>
+<div id="window-resizer-tooltip" style="display: none;"><a href="#" title="Edit settings"></a><span class="tooltipTitle">Window size: </span><span class="tooltipWidth" id="winWidth">1920</span> x <span class="tooltipHeight" id="winHeight">1040</span><br><span class="tooltipTitle">Viewport size: </span>
+    <span class="tooltipWidth" id="vpWidth">1920</span> x <span class="tooltipHeight" id="vpHeight">633</span></div>
+</body>
+
+<script>
+    $(".list-group-item").click(function(){
+        var id = $(this).attr("id");
+        //alert(id);exit;
+        var searchUrl = encodeURI("pdf.html?id=" + id); //使用encodeURI编码
+        location.href = searchUrl;
+    })
+</script>
+
+</html>

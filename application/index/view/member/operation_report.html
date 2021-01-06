@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!--头部引入-->
+{include file="common:top"}
+{include file="common:bootstrop"}
+{if Cookie::get('think_var')=='en_us'}
+<script type="text/javascript">
+    $("#menu_div a:contains('Company Report Forms')").attr("id","redcolor");
+</script>
+{else/}
+<script type="text/javascript">
+    $("#menu_div a:contains('公司报表')").attr("id","redcolor");
+</script>
+{/if}
+<div id="middle_part">
+    <div class="banner contact-banner" style="background:url(/static/image/contact_banners.jpg) no-repeat center center; height:100px;"></div>
+    <div class="content contact-content">
+        <div class="fyy-section">
+            <div class="inner-tit"> <img src="/static/picture/aaaaa.jpg" alt=""></div>
+
+            <!--公司搜索-->
+            <div class="form-group" style="float:right;margin-left: 10px;margin-top: 20px" >
+                <div class="input-group">
+                    <div style="float:right;">
+                        <div class="form-group" style="width: 150px;float: left">
+                            <input type="text" id="start_time" placeholder="开始日期" onClick="new Calendar().show(this)" class="inpMain form-control" />
+                        </div>
+                        <div class="form-group" style="width: 150px;float: left">
+                            <input type="text" id="end_time" placeholder="结束日期" onClick="new Calendar().show(this)" class="inpMain form-control" />
+                        </div>
+                        <button type="submit"  id="search" class="btn btn-default">查询</button>
+                    </div>
+                </div>
+            </div>
+
+            <!--类型搜索-->
+            <div class="form-group" style="float:right" >
+                <div class="input-group">
+
+                </div>
+            </div>
+
+
+            <div style="margin-top: 20px;;text-align:center">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">ID</th>
+                            <th style="text-align: center">上传人</th>
+                            <th style="text-align: center">运营报告标题</th>
+                            <th style="text-align: center">运营报告查看</th>
+                            <th style="text-align: center">上传时间</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="tbody">
+                    {if empty($reports)}
+                        <tr>
+                            <td colspan="5">没有查询到符合该条件的运营报告！</td>
+                        </tr>
+                    {else}
+                        {volist name="reports" id="data"}
+                        <tr>
+                            <td style="text-align: center">{$data.id}</td>
+                            <td style="text-align: center">{$data.create_admin_name}</td>
+                            <td style="text-align: center">{$data.title}</td>
+                            <td style="text-align: center"><a href="#" id="{$data.url}" class="see">查看</a></td>
+                            <td style="text-align: center">{$data.create_time}</td>
+                        </tr>
+                        {/volist}
+                    {/if}
+                    </tbody>
+                </table>
+                {if empty($report)}
+
+                {else}
+                    <div style="text-align: center">
+                        {$plan|raw}
+                    </div>
+                {/if}
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/js/time.js"></script>
+<script type="text/javascript" src="/layer/layer.js"></script>
+<script>
+    $(".see").click(function(){
+        var id = $(this).attr("id");
+        var searchUrl = encodeURI("pdf.html?id=" + id); //使用encodeURI编码
+        location.href = searchUrl;
+    })
+</script>
+
+<script>
+
+        function post(URL, PARAMS) {
+            var temp = document.createElement("form");
+            temp.action = URL;
+            temp.method = "post";
+            temp.style.display = "none";
+            for (var x in PARAMS){
+                var opt = document.createElement("textarea");
+                opt.name = x;
+                opt.value = PARAMS[x];
+                temp.appendChild(opt);
+            }
+            document.body.appendChild(temp);
+            temp.submit();
+            return temp;
+        }
+
+
+        $("#search").click(function(){
+            var start_time = $("#start_time").val();
+            var end_time   = $("#end_time").val();
+            if(start_time==""){
+                layer.msg("请选择开始日期");return;
+            }
+            if(end_time==""){
+                layer.msg("请选择结束日期");return;
+            }
+
+            var data = {
+                "start_time": start_time,
+                "end_time": end_time,
+
+            }
+            post("{:url('Member/form_index')}",data);
+        })
+
+
+
+
+
+</script>
+
+
+
+</body>
+</html>

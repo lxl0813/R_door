@@ -1,0 +1,263 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--财务报表中心--个人中心</b></div>
+
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+            <a onclick="javascript:history.back(-1);">
+                <svg t="1591249841815" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7239" width="32" height="32"><path d="M734.4 1024c-25.6 0-51.2-6.4-70.4-25.6L216 576c-38.4-38.4-38.4-89.6 0-128l448-422.4C702.4-6.4 766.4-6.4 804.8 25.6s38.4 89.6 0 128L420.8 512l377.6 358.4c38.4 38.4 38.4 89.6 0 128-12.8 19.2-38.4 25.6-64 25.6z" fill="#409EFF" p-id="7240"></path></svg>
+            </a>
+
+            <div class="input-group">
+                <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Finance/form_add')}">添加报表</a></span>
+            </div>
+
+            <div style="height:10px"></div>
+
+            <div class="input-group">
+                <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Finance/form_type_index')}">报表类型中心</a></span>
+            </div>
+
+            <div style="height:10px"></div>
+
+            <div class="input-group">
+                <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Finance/company_index')}">报表公司中心</a></span>
+            </div>
+
+            <div style="height:10px"></div>
+
+            <!--公司搜索-->
+            <div class="form-group" style="float:right;margin-left: 10px" >
+                <div class="input-group">
+                    <select id="form_company">
+                        <option value="0">根据公司搜索</option>
+                        {volist name="company" id="data"}
+                            <option value="{$data.id}" name="form_type_id">{$data.company}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+
+            <!--类型搜索-->
+            <div class="form-group" style="float:right" >
+                <div class="input-group">
+                    <select id="form_type">
+                        <option value="0">根据类型搜索</option>
+                        {volist name="type" id="data"}
+                            <option value="{$data.id}" name="form_type_id">{$data.form_type}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+
+
+            <div style="margin-top: 20px;;text-align:center">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">报表ID</th>
+                            <th style="text-align: center">报表标题</th>
+                            <th style="text-align: center">报表查看</th>
+                            <th style="text-align: center">报表类型</th>
+                            <th style="text-align: center">所属公司</th>
+                            <th style="text-align: center">时间</th>
+                            <th style="text-align: center">当前状态</th>
+                            <th style="text-align: center">操作</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="tbody">
+                        {volist name="form_list" id="data"}
+                        <tr>
+                            <td style="text-align: center">{$data.id}</td>
+                            <td style="text-align: center">{$data.title}</td>
+                            <td style="text-align: center"><a href="#" id="{$data.form_url}" class="see">查看</a></td>
+                            <td style="text-align: center">{$data.type}</td>
+                            <td style="text-align: center">{$data.company}</td>
+                            <td style="text-align: center">{$data.time}</td>
+                            <td style="text-align: center">
+                                {if $data.status == 1}
+                                对外展示
+                                {else}
+                                不展示
+                                {/if}
+                            </td>
+                            <td style="text-align: center">
+                                <a href="#" class="delete" id="{$data.id}">删除</a>
+                                |
+                                <a href="{:url('Finance/form_update',['form_id'=>$data.id])}">编辑</a>
+                            </td>
+                        </tr>
+                        {/volist}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+
+<script>
+    $(".see").click(function(){
+        var id = $(this).attr("id");
+        //alert(id);exit;
+        var searchUrl = encodeURI("form_pdf.html?id=" + id); //使用encodeURI编码
+        location.href = searchUrl;
+    })
+</script>
+
+<script>
+    $(".delete").click(function(){
+        var form_id = $(this).attr("id");
+        $.ajax({
+            type: "post",
+            url: "{:url('Finance/form_delete')}",
+            data: {
+                form_id:form_id,
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.msg);
+                    setTimeout(function(){
+                        window.location.reload();//刷新当前页面.
+                    },1000)
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        })
+    })
+
+    //根据公司搜索
+    $("#form_company").change(function(){
+        var company_id = $('#form_company option:selected').val();
+        if(company_id == ""){
+            layer.msg("您还没有选择公司！");return;
+        }else if(company_id== "0"){
+            layer.msg("请选择有效的公司！");return;
+        }
+        $.ajax({
+            type: "post",
+            url: "{:url('Finance/company_search')}",
+            data: {
+                company_id:company_id
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 1) {
+                    var html= "";
+                    html+="<tbody class='tbody'>";
+                    $.each(data.form ,function(k,v){
+                        html+="<tr>";
+                        html+="<td style='text-align: center'>" + v.id + "</td>";
+                        html+="<td style='text-align: center'>" + v.title + "</td>";
+                        html+="<td style='text-align: center'>" + v.type + "</td>";
+                        html+="<td style='text-align: center'>" + v.company + "</td>";
+                        html+="<td style='text-align: center'>" + v.time + "</td>";
+                        html+="<td style='text-align: center'>";
+                        if(v.status === 1){
+                            html+="对外展示";
+                        }else{
+                            html+="不展示";
+                        }
+                        html+="</td>";
+                        html+="<td style='text-align: center'>";
+                        html+="<a href='#' class='delete' id=" + v.id + ">删除</a>";
+                        html+="|";
+                        html+="<a href='{:url('Form/update',['form_id'=>" + v.id + "])}'>编辑</a>";
+                        html+="</td>";
+                        html+="</tr>";
+                    })
+                    html+="</tbody>"
+                    $(".tbody").replaceWith(html);
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        })
+
+    })
+
+
+
+
+    //根据类型搜索
+    $("#form_type").change(function(){
+        var type_id = $('#form_type option:selected').val();
+        if(type_id == ""){
+            layer.msg("您还没有选择类型！");
+        }else if(type_id== "0"){
+            layer.msg("请选择有效的类型！");
+        }
+        $.ajax({
+            type: "post",
+            url: "{:url('Finance/type_search')}",
+            data: {
+                type_id:type_id
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 1) {
+                    var html= "";
+                    html+="<tbody class='tbody'>";
+                    $.each(data.form ,function(k,v){
+                        html+="<tr>";
+                        html+="<td style='text-align: center'>" + v.id + "</td>";
+                        html+="<td style='text-align: center'>" + v.title + "</td>";
+                        html+="<td style='text-align: center'>" + v.type + "</td>";
+                        html+="<td style='text-align: center'>" + v.company + "</td>";
+                        html+="<td style='text-align: center'>" + v.time + "</td>";
+                        html+="<td style='text-align: center'>";
+                        if(v.status === 1){
+                            html+="对外展示";
+                        }else{
+                            html+="不展示";
+                        }
+                        html+="</td>";
+                        html+="<td style='text-align: center'>";
+                        html+="<a href='#' class='delete' id=" + v.id + ">删除</a>";
+                        html+="|";
+                        html+="<a href='{:url('Form/update',['form_id'=>" + v.id + "])}'>编辑</a>";
+                        html+="</td>";
+                        html+="</tr>";
+                    })
+                    html+="</tbody>";
+                    $(".tbody").replaceWith(html);
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        })
+    })
+
+
+</script>
+
+
+
+</body>
+</html>

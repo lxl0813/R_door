@@ -1,0 +1,57 @@
+	<!--头部引入-->
+	{include file="common:top"}
+	{if Cookie::get('think_var')=='en_us'}
+	<script type="text/javascript">
+		$("#menu_div a:contains('About Jean Leray')").attr("id","redcolor");
+	</script>
+	{else}
+	<script type="text/javascript">
+		$("#menu_div a:contains('走进让雷')").attr("id","redcolor");
+	</script>
+	{/if}
+	<div id="middle_part">
+		<div class="banner about-banner"></div>
+		<div class="content about-content">
+			<div class="fyy-section">
+				<div class="inner-tit"><img src="/static/picture/7b0ea55bbb.png" alt=""><i></i></div>
+				<div class="inner-cnt">
+					<!--走进中间公共部分引入-->
+					{include file="common:walk_public"}
+					<div class="inner-detail">
+						<div>
+							<h4 style="padding:0px;font-size:24px;font-weight:400;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;color:#195BBE">{:lang('对国家的责任')}</h4>
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;margin-top:0px;margin-bottom:0px;">{:lang('作为一家专业性投资集团公司，上海让雷智能科技有限公司始终以促进社会资源的有效配置，回报股东、成就员工、造福社会为己任，立志于做一个对社会持续贡献的百年企业。我们坚信，市场经济制度是社会进步和财富增长的基础；我们深知，高效运营的企业是社会经济保持活力和发展的基本元素。上海让雷智能科技有限公司以促进中国经济的健康发展和中华民族的伟大复兴为企业的最高使命。')}</p>
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;margin-top:0px;margin-bottom:0px;"><br></p>
+							<h5 style="margin:0px 0px 10px;padding:0px;font-size:14px;font-weight:400;color:#555555;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff"></h5>
+							<h4 style="padding:0px;font-size:24px;font-weight:400;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;color:#195BBE">{:lang('对员工的责任')}</h4>
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;margin-top:0px;margin-bottom:0px;">{:lang('上海让雷智能科技有限公司致力于构建集团系统的企业家群体，力争使管理团队成为业内具有一定美誉度的核心决策团队；同时，努力造就富裕的员工阶层，所谓“富裕”，一是指精神富裕，即为每位员工提供发展、成长、成就事业的机会和平台；二是指物质财富，即为员工提供具有市场竞争力的薪酬待遇和全面完善的福利保障体系，让员工获得良好的经济收益和较高的生活质量。')}</p>
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;margin-top:0px;margin-bottom:0px;"><br></p>
+							<h5 style="margin:0px 0px 10px;padding:0px;font-size:14px;font-weight:400;color:#555555;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff"></h5>
+							<h4 style="padding:0px;font-size:24px;font-weight:400;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;color:#195BBE">{:lang('对社会的责任')}</h4>
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;margin-top:0px;margin-bottom:0px;">{:lang('公司一贯致力于扶贫济困、奖教助学等多种社会公益慈善事业。')}</p>
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;margin-top:0px;margin-bottom:0px;"><br></p>
+							<p><br></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{if Cookie::get('think_var')=='en_us'}
+	<script>
+		$(".inner-menu li a:contains('Social Responsibility')").attr("id","redcolor");
+		$("#menu_div a:contains('Social Responsibility')").attr("id","redcolor");
+	</script>
+	{else}
+	<script>
+		$(".inner-menu li a:contains('社会责任')").attr("id","redcolor");
+		$("#menu_div a:contains('社会责任')").attr("id","redcolor");
+	</script>
+	{/if}
+	{include file="common:foot"}
+</div>
+<div class="back-top">
+	<a id="backTop"></a>
+</div>
+</body>
+</html>

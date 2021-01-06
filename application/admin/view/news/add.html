@@ -1,0 +1,211 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <script src="/static/js/time.js"></script>
+    <!--引入bootstrop-->
+    {include file="pub:bootstrop"}
+
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain">
+        <div id="urHere"><b>上海让雷智能科技有限公司--新闻中心--添加</b></div>
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+<a href="javascript:window.history.back(-1)" target="_self" style="margin-left: 20px"><img src="/static/picture/go.png" title="返回上一页" style="height:20px"/></a>
+
+            <form id="form" action="{:url('News/add')}" method="post" enctype="multipart/form-data">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">新闻标题（中文版）</span>
+                    <input type="text" id="title_ch" name="title_ch" class="form-control" placeholder="请输入新闻标题(中文)" aria-describedby="basic-addon1">
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">新闻标题（英文版）</span>
+                    <input type="text" id="title_en" name="title_en" class="form-control" placeholder="请输入新闻标题(英文)" aria-describedby="basic-addon1">
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">新闻时间</span>
+                    <input type="text" name="news_time" id="news_time" placeholder="填写新闻日期" onClick="new Calendar().show(this)" class="inpMain form-control" />
+                </div>
+
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                       <input type="checkbox" name="type" aria-label="..." value = "1">新闻
+                    </span>
+                    <span class="input-group-addon">
+                       <input type="checkbox" name="type" aria-label="..." value = "2">企业活动
+                    </span>
+                    <input type="text" name="bg_type" class="form-control" placeholder="选择类型" disabled  aria-label="...">
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                       <input type="checkbox" name="status" aria-label="..." value = "1">
+                    </span>
+                    <input type="text" name="bg_type" class="form-control" placeholder="新闻默认禁止状态，勾选后显示" disabled  aria-label="...">
+                </div>
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">新闻图片</span>
+                    <input type="file" id="img" name="img" class="form-control"  aria-describedby="basic-addon1">
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div style="background-color: #bbbbbb;height:30px">
+                    <div style="text-align: center">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        <font size="3">编辑内容(中文版)</font>
+                    </div>
+                </div>
+                <div style="height:10px;"></div>
+                <div style="margin: auto">
+                    <script id="editor" name="editor" type="text/plain" style="width:624px;height:400px;margin-left:25%"></script>
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div style="background-color: #bbbbbb;height:30px">
+                    <div style="text-align: center">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        <font size="3">编辑内容(英文版)</font>
+                    </div>
+                </div>
+                <div style="height:10px;"></div>
+                <div style="margin: auto">
+                    <script id="ywen" name="ywen" type="text/plain" style="width:624px;height:400px;margin-left:25%"></script>
+                </div>
+
+            </form>
+            <div style="text-align: center;margin-top:10px">
+                <input type="submit" class="btn btn-info" name="submit" value="提交">
+            </div>
+
+        </div>
+    </div>
+    <!--引入尾部-->
+    {include file="pub:foot"}
+</div>
+
+<script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/static/ueditor/ueditor.all.min.js"></script>
+
+<script type="text/javascript">
+    var ue = UE.getEditor('editor');
+</script>
+
+<script type="text/javascript">
+    var ue = UE.getEditor('ywen');
+</script>
+
+<script type="application/javascript">
+    //表单提交
+    $("input[name=submit]").click(function(){
+        var title_ch = $("#title_ch").val();
+        var title_en = $("#title_en").val();
+        var news_time= $("#news_time").val();
+        var type     = $("input[name='type']:checked").val();
+        var status   = $("input[name='status']:checked").val()
+        var editor   = UE.getEditor('editor').getContent();
+        var ywen     = UE.getEditor('ywen').getContent();
+
+        if(editor==""){
+            layer.msg('请填写中文版内容');return;
+        }
+        if(ywen==""){
+            layer.msg('请填写英文版内容');return;
+        }
+        if(title_ch==""){
+            layer.msg('请填写中文版标题');return;
+        }
+        if(title_en==""){
+            layer.msg('请填写英文版标题');return;
+        }
+        if(news_time==""){
+            layer.msg('请选择英文日期');return;
+        }
+        if(!status){
+            layer.msg('请选择新闻状态');return;
+        }
+
+        var file=$("#img")[0].files[0];
+        console.log(file);
+        if(file==undefined){
+            layer.msg('请选择图片');
+            return false;
+        }
+        if(file.size>5120000){
+            layer.msg('图片大小不能超过5M');
+            return false;
+        }
+        var fr=new FileReader();
+        //读取文件内容
+        fr.readAsDataURL(file);
+        //获取图片读取状态
+        fr.onload=function() {
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",
+                dataType: "json",
+                url: "{:url('News/add')}",
+                data: {
+                    img:this.result,
+                    title_ch:title_ch,
+                    title_en:title_en,
+                    news_time:news_time,
+                    type:type,
+                    status:status,
+                    content_ch:editor,
+                    content_en:ywen
+                },
+                beforeSend:function(){
+                    this.layerIndex=layer.load(1, {
+                        shade: [0.1,'#fff'] //0.1透明度的白色背景
+                    });
+                },
+                complete: function () {
+                    layer.close(this.layerIndex);
+                },
+                success: function (result) {
+                    if(result.status == 1) {
+                        layer.msg(result.msg);
+                        setTimeout(function(){
+                            window.location.href="{:url('News/index')}";
+                        },600);
+                    }else{
+                        layer.msg(result.msg);
+                    }
+                },
+            });
+        }
+    })
+
+
+</script>
+
+</body>
+</html>

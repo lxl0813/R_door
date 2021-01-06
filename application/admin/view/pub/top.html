@@ -1,0 +1,66 @@
+<script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+<script type="text/javascript" src="/layer/layer.js"></script>
+
+
+<div id="dcHead">
+    <div id="head">
+        <div class="logo"><a href="index.html"><img src="/admin/images/dclogo.jpg" alt="logo"></a></div>
+        <div class="nav">
+            <ul class="navRight">
+                <li class="M noLeft"><a href="JavaScript:void(0);" id="admin">{:Cookie::get('ranglei_admin')['admin_name']}</a></li>
+                <li class="noRight"><a href="{:url('Login/out')}">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    $("#admin").click(function(){
+        var td=$(this); //为后面文本框变成文本铺垫
+        var text=$(this).text();
+        var input=$("<input type='text'  value='"+text+"' class='zhong'>");
+
+        $(this).replaceWith( input );
+
+        $('input').click(function(){
+            return false;
+        }); //阻止表单默认点击行为
+        $('input').select(); //点击自动全选中表单的内容
+        $('input').blur(function(){
+
+            var nextxt=$(this).val();
+
+            $(this).replaceWith(td)
+            td.html(nextxt);
+            //alert(1);exit;
+            $.ajax({
+                type: "post",
+                url: "{:url('Pub/index')}",
+                data: {
+                    nextxt:nextxt,
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == 1) {
+                        layer.msg(data.msg);
+                        layer.confirm('是否立刻重新登陆？', {
+                            btn: ['是','稍后'] //按钮
+                        }, function(){
+                            $.cookie('admin', null, {path : "/",expires : -1});
+                            window.location.href = "{:url('Index/index')}";//刷新当前页面.
+
+                        }, function(){
+
+                        });
+
+                    }else{
+                        layer.msg(data.msg);
+                        setTimeout(function(){
+                            window.location.reload();//刷新当前页面.
+                        },1000)
+                    }
+                }
+            })
+        }); //表单失去焦点文本框变成文本
+    })
+</script>
+

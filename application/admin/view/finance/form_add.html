@@ -1,0 +1,137 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <script type="text/javascript" src="/static/js/time.js"></script>
+    <!--引入bootstrop-->
+    {include file="pub:bootstrop"}
+
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain">
+        <div id="urHere"><b>上海让雷智能科技有限公司--报表中心--添加</b></div>
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+            <a onclick="javascript:history.back(-1);">
+                <svg t="1591249841815" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7239" width="32" height="32"><path d="M734.4 1024c-25.6 0-51.2-6.4-70.4-25.6L216 576c-38.4-38.4-38.4-89.6 0-128l448-422.4C702.4-6.4 766.4-6.4 804.8 25.6s38.4 89.6 0 128L420.8 512l377.6 358.4c38.4 38.4 38.4 89.6 0 128-12.8 19.2-38.4 25.6-64 25.6z" fill="#409EFF" p-id="7240"></path></svg>
+            </a>
+            <div style="width: 800px;margin: auto">
+
+            <form  enctype="multipart/form-data">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">报表标题</span>
+                    <input type="text" id="title" name="title" class="form-control" placeholder="请输入报表的标题" aria-describedby="basic-addon1">
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">选择报表所属公司</span>
+                    <select name="form_company_id" id="company_id">
+                        <option>全部公司</option>
+                        {volist name="form_company" id="data"}
+                            <option value="{$data.id}" name="form_company_id">{$data.company}</option>
+                        {/volist}
+                    </select>
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">选择报表类型</span>
+                    <select name="form_type_id" id="type_id">
+                        <option>全部类型</option>
+                        {volist name="form_type" id="data"}
+                            <option value="{$data.id}" name="form_type_id">{$data.form_type}</option>
+                        {/volist}
+                    </select>
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">报表时间</span>
+                    <input type="text" name="form_time" id="form_time" placeholder="点击选择流水账单日期" onClick="new Calendar().show(this)" class="inpMain form-control" />
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">上传报表</span>
+                    <input type="file" id="form_url" name="form_url" class="form-control"  aria-describedby="basic-addon1">
+                </div>
+
+            </form>
+                <div style="text-align: center;margin-top:10px">
+                    <input type="submit" id="submit" class="btn btn-info" value="提交">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--引入尾部-->
+    {include file="pub:foot"}
+</div>
+<script>
+    $("#submit").click(function () {
+        var title = $("#title").val();
+        var company_id = $('#company_id option:selected').val();
+        var type_id    = $("#type_id option:selected").val();
+        var form_time   = $("#form_time").val();
+        var form_url    =   $("#form_url")[0].files[0];
+        if(title==""){
+            layer.msg("请填写标题");return;
+        }
+        if(company_id==""){
+            layer.msg('请选择公司！');return;
+        }
+        if(type_id==""){
+            layer.msg("请选择报表类型");return;
+        }
+        if(form_time==""){
+            layer.msg("请选择时间！");return;
+        }
+        if(form_url==""){
+            layer.msg('请选择文件');return;
+        }
+        var formData = new FormData();
+        formData.append('title', title);
+        formData.append('form_company_id', company_id);
+        formData.append('form_type_id', type_id);
+        formData.append('form_time', form_time);
+        formData.append('form_url', form_url);
+        $.ajax({
+            type: "POST",
+            url: "{:url('Finance/form_add')}",
+            data: formData,
+            processData: false,//这个必须有，不然会报错
+            contentType: false,//这个必须有，不然会报错
+            dataType: "json",
+            success:function(result){
+                if(result.code==200){
+                    layer.msg(result.msg);
+                    setTimeout(function(){
+                        window.location.href="{:url('Finance/form_index')}";
+                    } ,1000)
+                }else{
+                    layer.msg(result.msg);
+                }
+            }
+        })
+
+    })
+</script>
+
+</body>
+</html>

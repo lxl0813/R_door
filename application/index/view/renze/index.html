@@ -1,0 +1,77 @@
+<!--头部引入-->
+{include file="common:top"}
+<style>
+    .news-list,
+    .news-detail {
+        margin-right: 0px;
+        border-right: none;
+    }
+    .news-text,
+    .news-detail-info {
+        margin-left: 0px;
+    }
+    .news-detail-top h5 {
+        text-align: center;
+    }
+</style>
+
+{if Cookie::get('think_var')=='en_us'}
+<script type="text/javascript">
+    $("#menu_div a:contains('Contact Us')").attr("id","redcolor");
+</script>
+{else}
+<script type="text/javascript">
+    $("#menu_div a:contains('联系我们')").attr("id","redcolor");
+</script>
+{/if}
+    <div id="middle_part">
+        <div class="content news-content">
+            <div class="fyy-section">
+                <div class="inner-tit"></div>
+                <div class="inner-cnt">
+                    <div class="news-detail">
+                        <div class="news-detail-info">
+                            <div class="news-detail-top" style="padding-bottom: 20px;">
+                                <h5>{:lang("责任声明")}</h5>
+                            </div>
+                            <div class="news-detail-cnt">
+                                <p style="color: rgb(86, 122, 152); line-height: 1.5em; text-indent: 0px; letter-spacing: normal; font-family: microsoft yahei; font-size: 18px; font-style: normal; font-weight: 400; word-spacing: 0px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #567a98;">
+                                    <span style="color: rgb(255, 0, 0); line-height: 1.5em; box-sizing: border-box;">
+                                        <span style="line-height: 1.5em; font-weight: 700; box-sizing: border-box;">
+                                            <span style="line-height: 1.5em; font-family: arial, helvetica, sans-serif; box-sizing: border-box;">
+                                                <span style="line-height: 1.5em; font-family: 微软雅黑,microsoft yahei; font-size: 16px; box-sizing: border-box;">​{:lang("版权声明")}</span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </p>
+                                <p style="color: rgb(102, 102, 102); line-height: 1.5em; text-indent: 0px; letter-spacing: normal; font-family: simsun; font-size: 12px; font-style: normal; font-weight: 400; word-spacing: 0px; min-height: 14px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #666666;"><span style="color: rgb(0, 0, 0); line-height: 1.5em; font-family: arial, helvetica, sans-serif; box-sizing: border-box;"><br style="height: 20px; box-sizing: border-box;"></span></p>
+                                <p style="color: rgb(102, 102, 102); line-height: 1.5em; text-indent: 2em; letter-spacing: normal; font-family: simsun; font-size: 12px; font-style: normal; font-weight: 400; word-spacing: 0px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #666666;"><span style="color: rgb(0, 0, 0); line-height: 1.5em; font-family: 微软雅黑,microsoft yahei; font-size: 14px; box-sizing: border-box;">{:lang("本网站上为版权人所有的文件，在此并未作任何授权。本网站上的文件仅限于为信息和非商业或个人之目的使用，并且不得在任何网络计算机上复制或公布，也不得在任何媒体上传播。未经版权人许可，任何人不得擅自(包括但不限于：以非法的方式复制、传播、展示、镜像、上载、下载)使用。否则版权人将依法追究其法律责任。")}</span></p><p style="color: rgb(102, 102, 102); line-height: 1.5em; text-indent: 0px; letter-spacing: normal; font-family: simsun; font-size: 12px; font-style: normal; font-weight: 400; word-spacing: 0px; min-height: 14px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #666666;"><span style="color: rgb(0, 0, 0); line-height: 1.5em; font-family: arial, helvetica, sans-serif; box-sizing: border-box;"><br style="height: 20px; box-sizing: border-box;"></span></p><p style="color: rgb(86, 122, 152); line-height: 1.5em; text-indent: 0px; letter-spacing: normal; font-family: microsoft yahei; font-size: 18px; font-style: normal; font-weight: 400; word-spacing: 0px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #567a98;"><span style="color: rgb(255, 0, 0); line-height: 1.5em; box-sizing: border-box;"><span style="line-height: 1.5em; font-weight: 700; box-sizing: border-box;"><span style="line-height: 1.5em; font-family: 微软雅黑,microsoft yahei; font-size: 18px; box-sizing: border-box;"></span></span></span></p><p style="color: rgb(86, 122, 152); line-height: 1.5em; text-indent: 0px; letter-spacing: normal; font-family: microsoft yahei; font-size: 18px; font-style: normal; font-weight: 400; word-spacing: 0px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #567a98;"><span style="color: rgb(255, 0, 0); line-height: 1.5em; box-sizing: border-box;"><span style="line-height: 1.5em; font-weight: 700; box-sizing: border-box;"><span style="line-height: 1.5em; font-family: 微软雅黑,microsoft yahei; font-size: 16px; box-sizing: border-box;">{:lang("免责声明")}&nbsp;</span></span></span></p><p style="color: rgb(102, 102, 102); line-height: 1.5em; text-indent: 0px; letter-spacing: normal; font-family: simsun; font-size: 12px; font-style: normal; font-weight: 400; word-spacing: 0px; min-height: 14px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #666666;"><span style="color: rgb(0, 0, 0); line-height: 1.5em; font-family: arial, helvetica, sans-serif; box-sizing: border-box;"><br style="height: 20px; box-sizing: border-box;"></span></p><p style="color: rgb(102, 102, 102); line-height: 1.5em; text-indent: 2em; letter-spacing: normal; font-family: simsun; font-size: 12px; font-style: normal; font-weight: 400; word-spacing: 0px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #666666;"><span style="color: rgb(0, 0, 0); line-height: 1.5em; font-family: 微软雅黑,microsoft yahei; font-size: 14px; box-sizing: border-box;">{:lang("版权人拥有对本网站的内容进行随时更改之权利，事前将不会另行通知。版权人不保证或声明本网站展示的资料是否正确、全面或是最新数据。")}</span></p><p style="color: rgb(102, 102, 102); line-height: 1.5em; text-indent: 2em; letter-spacing: normal; font-family: simsun; font-size: 12px; font-style: normal; font-weight: 400; word-spacing: 0px; min-height: 14px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #666666;"><span style="color: rgb(0, 0, 0); line-height: 1.5em; font-family: arial, helvetica, sans-serif; box-sizing: border-box;"><br style="height: 20px; box-sizing: border-box;"></span></p><p style="color: rgb(102, 102, 102); line-height: 1.5em; text-indent: 2em; letter-spacing: normal; font-family: simsun; font-size: 12px; font-style: normal; font-weight: 400; word-spacing: 0px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #666666;"><span style="color: rgb(0, 0, 0); line-height: 1.5em; font-family: 微软雅黑,microsoft yahei; font-size: 14px; box-sizing: border-box;">{:lang("本网站内的所有图片(包括但不限于插图、透视图、设计图等)、模型、文字描述等，仅作为参考信息，非开发商的任何承诺或要约。")}</span></p><p style="color: rgb(102, 102, 102); line-height: 1.5em; text-indent: 2em; letter-spacing: normal; font-family: simsun; font-size: 12px; font-style: normal; font-weight: 400; word-spacing: 0px; min-height: 14px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #666666;"><span style="color: rgb(0, 0, 0); line-height: 1.5em; font-family: arial, helvetica, sans-serif; box-sizing: border-box;"><br style="height: 20px; box-sizing: border-box;"></span></p><p style="color: rgb(102, 102, 102); line-height: 1.5em; text-indent: 2em; letter-spacing: normal; font-family: simsun; font-size: 12px; font-style: normal; font-weight: 400; word-spacing: 0px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #666666;"><span style="color: rgb(0, 0, 0); line-height: 1.5em; font-family: 微软雅黑,microsoft yahei; font-size: 14px; box-sizing: border-box;">{:lang("开发商声明：网站有关其开发项目信息的介绍，均以政府最后审批文件为准。商品房买卖双方之间的关系以当事人签订的买卖合同为准。")}</span></p><p style="color: rgb(102, 102, 102); line-height: 1.5em; text-indent: 2em; letter-spacing: normal; font-family: simsun; font-size: 12px; font-style: normal; font-weight: 400; word-spacing: 0px; min-height: 14px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #666666;"><span style="color: rgb(0, 0, 0); line-height: 1.5em; font-family: arial, helvetica, sans-serif; box-sizing: border-box;"><br style="height: 20px; box-sizing: border-box;"></span></p><p style="color: rgb(102, 102, 102); line-height: 1.5em; text-indent: 2em; letter-spacing: normal; font-family: simsun; font-size: 12px; font-style: normal; font-weight: 400; word-spacing: 0px; box-sizing: border-box; orphans: 2; widows: 2; transform: translate3d(0px, 0px, 0px); background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke: #666666;"><span style="color: rgb(0, 0, 0); line-height: 1.5em; font-family: 微软雅黑,microsoft yahei; font-size: 14px; box-sizing: border-box;">{:lang("任何人因本网站或依赖其内容进行交易所引致的损失，版权人和开发商均不承担任何责任。")}</span></p><p><br></p><p><br></p>                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(function() {
+                $("#indexNews").width($(this).find("li").width() * 308);
+            });
+        </script>
+    </div>
+    <script>
+        $(function() {
+            $("#indexNews").width($(this).find("li").width() * 308);
+
+            $('#menu_div').find('a').bind('click', function() {
+                $(this).siblings().removeClass('on').end().addClass('on');
+                var url = $(this).attr('url');
+                load(url);
+            });
+        });
+    </script>
+    {include file="common:foot"}
+</div>
+<div class="back-top">
+	<a id="backTop"></a>
+</div>
+</body>
+</html>

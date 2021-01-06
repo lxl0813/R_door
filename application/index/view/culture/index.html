@@ -1,0 +1,89 @@
+<!--头部引入-->
+{include file="common:top"}
+  {if Cookie::get('think_var')=='en_us'}
+  <script type="text/javascript">
+      $("#menu_div a:contains('Jean Leray Culture')").attr("id","redcolor");
+  </script>
+  {else}
+  <script type="text/javascript">
+      $("#menu_div a:contains('让雷文化')").attr("id","redcolor");
+  </script>
+  {/if}
+    <div id="middle_part">
+    <div class="banner about-banner" style="background-image:url(/static/image/zjwh123.jpg)"></div>
+    <div class="content about-content">
+        <div class="fyy-section">
+        <div class="inner-tit"> <img src="/static/picture/3971516d5e.png" alt=""><i></i></div>
+        <div class="inner-cnt">
+            <!--小标题引入-->
+            {include file="common:culture_public"}
+            <div class="inner-detail">
+            <div class="culture-detail-tit" style="margin: 0px; padding: 20px 50px; outline: 0px; color: rgb(255, 255, 255); border-radius: 5px; font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; font-size: 13px; line-height: 19.5px; white-space: normal; background-color: rgb(90, 90, 90);">
+                <h4 style="margin: 0px; padding: 0px; font-size: 24px; font-weight: 400;">{:lang('企业文化是我们企业发展的内在动力。')}</h4>
+                <h5 style="margin: 0px; padding: 0px; font-size: 14px; font-weight: 400;">{:lang('我们着力建设有特色、有感染力的企业文化，以文化修炼提升员工素质和能力，以文化引领促进企业业务发展。')}</h5></div>
+                <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102); font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; white-space: normal;">&nbsp;</p>
+                <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102); font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; white-space: normal;">&nbsp;</p>
+                <div class="culture-row" style="margin: 0px; padding: 0px; outline: 0px; overflow: hidden; color: rgb(85, 85, 85); font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; font-size: 13px; line-height: 19.5px; white-space: normal;">
+                <div class="culture-col" style="margin: 0px;padding: 0px;outline: 0px;width: 420px;float: left;">
+                    <h3 style="margin: 0px 0px 5px; padding: 0px 15px; font-size: 24px; color: rgb(205, 1, 1);"><br></h3>
+                    <h3 style="margin: 0px 0px 5px; padding: 0px 15px; font-size: 24px; color: #195BBE;">关于管理<span style="font-size: 48px; color: rgb(230, 227, 227); margin-left: 5px; font-weight: normal;">Control</span></h3>
+                    <p style="margin-top: 0px; margin-bottom: 0px; font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; white-space: normal; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);"><br></p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; white-space: normal; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('价值管理是我们企业管理的基本方法。我们致力于建立基于价值创造的企业经营业绩考核体系和员工绩效管理体系，企业价值增加值和员工岗位贡献度是分享经营成果的依据。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; white-space: normal; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('精干高效是我们企业组织建设的基本原则。我们致力于建设独立经营、自主决策、专业管理，责、权、利对等的业务管控体系，并在任何可能的情况下，扁平化我们的组织结构。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; white-space: normal; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('专业规范是我们制度建设的基本要求。我们按照效率优先的原则设计并不断优化各项制度和流程；按照价值原则不断简化、标准化各项工作，持续提高运营的效率和效益。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; white-space: normal; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('创新应变是我们永续发展的核心要求。我们努力创新管理，形成鼓励创新的工作机制和氛围；倡导员工主动创新，不断学习新知识与新技术，持续推动企业快速发展。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">&nbsp;</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">&nbsp;</p>
+                </div>
+                <div class="culture-col" style="margin: 0px;padding: 0px;outline: 0px;width: 420px;float: left;">
+                    <h3 style="margin: 0px 0px 5px; padding: 0px 15px; font-size: 24px; color: rgb(205, 1, 1);"><br></h3>
+                    <h3 style="margin: 0px 0px 5px; padding: 0px 15px; font-size: 24px; color:#195BBE;">关于业务<span style="font-size: 48px; color: rgb(230, 227, 227); margin-left: 5px; font-weight: normal;">Service</span></h3>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);"><br></p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('投资是我们的主营业务。我们遵循价值投资的理念，始终关注被投资企业当前和预期的市场价值，价值成长和时间窗口是投资的前提。')}<br></p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; white-space: normal; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('价值创造是我们业务经营的根本目标。我们致力于打造内部竞争的资源配置平台，持续创造价值的业务将得到支持和发展，不创造价值或价值较小的业务将被收缩乃至清理。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; white-space: normal; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('整合资源是我们创造价值的主要手段。我们秉持合作分享、互利共赢的理念，整合各类资源，提升企业价值、客户价值。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; white-space: normal; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('稳健发展是我们企业运营的基本理念。我们坚持投资经营留有余地的原则，持续关注并预防经营中的各种风险，时刻准备应对危机。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">&nbsp;</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">&nbsp;</p>
+                </div>
+                <div class="culture-col" style="margin: 0px;padding: 0px;outline: 0px;width: 420px;float: left;">
+                    <h3 style="margin: 0px 0px 5px; padding: 0px 15px; font-size: 24px; color: #195BBE;">关于员工<span style="font-size: 48px; color: rgb(230, 227, 227); margin-left: 5px; font-weight: normal;">Staff</span></h3>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);"><br></p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('人才是我们最重要的资本。我们致力于打造一个合作开放的平台，不断吸引并凝聚具有价值创造能力、富有合作精神的优秀人才，构建多层次的年轻化、专业化人才队伍。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('专业、扎实是我们对人才的基本要求。我们尊重和公平对待每一位员工，鼓励员工在自主选择和发挥专长的基础上，通过团队协作和扎实工作为公司持续创造价值。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('员工是创造价值的核心力量。我们努力培养那些拥有较强能力且持续为企业奋斗的员工，让员工的成长成为企业进步的基石，创造价值的奋斗者将优先成为企业的股东。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('积极向上是让雷人共同的精神面貌。我们努力激发和传递每位员工的正能量，帮助员工培养健康阳光的心态、坚忍不拔的品格、乐观豁达的胸怀。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">&nbsp;</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">&nbsp;</p>
+                </div>
+                <div class="culture-col" style="margin: 0px;padding: 0px;outline: 0px;width: 420px;float: left;">
+                    <h3 style="margin: 0px 0px 5px; padding: 0px 15px; font-size: 24px; color:#195BBE;">关于文化<span style="font-size: 48px; color: rgb(230, 227, 227); margin-left: 5px; font-weight: normal;">Culture</span></h3>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);"><br></p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('企业文化是我们企业发展的内在动力。我们着力建设有特色、有感染力的企业文化，以文化修炼提升员工素质和能力，以文化引领促进企业业务发展。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('让雷是奋斗者的锻炼熔炉。我们致力于打造一个不断磨砺融合的企业生态环境，培育团队的合作竞争精神，让员工在合作中优势互补，在竞争中激活斗志，创造价值，共同进步。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('让雷是奋斗者的事业平台。我们将努力优化机制，使让雷成为一个追逐梦想、成就事业、分享成果的平台，从利益共同体走向事业共同体。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">{:lang('让雷是奋斗者的快乐家园。我们崇尚简单的伙伴关系、快乐的工作状态、和谐的工作氛围、温暖的人文关怀，我们要让每一位让雷人感到努力奋斗的人生才是真正快乐的人生。')}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px 15px; font-size: 14px; line-height: 24px; text-indent: 28px; color: rgb(102, 102, 102);">&nbsp;</p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    {if Cookie::get('think_var')=='en_us'}
+        <script>
+            $(".inner-menu li a:contains('Core Values')").attr("id", "redcolor");
+        </script>
+    {else}
+        <script>
+            $(".inner-menu li a:contains('核心价值观')").attr("id", "redcolor");
+        </script>
+    {/if}
+    {include file="common:foot"}
+</div>
+<div class="back-top">
+	<a id="backTop"></a>
+</div>
+</body>
+</html>

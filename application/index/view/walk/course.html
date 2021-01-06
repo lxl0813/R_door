@@ -1,0 +1,52 @@
+
+	<!--头部引入-->
+	{include file="common:top"}
+	{if Cookie::get('think_var')=='en_us'}
+	<script type="text/javascript">
+		$("#menu_div a:contains('About Jean Leray')").attr("id","redcolor");
+	</script>
+	{else}
+	<script type="text/javascript">
+		$("#menu_div a:contains('走进让雷')").attr("id","redcolor");
+	</script>
+	{/if}
+	<div id="middle_part">
+		<div class="banner about-banner"></div>
+
+		<div class="content about-content">
+			<div class="fyy-section">
+				<div class="inner-tit">  <img src="/static/picture/7b0ea55bbb.png" alt=""><i></i></div>
+				<div class="inner-cnt">
+					<!--走进中间公共部分引入-->
+					{include file="common:walk_public"}
+					<!--inner-detail S-->
+					<div class="inner-detail">
+						<div>
+							<p>​<img src="/static/picture/1520477068513.jpg" _src="http://www.ccig.com/umeditor/upload/20160710/10541468136550402.jpg" style="padding:0px;border:0px;vertical-align:middle;display:inline-block;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF" data_ue_src="/uploadfile/55/1520477068513.jpg"></p></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{if Cookie::get('think_var')=='en_us'}
+	<script>
+		$(".inner-menu li a:contains('Jean Leray Course')").attr("id","redcolor");
+		$("#menu_div a:contains('Jean Leray Course')").attr("id","redcolor");
+	</script>
+	{else}
+	<script>
+		$(".inner-menu li a:contains('让雷历程')").attr("id","redcolor");
+		$("#menu_div a:contains('让雷历程')").attr("id","redcolor");
+	</script>
+	{/if}
+
+	{include file="common:foot"}
+</div>
+<div class="back-top">
+	<a id="backTop"></a>
+</div>
+
+
+</body>
+
+</html>

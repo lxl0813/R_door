@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上海让雷智能科技有限公司</title>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/aaa.js"></script>
+</head>
+<div style="height: 30px"></div>
+<div style="margin-left: 100px">
+    <a onclick="javascript:history.back(-1);" title="上一页"><svg t="1591237435826" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4597" width="32" height="32"><path d="M949.567 515.219L538.877 75.67c-6.536-6.996-15.163-10.773-23.962-11.352-1.33-1.366-3.181-2.224-5.215-2.224-2.545 0-4.78 1.309-6.101 3.252a35.851 35.851 0 0 0-17.415 10.324L75.495 515.219c-21.53 23.043-5.19 60.673 26.346 60.673h203.274a887.925 887.925 0 0 0 0.124 26.024c3.9 230.01 136.822 356.537 366.934 356.537 35.489 0.102 210.182-4.495 243.271-12.895C749.208 891.38 710.459 794.44 707.058 609.316a836.186 836.186 0 0 1 0.071-33.424H923.22c31.537 0 47.877-37.63 26.347-60.673z" p-id="4598"></path></svg></a>
+</div>
+<div style="height: 30px;"></div>
+<div style="width: 100%" id="print_table" class="print_table">
+<table  border="1" style="text-align: center;margin: auto;width:1500px">
+    <tr>
+        <th colspan="9" style="text-align: center">{$lists.0.company_name}银行流水表</th>
+    </tr>
+    <tr>
+        <th style="text-align: center;width: 40px">序号</th>
+        <th style="text-align: center;width: 100px;">日期</th>
+        <th style="text-align: center;width: 300px">科目名称</th>
+        <th style="text-align: center;width: 300px">摘要</th>
+        <th style="text-align: center;width: 200px;">流水银行</th>
+        <th style="text-align: center;width: 80px">收入</th>
+        <th style="text-align: center;width: 80px">支出</th>
+        <th style="text-align: center;width: 100px;">余额</th>
+        <th style="text-align: center;width: 300px">备注</th>
+    </tr>
+    {volist name="lists" id="data"}
+        <tr>
+            <td style="text-align: center">{$no++}</td>
+            <td style="text-align: center">{$data.water_time}</td>
+            <td style="text-align: center">{$data.water_subject}</td>
+            <td style="text-align: center">{$data.water_abstract}</td>
+            <td style="text-align: center">{$data.bank_name}</td>
+            <td style="text-align: center">{$data.water_income}</td>
+            <td style="text-align: center">{$data.water_expenditure}</td>
+            <td style="text-align: center">{$data.water_balance}</td>
+            <td style="text-align: center">{$data.water_content}</td>
+        </tr>
+    {/volist}
+
+</table>
+</div>
+<div style="text-align: center;margin-top:30px">
+    <input type="button" id="jprint" style="margin: auto"  value="打印"/>
+    <br>
+    <font color="red">注：建议横向打印！</font>
+</div>
+
+<script>
+    $("#jprint").click(function(){
+        $("#print_table").printArea();
+    });
+</script>
+</body>
+</html>

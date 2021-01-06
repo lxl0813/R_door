@@ -1,0 +1,155 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+    <style type="text/css">
+        th{
+            text-align: center;
+        }
+        td{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--采购商管理</b></div>
+        <div style="margin-top: 20px">
+            <ol class="breadcrumb" style="height:50px">
+                <li class="active"><a href="javascript:window.history.back(-1)" target="_self" style="margin-left: 20px"><img src="/static/picture/go.png" title="返回上一页" style="height:20px"></a>&nbsp;&nbsp;采购商管理中心</li>
+                <div style="float: right">
+                    <div style="float:left">
+                        <a href="{:url('Customer/purchaser_add')}"><button class="btn btn-default" type="submit">添加采购商</button></a>
+                    </div>
+                </div>
+            </ol>
+        </div>
+
+
+        <table class="table table-hover">
+            <tr>
+                <th>序号</th>
+                <th>采购商</th>
+                <th>简称</th>
+                <th>联系人</th>
+                <th>号码</th>
+                <th>微信</th>
+                <th>邮箱</th>
+                <th>操作</th>
+            </tr>
+            {if empty($purchaser)}
+            <tr>
+                <td colspan="10">您还没有添加过任何采购商！</td>
+            </tr>
+            {else}
+                {volist name="purchaser" id="data"}
+                    <tr>
+                        <td>{$no++}</td>
+                        <td>{$data.purchaser_name}</td>
+                        <td>{$data.purchaser_short_name}</td>
+                        <td>{$data.contact_name}</td>
+                        <td>{$data.contact_phone}</td>
+                        <td>{$data.contact_wx}</td>
+                        <td>{$data.email}</td>
+
+                        <td>
+                            <a href="{:url('Customer/purchaser_update_index',['purchaser_id'=>$data.id])}" title="信息编辑">
+                                <svg t="1593767092624" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7019" width="32" height="32"><path d="M348.312 667.028c18.082 18.081 46.632 18.081 63.762 0L909.8 169.303c18.082-18.082 18.082-46.632 0-64.714s-46.632-18.082-63.762 0L348.312 602.314c-18.082 18.082-18.082 46.632 0 64.714z" fill="#8a8a8a" p-id="7020"></path><path d="M899.33 443.384c-24.743 0-45.68 19.986-45.68 45.68v364.491h-683.3v-683.3h364.49c24.744 0 44.729-19.986 45.68-45.681 0-24.744-19.985-45.68-44.728-45.68H124.669c-24.743 0-45.68 19.985-45.68 45.68v774.662c0 12.371 4.758 23.792 13.323 32.357 8.565 8.565 19.985 13.323 32.357 13.323h774.662c12.372 0 23.792-4.758 32.357-13.323 8.565-8.565 13.323-19.986 13.323-32.357V489.065c0-25.695-20.937-45.68-45.68-45.68z" fill="#8a8a8a" p-id="7021"></path></svg>
+                            </a>
+
+                            <a  href="{:url('Customer/purchaser_enquiry_sees',['purchaser_id'=>$data.id])}"  title="询单查看">
+                                <svg t="1594024867588" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8448" width="32" height="32"><path d="M952.667372 952.700117c-8.828063 8.828063-20.599154 8.828063-26.484188 0L752.563938 779.080871c8.828063-8.828063 17.656125-17.656125 26.484188-26.484188l173.619246 170.676218C958.552405 932.100964 958.552405 943.871031 952.667372 952.700117L952.667372 952.700117zM458.293821 852.6484c-217.759559 0-394.321834-176.562275-394.321834-394.321834S240.534262 64.004733 458.293821 64.004733s394.321834 176.562275 394.321834 394.321834S676.05338 852.6484 458.293821 852.6484L458.293821 852.6484zM458.021621 100.086509c-199.293999 0-356.944552 160.625304-356.944552 356.945575 0 199.293999 160.625304 359.919303 356.944552 359.919303 199.293999 0 359.919303-160.625304 359.919303-359.919303S657.316643 100.086509 458.021621 100.086509L458.021621 100.086509z" p-id="8449" fill="#707070"></path><path d="M952.667372 952.700117c-8.828063 8.828063-20.599154 8.828063-26.484188 0L752.563938 779.080871c8.828063-8.828063 17.656125-17.656125 26.484188-26.484188l173.619246 170.676218C958.552405 932.100964 958.552405 943.871031 952.667372 952.700117L952.667372 952.700117zM458.293821 852.6484c-217.759559 0-394.321834-176.562275-394.321834-394.321834S240.534262 64.004733 458.293821 64.004733s394.321834 176.562275 394.321834 394.321834S676.05338 852.6484 458.293821 852.6484L458.293821 852.6484zM458.021621 100.086509c-199.293999 0-356.944552 160.625304-356.944552 356.945575 0 199.293999 160.625304 359.919303 356.944552 359.919303 199.293999 0 359.919303-160.625304 359.919303-359.919303S657.316643 100.086509 458.021621 100.086509L458.021621 100.086509z" p-id="8450" fill="#707070"></path></svg><path d="M938.624 886.272l-173.056-173.056a368.32 368.32 0 1 0-47.424 47.296l173.12 173.12c1.6 1.6 8.192-2.432 14.72-8.96l23.68-23.68c6.528-6.592 10.56-13.12 8.96-14.72z m-455.296-108.16a301.312 301.312 0 1 1 0-602.688 301.312 301.312 0 0 1 0 602.688z" p-id="8320"></path></svg><path d="M512 620.544l253.3376 253.3376a76.6976 76.6976 0 1 0 108.544-108.544L620.6464 512l253.2352-253.3376a76.6976 76.6976 0 1 0-108.544-108.544L512 403.3536 258.6624 150.1184a76.6976 76.6976 0 1 0-108.544 108.544L403.3536 512 150.1184 765.3376a76.6976 76.6976 0 1 0 108.544 108.544L512 620.6464z" fill="#bfbfbf" p-id="8128"></path></svg>
+                            </a>
+
+                        </td>
+                    </tr>
+                {/volist}
+            {/if}
+
+        </table>
+        {if empty($purchaser)}
+
+        {else}
+        <div style="text-align: center">
+            {$purchaser|raw}
+        </div>
+        {/if}
+
+        <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+
+<script type="application/javascript">
+    //生产线鼠标悬浮，查询事件
+    $(".supplier_line").mouseover(function () {
+        var supplier_id = $(this).attr('id');
+        $.ajax({
+            type: "post",
+            url: "{:url('Customer/supplier_line_suspension_search')}",
+            data: {
+                supplier_id:supplier_id,
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200){
+                    layer.open({
+                        type: 1,
+                        skin: '', //样式类名
+                        closeBtn: 1, //不显示关闭按钮
+                        anim: 5,
+                        shadeClose: true, //开启遮罩关闭
+                        content: data.line
+                    });
+                }
+            }
+        })
+    })
+
+    //产品鼠标悬浮，查询事件
+    $(".supplier_product").mouseover(function () {
+        var supplier_id = $(this).attr('id');
+        $.ajax({
+            type: "post",
+            url: "{:url('Customer/supplier_product_suspension_search')}",
+            data: {
+                supplier_id:supplier_id,
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200){
+                    layer.open({
+                        type: 1,
+                        skin: '', //样式类名
+                        closeBtn: 1, //不显示关闭按钮
+                        anim: 5,
+                        shadeClose: true, //开启遮罩关闭
+                        content: data.line
+                    });
+                }
+            }
+        })
+    })
+
+
+</script>
+
+
+
+</body>
+</html>

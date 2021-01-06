@@ -1,0 +1,94 @@
+<!--头部引入-->
+{include file="common:top"}
+
+    <script type="text/javascript">
+        $("#menu_div a:contains('中金文化')").attr("id","redcolor");
+    </script>
+
+
+  <div id="middle_part">
+      <div class="banner culture-banner"></div>
+      <div class="content culture-content">
+      <div class="fyy-section">
+          <div class="inner-tit">  <img src="/static/picture/3971516d5e.png" alt=""><i></i></div>
+          <div class="inner-cnt">
+              <!--小标题引入-->
+              {include file="common:culture_public"}
+              <div class="news-list culture-list">
+              <ul>
+                  {volist name="activity" id="data"}
+                      <li>
+                          <a href="{:url('Culture/activity_show',['id'=>$data.id])}">
+                              <h4>{$data.time_d}<p><span class="englishtime">{$data.time_m}</span><em>{$data.time_year}</em></p></h4>
+                              <div class="news-text">
+                                  <h5>{$data.title}</h5>
+                                  <!--<p>主持人：王婷、唐梓清 　　节目一：非洲鼓新年快乐..</p>-->
+                              </div>
+                          </a>
+                      </li>
+                  {/volist}
+              </ul>
+          </div>
+              <div style="text-align: center">
+                  {$activity|raw}
+              </div>
+      </div>
+      </div>
+      </div>
+      <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+  </div>
+  <script>
+
+
+      $(".inner-menu li a:contains('企业文化活动')").attr("id","redcolor");
+      $(".englishtime").each(function() {
+          //alert(1);exit;
+  if ($(this).text()=="01") {
+      $(this).text("Jan")
+  }
+  if ($(this).text()=="02") {
+      $(this).text("Feb")
+  }
+  if ($(this).text()=="03") {
+      $(this).text("Mar")
+  }
+  if ($(this).text()=="04") {
+      $(this).text("Apr")
+  }
+  if ($(this).text()=="05") {
+      $(this).text("May")
+  }
+  if ($(this).text()=="06") {
+      $(this).text("Jun")
+  }
+  if ($(this).text()=="07") {
+      $(this).text("Jul")
+  }
+  if ($(this).text()=="08") {
+      $(this).text("Aug")
+  }
+  if ($(this).text()=="09") {
+      $(this).text("Sept")
+  }
+  if ($(this).text()=="10") {
+      $(this).text("Oct")
+  }
+  if ($(this).text()=="11") {
+      $(this).text("Nov")
+  }
+  if ($(this).text()=="12") {
+      $(this).text("Dec")
+  }
+})
+  </script>
+
+<!--头部引入-->
+{include file="common:foot"}
+</div>
+<div class="back-top">
+	<a id="backTop"></a>
+</div>
+
+</body>
+
+</html>

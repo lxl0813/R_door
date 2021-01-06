@@ -1,0 +1,247 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+
+</head>
+<body>
+    <div id="dcWrap">
+        <!--顶部-->
+        {include file="pub:top"}
+        <!--左侧部分-->
+        {include file="pub:left"}
+        <!--中间部分-->
+        <div id="dcMain"> <!-- 当前位置 -->
+            <div id="urHere"><b>上海让雷智能科技有限公司--新闻中心</b></div>
+            <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+
+            <div class="input-group">
+                <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('News/add')}">添加新闻</a></span>
+            </div>
+
+            <div style="margin-top: 20px;;text-align:center">
+                <table class="table table-hover">
+                    <tr>
+                        <th style="text-align: center">新闻ID</th>
+                        <th style="text-align: center">标题(中英文)点击可编辑</th>
+                        <th style="text-align: center">图片</th>
+                        <th style="text-align: center">时间</th>
+                        <th style="text-align: center">类型</th>
+                        <th style="text-align: center">状态(点击可编辑)</th>
+                        <th style="text-align: center">操作</th>
+                    </tr>
+                    {volist name="news" id="data"}
+                    <tr>
+                        <td style="text-align: center;vertical-align: middle;">{$data.id}</td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            中：<span class="zhong" id="{$data.id}">{$data.title_ch}</span><br>英：<span class="ying" id="{$data.id}">{$data.title_en}</span>
+                        </td >
+                        <td style="text-align: center;vertical-align: middle;">
+                            <img src="{$data.img}" style="width:80px;height:80px">
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">{:date('Y-m-d H:i:s',$data.time)}</td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {if $data.type == 1}
+                                新闻
+                            {else /}
+                                企业活动
+                            {/if}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {if $data.status == 1}
+                                <a href="#" id="{$data.id}" class="kai">开启</a>
+                            {else /}
+                                <a href="#" id="{$data.id}" class="jin">禁止</a>
+                            {/if}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            <a href="#" id="{$data.id}" class="delete">删除</a> | <a href="{:url('News/update',['id'=>$data.id])}" class="update">修改</a>
+                        </td>
+
+                    </tr>
+                    {/volist}
+                </table>
+            </div>
+                <div style="text-align: center">{$news|raw}</div>
+        </div>
+
+        <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+
+    <script>
+
+	//删除
+        $(".delete").click(function(){
+            var id = $(this).attr('id');
+            layer.confirm('您确定要删除该篇文章吗？', {
+                btn: ['是','否'] //按钮
+            }, function(){
+                $.ajax({
+                    type: "post",
+                    url: "{:url('News/delete')}",
+                    data: {
+                        id:id,
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == 1) {
+                            layer.msg(data.msg);
+                            setTimeout(function(){
+                                window.location.reload();//刷新当前页面.
+                            },1500)
+                        }
+                    }
+                })
+            }, function(){
+            });
+        })
+
+          //状态更改
+        $(".kai").click(function(){
+            var id = $(this).attr('id');
+            $(this).replaceWith("<a href='#' id='{$data.id}' class='jin'>禁止</a>")
+            $.ajax({
+                type: "post",
+                url: "{:url('News/status_update')}",
+                data: {
+                    id:id,
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == 1) {
+                        layer.msg(data.msg);
+                        setTimeout(function(){
+                            window.location.reload();//刷新当前页面.
+                        },1000)
+                    }
+
+                }
+            })
+        })
+
+        $(".jin").click(function(){
+            var id = $(this).attr('id');
+            $(this).replaceWith("<a href='#' id='{$data.id}' class='kai'>开启</a>")
+            $.ajax({
+                type: "post",
+                url: "{:url('News/status_update')}",
+                data: {
+                    id:id,
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == 1) {
+                        layer.msg(data.msg);
+                        setTimeout(function(){
+                            window.location.reload();//刷新当前页面.
+                        },1000)
+                    }
+
+                }
+            })
+        })
+
+        //点击标题编辑(中)
+        $(".zhong").click(function(){
+            var td=$(this); //为后面文本框变成文本铺垫
+            var id = $(this).attr('id')
+            var text=$(this).text();
+            var input=$("<input type='text' id='"+id+"' value='"+text+"' class='zhong'>");
+            $(this).replaceWith( input );
+            $('input').click(function(){
+                return false;
+            }); //阻止表单默认点击行为
+            $('input').select(); //点击自动全选中表单的内容
+            $('input').blur(function(){
+                var nextxt=$(this).val();
+                td.html(nextxt);
+                $.ajax({
+                    type: "post",
+                    url: "{:url('News/title_update_zhong')}",
+                    data: {
+                        id:id,
+                        nextxt:nextxt,
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == 1) {
+                            layer.msg(data.msg);
+                            setTimeout(function(){
+                                window.location.reload();//刷新当前页面.
+                            },1000)
+                        }else{
+                            layer.msg(data.msg);
+                            setTimeout(function(){
+                                window.location.reload();//刷新当前页面.
+                            },1000)
+                        }
+                    }
+                })
+            }); //表单失去焦点文本框变成文本
+        })
+
+        //点击标题编辑(英)
+        $(".ying").click(function(){
+            var td=$(this); //为后面文本框变成文本铺垫
+            var text=$(this).text();
+            var id =$(this).attr('id');
+            var input=$("<input type='text' id='"+ id + "' value='" + text + "' class='ying'>");
+            $(this).replaceWith( input );
+            //alert(id);exit;
+            $('input').click(function(){
+                return false;
+            }); //阻止表单默认点击行为
+            $('input').select(); //点击自动全选中表单的内容
+            $('input').blur(function(){
+                var nextxt=$(this).val();
+                //alert(id);exit;
+                td.html(nextxt);
+                $.ajax({
+                    type: "post",
+                    url: "{:url('News/title_update_ying')}",
+                    data: {
+                        id:id,
+                        nextxt:nextxt,
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == 1) {
+                            layer.msg(data.msg);
+                            setTimeout(function(){
+                                window.location.reload();//刷新当前页面.
+                            },1000)
+                        }else{
+                            layer.msg(data.msg);
+                            setTimeout(function(){
+                                window.location.reload();//刷新当前页面.
+                            },1000)
+                        }
+                    }
+                })
+            }); //表单失去焦点文本框变成文本
+        })
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!--头部引入-->
+{include file="common:top"}
+{if Cookie::get('think_var')=='en_us'}
+<script type="text/javascript">
+  $("#menu_div a:contains('Jean Leray Culture ')").attr("id","redcolor");
+</script>
+{else/}
+<script type="text/javascript">
+  $("#menu_div a:contains('让雷文化')").attr("id","redcolor");
+</script>
+{/if}
+
+    <div id="middle_part">
+        <div class="content news-content">
+            <div class="fyy-section">
+                <div class="inner-tit"><img src="/static/picture/3971516d5e.png" alt=""></div>
+                <div class="inner-cnt">
+
+                    <div class="news-theme">
+                      <h6></h6>
+                      <p><br><a href="news-list-qywhhd.html" target="_self" title="企业文化">
+                        <img src="/static/picture/89111496644940180.png"></a></p>
+                    </div>
+
+                    <div class="news-detail">
+                        <h4>{$new.time_d}<p><span class="englishtime">{$new.time_m}</span><em>{$new.time_year}</em></p></h4>
+                        <div class="news-detail-info">
+                            <div class="news-detail-top">
+                              <h5>{$new.title}</h5>
+                            </div>
+                            <div class="news-detail-cnt">
+                                {$new.content|raw}
+                                <p><br></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+
+    <script>
+        $(function() {
+            $("#indexNews").width($(this).find("li").width() * 308);
+        });
+        $(".englishtime").each(function() {
+            //alert(1);exit;
+            if ($(this).text()=="01") {
+                $(this).text("Jan")
+            }
+            if ($(this).text()=="02") {
+                $(this).text("Feb")
+            }
+            if ($(this).text()=="03") {
+                $(this).text("Mar")
+            }
+            if ($(this).text()=="04") {
+                $(this).text("Apr")
+            }
+            if ($(this).text()=="05") {
+                $(this).text("May")
+            }
+            if ($(this).text()=="06") {
+                $(this).text("Jun")
+            }
+            if ($(this).text()=="07") {
+                $(this).text("Jul")
+            }
+            if ($(this).text()=="08") {
+                $(this).text("Aug")
+            }
+            if ($(this).text()=="09") {
+                $(this).text("Sept")
+            }
+            if ($(this).text()=="10") {
+                $(this).text("Oct")
+            }
+            if ($(this).text()=="11") {
+                $(this).text("Nov")
+            }
+            if ($(this).text()=="12") {
+                $(this).text("Dec")
+            }
+        })
+    </script>
+  </div>
+
+{include file="common:foot"}
+</div>
+<div class="back-top">
+	<a id="backTop"></a>
+</div>
+
+</body>
+
+</html>

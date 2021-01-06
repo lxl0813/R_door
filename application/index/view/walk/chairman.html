@@ -1,0 +1,62 @@
+
+	<!--头部引入-->
+	{include file="common:top"}
+	{if Cookie::get('think_var')=='en_us'}
+	<script type="text/javascript">
+		$("#menu_div a:contains('About Jean Leray')").attr("id","redcolor");
+	</script>
+	{else}
+	<script type="text/javascript">
+		$("#menu_div a:contains('走进让雷')").attr("id","redcolor");
+	</script>
+	{/if}
+	<div id="middle_part">
+		<div class="banner about-banner"></div>
+
+		<div class="content about-content">
+			<div class="fyy-section">
+				<div class="inner-tit">  <img src="/static/picture/7b0ea55bbb.png" alt=""><i></i></div>
+				<div class="inner-cnt">
+					<!--走进中间公共部分引入-->
+					{include file="common:walk_public"}
+					<!--inner-detail S-->
+					<div class="inner-detail">
+						<div>
+							<!--<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;margin-top:0px;margin-bottom:0px;">​<img src="/static/picture/1520476778498.jpg" width="100%" style="padding:0px;border:0px;vertical-align:middle;display:block;color:#555555;font-size:13px;line-height:19.5px" data_ue_src="/uploadfile/55/1520476778498.jpg"></p>-->
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;margin-top:0px;margin-bottom:0px;"><br></p>
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;margin-top:0px;margin-bottom:0px;"> </p>
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;margin-top:0px;margin-bottom:0px;">{:lang('五载星辰修为，上海让雷智能科技有限公司实现了从无到有、由小趋大、自弱渐强的腾跃，成就了今天的事业。笃学不倦、殚思竭虑、精诚求实是我们企业追求基业长青的真实写照。我们以“价值、合作、快乐”为核心价值观，努力把上海让雷智能科技有限公司打造成为成就事业的平台、锻造成长的熔炉和快乐生活的家园。')}</p>
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;margin-top:0px;margin-bottom:0px;"> </p>
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;margin-top:0px;margin-bottom:0px;">{:lang('我们秉持高尚的义利观，待人以坦诚之心，经营以君子之道，以强烈的社会责任感树立良好的企业形象。')}</p>
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;margin-top:0px;margin-bottom:0px;"> </p>
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;margin-top:0px;margin-bottom:0px;">{:lang('在新的发展时期， 上海让雷智能科技有限公司将更加着力提升企业自身境界，以更博大的胸襟、更真挚的情怀、更诚实的品行稳健发展，以促进经济资源的有效配置、持续创造价值为企业的最高使命，力求成为推动经济发展和社会进步的积极力量。')}</p>
+							<p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;margin-top:0px;margin-bottom:0px;"> </p><p style="padding:0px;font-size:14px;line-height:24px;color:#666666;font-family:微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体;background-color:#ffffff;text-indent:28px;text-align:right !important;margin-top:0px;margin-bottom:0px;">{:lang('上海让雷智能科技有限公司')}<br>COO:{:lang('张丽霞')}</p>
+							<p><br></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{if Cookie::get('think_var')=='en_us'}
+	<script>
+		$(".inner-menu li a:contains(Chairman's Speech)").attr("id","redcolor");
+		$("#menu_div a:contains(Chairman's Speech)").attr("id","redcolor");
+	</script>
+	{else}
+	<script>
+		$(".inner-menu li a:contains('董事长致词')").attr("id","redcolor");
+		$("#menu_div a:contains('董事长致词')").attr("id","redcolor");
+	</script>
+	{/if}
+
+	{include file="common:foot"}
+</div>
+<div class="back-top">
+	<a id="backTop"></a>
+</div>
+
+
+</body>
+
+</html>

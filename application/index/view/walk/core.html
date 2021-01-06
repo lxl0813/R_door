@@ -1,0 +1,58 @@
+	<!--头部引入-->
+	{include file="common:top"}
+	{if Cookie::get('think_var')=='en_us'}
+	<script type="text/javascript">
+		$("#menu_div a:contains('About Jean Leray')").attr("id","redcolor");
+	</script>
+	{else}
+	<script type="text/javascript">
+		$("#menu_div a:contains('走进让雷')").attr("id","redcolor");
+	</script>
+	{/if}
+	<div id="middle_part">
+		<div class="banner about-banner"></div>
+		<div class="content about-content">
+			<div class="fyy-section">
+				<div class="inner-tit">  <img src="/static/picture/7b0ea55bbb.png" alt=""><i></i></div>
+				<div class="inner-cnt">
+					<!--走进中间公共部分引入-->
+					{include file="common:walk_public"}
+					<!--inner-detail S-->
+					<div class="inner-detail">
+						<div>
+							<p style="line-height:27px;background:white">
+								<span style="font-size:15px;font-family:微软雅黑, sans-serif;color:#666666">{:lang('上海让雷智能科技有限公司将以“价值、合作、快乐”为核心价值观。')}<span>
+								<br>
+								</span>{:lang('引领企业进行持续、深入、系统的变革，以推行企业战略，达成企业愿景，并最终实现企业使命。')}</span>
+							</p>
+							<p style="margin:56px 0cm 11px;background:white"><strong><span style="font-size:36px;font-family:微软雅黑, sans-serif;color:#195BBE">{:lang('价值')}</span></strong></p>
+							<p style="margin:56px 0cm 11px;background:white"><span style="font-size:15px;font-family:微软雅黑, sans-serif;color:#666666">{:lang('我们秉承价值投资和价值管理的经营理念，致力于为股东创造价值，为社会创造价值，为员工创造价值。')}</span></p>
+							<p style="margin:56px 0cm 11px;background:white"><strong><span style="font-size:36px;font-family:微软雅黑, sans-serif;color:#195BBE">{:lang('合作')}</span></strong></p>
+							<p style="margin:56px 0cm 11px;background:white"><span style="font-size:15px;font-family:微软雅黑, sans-serif;color:#666666">{:lang('我们与商业伙伴合作共赢，共同发展，我们努力营造合作、团结的内部环境，相互支持、相互助力，共同创造价值。')}</span></p>
+							<p style="margin:56px 0cm 11px;background:white"><strong><span style="font-size:36px;font-family:微软雅黑, sans-serif;color:#195BBE">{:lang('快乐')}</span></strong></p>
+							<p style="margin:56px 0cm 11px;background:white"><span style="font-size:15px;font-family:微软雅黑, sans-serif;color:#666666">{:lang('我们倡导快乐工作、快乐生活，即使面对挫折，同样积极、乐观，并将快乐的正能量传递给身边的每一个人。')}</span></p>
+							<p style="margin:6px 0cm"></p><p style="line-height:27px;background:white"></p><p style="line-height:27px;background:white"></p><p style="line-height:27px;background:white"></p><p></p><p><br></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{if Cookie::get('think_var')=='en_us'}
+	<script>
+		$(".inner-menu li a:contains('Core Values')").attr("id","redcolor");
+		$("#menu_div a:contains('Core Values')").attr("id","redcolor");
+	</script>
+	{else}
+	<script>
+		$(".inner-menu li a:contains('核心价值观')").attr("id","redcolor");
+		$("#menu_div a:contains('核心价值观')").attr("id","redcolor");
+	</script>
+	{/if}
+	{include file="common:foot"}
+</div>
+<div class="back-top">
+	<a id="backTop"></a>
+</div>
+</body>
+</html>

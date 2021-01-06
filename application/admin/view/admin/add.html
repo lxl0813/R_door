@@ -1,0 +1,120 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <!--引入bootstrop-->
+    {include file="pub:bootstrop"}
+
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain">
+        <div id="urHere"><b>上海让雷智能科技有限公司--权限中心--添加</b></div>
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+            <form>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">管理员名称</span>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="管理员真实姓名" aria-describedby="basic-addon1">
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">管理员号码</span>
+                    <input type="text" id="phone" name="phone" class="form-control" placeholder="管理员手机号码" aria-describedby="basic-addon1">
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">管理员身份</span>
+                    <input type="text" id="sfen" name="sfen" class="form-control" placeholder="例如：XXX（功能模块）管理员" aria-describedby="basic-addon1">
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">管理员账号</span>
+                    <input type="text" id="admins" name="admins" class="form-control" placeholder="请输入管理员账号" aria-describedby="basic-addon1">
+                </div>
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">管理员密码</span>
+                    <input type="password" id="pwd" name="pwd" class="form-control" placeholder="请输入管理员密码" aria-describedby="basic-addon1">
+                </div>
+                <div style="height:10px"></div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">请确认密码</span>
+                    <input type="password" id="repwd"  name="re_pwd" class="form-control" placeholder="请确认管理员密码" aria-describedby="basic-addon1">
+                </div>
+
+                <div style="height:10px"></div>
+            </form>
+            <div style="text-align: center;margin-top:10px">
+                <input type="submit" id="submit" class="btn btn-info"  value="提交">
+            </div>
+        </div>
+    </div>
+    <!--引入尾部-->
+    {include file="pub:foot"}
+</div>
+
+<script>
+
+    $("#repwd").blur(function(){
+        var pwd = $("#pwd").val().trim();
+        if(pwd ==""){
+            layer.msg('请输入密码');
+        }else{
+            if($(this).val().trim()!=pwd){
+                layer.msg('密码不一致');
+            }
+        }
+    })
+
+    $("#submit").click(function(){
+        var name = $("#name").val().trim();
+        var phone = $("#phone").val().trim();
+        var sfen  = $("#sfen").val().trim();
+        var admin = $("#admins").val().trim();
+        var pwd   = $("#pwd").val().trim();
+        $.ajax({
+            type:"POST",
+            url:"{:url('Admin/add')}",
+            data:{
+                name:name,
+                sfen:sfen,
+                admin:admin,
+                phone:phone,
+                pwd:pwd,
+            },
+            dataType:"json",
+            success:function(result){
+                if(result.state == 1){
+                    layer.msg(result.msg);
+                }else{
+                    layer.msg(result.msg);
+                }
+            }
+        });
+
+    })
+
+
+
+</script>
+</body>
+</html>

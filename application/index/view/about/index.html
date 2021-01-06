@@ -1,0 +1,189 @@
+<!--头部引入-->
+{include file="common:top"}
+{include file="common:bootstrop"}
+<script src="/huadong/Sliding_Validation_Gu.js" type="text/javascript" charset="utf-8"></script>
+{if Cookie::get('think_var')=='en_us'}
+    <script type="text/javascript">
+        $("#menu_div a:contains('Contact Us')").attr("id","redcolor");
+    </script>
+{else/}
+<script type="text/javascript">
+    $("#menu_div a:contains('联系我们')").attr("id","redcolor");
+</script>
+{/if}
+
+<div id="middle_part">
+    <div class="banner contact-banner"></div>
+    <div class="content contact-content">
+        <div class="fyy-section">
+            <div class="inner-tit"> <img src="/static/picture/119f206497.png" alt=""></div>
+            <div class="inner-cnt">
+                <div style="margin: 0px; padding: 0px; outline: 0px; color: rgb(85, 85, 85); line-height: 19.5px; font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; font-size: 13px; white-space: normal;" class="contact-img">
+                    <img src="/static/image/ranglei.png" width="1170px" height="400px"></div>
+                <div style="margin: 0px; padding: 0px; outline: 0px; color: rgb(85, 85, 85); line-height: 19.5px; overflow: hidden; font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; font-size: 13px; white-space: normal;" class="contact-main">
+                    <!--高德地图容器-->
+                    <div id="container" style="position:relative; outline: 0px; width: 700px;height:370px; float: right;" class="contact-map">
+                        <!--高德地图-->
+                        <script>
+                            var zj_title;
+                            var zj_tel;
+                            var zj_address;
+                            var zj_zuobiao;
+                            var lzuobiao;
+                            var rzuobiao;
+                            zj_title = "上海让雷智能科技有限公司";
+                            zj_tel = "电　话：021-61833519";
+                            zj_address = "地　址：上海市青浦区虹桥世界中心L2-B幢503室";
+                            zj_zuobiao = "121.3060400000,31.1839110000";
+                                lzuobiao = zj_zuobiao.split(",")[0];
+                                rzuobiao = zj_zuobiao.split(",")[1];
+                                var map = new AMap.Map("container",{
+                                    resizeEnable:true,
+                                    center: [lzuobiao, rzuobiao]
+                                });
+                                var marker = new AMap.Marker({
+                                    map:map,
+                                    position: [lzuobiao, rzuobiao]
+                                });
+                                function createInfowindow(c_title,c_tel,c_address){
+                                    var info = document.createElement("div");
+                                    info.className = "info";
+                                    var con_title = document.createElement("div");
+                                    con_title.className = "titleClass";
+                                    con_title.innerHTML = c_title;
+                                    var con_tel = document.createElement("div");
+                                    con_tel.className = "telClass";
+                                    con_tel.innerHTML = c_tel;
+                                    var con_address = document.createElement("div");
+                                    con_address.className = "addressClass";
+                                    con_address.innerHTML = c_address;
+                                    info.appendChild(con_title);
+                                    info.appendChild(con_tel);
+                                    info.appendChild(con_address);
+                                    return info;
+                                }
+                                var infoWindow = new AMap.InfoWindow({
+                                    isCustom:false,
+                                    content: createInfowindow(zj_title,zj_tel,zj_address),
+                                    offset:new AMap.Pixel(16, -45) //偏移量
+                                });
+                                AMap.event.addListener(marker,'click',function(){ //监听点标记的点击事件
+                                    infoWindow.open(map,marker.getPosition()); //信息窗体打开
+                                });
+                        </script>
+                    </div>
+                    <div style="margin: 0px 645px 0px 0px; padding: 0px 0px 0px 10px; outline: 0px;" class="contact-main-i">
+                        <h5 style="margin: 0px; padding: 0px; font-size: 20px;">{:lang('上海让雷智能科技有限公司')}</h5>
+                        <p><br></p>
+                        <p style="padding: 0px; line-height: 24px; margin-top: 0px; margin-bottom: 0px;">{:lang('电　话：021-61833519')}<br><!--传　真：021-62095972<br>-->{:lang('邮　编：200120')}<br>{:lang('地　址：上海市青浦区虹桥世界中心L2-B幢503室')}<br>{:lang('邮　箱：Fob.fibre@shdbr.com')}</p>
+                        <h6 style="margin: 30px 0px 15px; padding: 0px; font-size: 13px;">{:lang('扫描二维码关注上海让雷智能科技有限公司公众号')}</h6>
+                        <p style="padding: 0px; line-height: 24px; margin-top: 0px; margin-bottom: 0px;"><img style="width:140px;margin: 0px; padding: 0px; border: 0px currentColor; vertical-align: middle;" src="/static/image/erweima.jpg"> &nbsp; &nbsp; &nbsp; &nbsp;</p>
+                    </div>
+                </div>
+                <div style="margin: 40px 0px 0px; padding: 70px 10px 30px; outline: 0px; line-height: 19.5px; font-family: 微软雅黑, 宋体, tahoma, arial, sans-serif, 宋体; font-size: 13px; border-top-color: rgb(221, 221, 221); border-top-width: 1px; border-top-style: solid; white-space: normal;" class="contact-row">
+                    <div style="width:700px;margin: auto">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">{:lang('昵称')}</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="name" placeholder="{:lang('昵称')}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">{:lang('联系方式')}</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="phone" placeholder="{:lang('邮箱或者手机号码')}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">{:lang('留言')}</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="3" id="content" placeholder="{:lang('请填写您的留言内容')}"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group" id="sid" style="display: none">
+                                <label for="inputPassword3" class="col-sm-2 control-label">{:lang('安全验证')}</label>
+                                <div class="col-sm-10" id="huadong" name="1" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <a href="javascript:return false;" id="submit" class="btn btn-info">{:lang('提交')}</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="common:foot"}
+<div class="back-top">
+	<a id="backTop"></a>
+</div>
+<script src="/layer/layer.js"></script>
+<script type="text/javascript">
+    var sliding_validation = SlidingValidation.create($("#huadong"),{},function(){});
+</script>
+
+<script>
+    $("#content").blur(function(){
+        var name = $("#name").val();
+        var phone = $("#phone").val();
+        var content =$(this).val();
+        if(name == ""){
+            layer.msg('请填写昵称');
+        }else if(phone == ""){
+            layer.msg('请填写联系方式');
+        }else if(content == "") {
+            layer.msg('请填写留言正文');
+        }else{
+            $("#sid").css('display','block')
+        }
+    })
+</script>
+
+<script>
+    $("#submit").click(function(){
+        //alert(1);exit;
+        var name    =  $("#name").val();
+        var phone   =  $("#phone").val();
+        var content =  $("#content").val();
+        var code    =  $("#huadong").attr('name');
+        if(code==1){
+            layer.msg('请进行安全验证');
+        }else if(name == ""){
+            layer.msg('请填写昵称');
+        }else if(phone == ""){
+            layer.msg('请填写联系号码');
+        }else if(content == ""){
+            layer.msg('请填写留言正文');
+        }else{
+            $.ajax({
+                type: "post",
+                url: "{:url('About/book')}",
+                data: {
+                    name:name,
+                    phone:phone,
+                    content:content
+                },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    if (data.status == 1) {
+                        layer.msg(data.msg);
+                        setTimeout(function(){//两秒后跳转
+                            location.href = "{:url('About/index')}";
+                        },2000);
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            })
+        }
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!-- dcHead 结束 -->
+<div id="dcLeft">
+    <div id="menu">
+        <ul class="top">
+            <li><a href="{:url('Index/index')}"><i class="home"></i><em>后台首页</em></a></li>
+        </ul>
+        {volist name="menu" id="data"}
+        <ul class="top">
+            <li><a href="{:url($data.url)}"><em>&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;{$data.node}</em></a></li>
+        </ul>
+        {/volist}
+
+	<ul class="top">
+                <li><a href="http://www.chinafibermarketing.net:8003/index.php/admin/login/index.html"><em>&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;题库管理</em></a></li>
+            </ul>
+
+    </div>
+</div>

@@ -1,0 +1,109 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+    <style type="text/css">
+        .form-group{
+            height:50px
+        }
+        .col-sm-10 {
+            margin-top: 6px;
+        }
+        th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--客户营销系统--客户询单详情页</b></div>
+        <div style="height: 50px"></div>
+        <a href="javascript:window.history.back(-1)" target="_self" style="margin-left: 20px"><img src="/static/picture/go.png" title="返回上一页" style="height:20px"></a>
+        <!--  询单基本信息   -->
+        <div style="margin: auto">
+            <h2 style="text-align: center">采购商信息</h2>
+            <table class="table">
+                <tr>
+                    <th>采购商名称：{$purchaser.purchaser_name}</th>
+                    <th>
+                        采购商类型：
+                        {if $purchaser.type==1}
+                        化纤采购商
+                        {else}
+                        无纺采购商
+                        {/if}
+                    </th>
+                    <th>采购商联系人：{$purchaser.contact_name}</th>
+                    <th>联系人电话：{$purchaser.contact_phone}</th>
+
+                </tr>
+                <tr>
+                    <th>联系人微信：{$purchaser.contact_wx}</th>
+                    <th>采购商地址：{$purchaser.purchaser_address}</th>
+                    <th>邮箱：{$purchaser.email}</th>
+                    <th></th>
+                </tr>
+            </table>
+            <div style="height: 30px"></div>
+
+            <h2 style="text-align: center">采购商询单列表</h2>
+
+
+            <div>
+                <table class="table">
+                    {if $purchaser.enquiry}
+                        {volist name="purchaser.enquiry" id="data"}
+                        <tr >
+                            <th>询单编号：{$data.enquiry_sn}</th>
+                            <th>产品名称：{$data.product_name}</th>
+                            <th>询单时间：{$data.enquiry_time}</th>
+                            <th>
+                                <a href="{:url('Customer/purchaser_enquiry_see',['enquiry_id'=>$data.id])}">
+                                    <svg t="1594604477602" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="846" width="16" height="16"><path d="M921.3 874L738.1 690.8c51.3-62.6 82.1-142.5 82.1-229.6 0-200.1-162.8-363-363-363-200.1 0-363 162.8-363 363s162.8 363 363 363c87 0 167-30.8 229.6-82.1L870 925.3c7.1 7.1 16.4 10.6 25.7 10.6s18.6-3.5 25.7-10.6c14.1-14.2 14.1-37.2-0.1-51.3zM166.8 461.2c0-160.1 130.3-290.4 290.4-290.4s290.4 130.3 290.4 290.4-130.3 290.4-290.4 290.4-290.4-130.3-290.4-290.4z" p-id="847"></path></svg>
+                                </a>
+                            </th>
+                        </tr>
+                        {/volist}
+                    {else}
+                        <tr>
+                            <th>该采购商暂未产生询单记录！</th>
+                        </tr>
+                    {/if}
+
+                </table>
+                <div style="text-align: center">
+                    {if $purchaser.enquiry}
+                        {$purchaser.enquiry|raw}
+                    {else}
+                    {/if}
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+        <!--引入尾部-->
+        <div style="height: 50px"></div>
+        {include file="pub:foot"}
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>让雷--门户网站后台管理</title>
+<meta name="Copyright" content="Douco Design." />
+<link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+<script type="text/javascript" src="/admin/js/global.js"></script>
+{include file="pub:bootstrop"}
+</head>
+<body>
+    <div id="dcWrap">
+        <!--顶部-->
+        {include file="pub:top"}
+        <!--左侧部分-->
+        {include file="pub:left"}
+        <!--中间部分-->
+        <div id="dcMain"> <!-- 当前位置 -->
+            <div id="urHere"><b>上海让雷智能科技有限公司--管理中心</b></div>
+            <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:750px;">
+                <div style="text-align: center"><b><font size="6" color="red">亲爱的管理员您好！</font></b></div>
+                <div style="text-align: center"><b><font size="6" color="red">欢迎进入上海让雷智能科技有限公司的管理后台！</font></b></div>
+            </div>
+        </div>
+        <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+
+    <script>
+        $(function(){
+            $('.sys').click(function(){　　//点击a标签
+
+                if($(this).children('li').is(':hidden')){　　//如果当前隐藏
+                    $(this).children('li').show();　　//那么就显示div
+                }else{　　//否则
+                    $(this).children('li').hide();　　//就隐藏div
+                }
+            })
+        })
+    </script>
+
+</body>
+</html>

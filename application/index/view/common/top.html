@@ -1,0 +1,66 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>上海让雷智能科技有限公司</title>
+    <style>
+        /*分页*/
+        .pagination {}
+        .pagination li {display: inline-block;margin-right:0px;padding:5px;border:1px solid #e2e2e2;min-width:25px;text-align:center;}
+        .pagination li.active{background:#314c98;color:#fff;border:2px solid #314c98;}
+        .pagination li a {display: block;text-align: center;}
+    </style>
+    {if Cookie::get('think_var')=='en_us'}
+        <link rel="stylesheet" href="/static/css/pc1.css">
+    {else/}
+        <link rel="stylesheet" href="/static/css/pc.css">
+    {/if}
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    {if Cookie::get('think_var')=='en_us'}
+        <script type="text/javascript" src="/static/js/view1.js"></script>
+    {else}
+        <script type="text/javascript" src="/static/js/view.js"></script>
+    {/if}
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/main1119.css">
+    <script src="/static/js/es5.min.js"></script>
+    <script src="/static/js/maps-1.4.0_keyE580BC_AMap.MouseT.js"></script>
+</head>
+
+<div id="header">
+    <div class="header-box">
+        <a id="logo" href="{:url('Index/index')}"></a>
+        <div class="header-icos"><em id="showQrCode"></em>
+            {if Cookie::get('think_var')== 'en_us'}
+                <a href="javascript:;" id="icoCh" lang="zh" class="change"></a>
+            {else/}
+                <a href="javascript:;" id="icoEn" lang="en" class="change"></a>
+            {/if}
+        </div>
+        <div class="header-qrcode" id="qrCode"></div>
+        <div class="header-mob-nav" id="mobNav"></div>
+        <p class="nav" id="menu_div">
+            <a href="{:url('Index/index')}" class="red111">{:lang('首页')}</a>
+            <a href="{:url('Walk/index')}">{:lang('走进让雷')}</a>
+            <a href="{:url('News/index')}">{:lang('新闻中心')}</a>
+            <a href="{:url('Industry/index')}" >{:lang('让雷产业')}</a>
+            <a href="{:url('Culture/index')}" >{:lang('让雷文化')}</a>
+            <a href="{:url('Join/index')}" >{:lang('加入让雷')}</a>
+            <a href="{:url('About/index')}">{:lang('联系我们')}</a>
+            <a href="{:url('Member/index')}">{:lang('公司报表')}</a>
+            <a href="{:url('Devops/index')}">{:lang('运维看板')}</a>
+            <a href="http://www.chinafibermarketing.net:8003/">{:lang('题库')}</a>
+            {if Cookie::get('think_var')=='en_us'}
+                <a href="" class="mob-ico">Ch</a>
+            {else/}
+                <a href="" class="mob-ico">En</a>
+            {/if}
+        </div>
+    </div>
+</div>
+<script>
+    $('.change').click(function(){
+        var data={'lang':$(this).attr('lang')};
+        $.get("{:url('Lang/changeLang')}",data,function(){
+            location.reload();
+        })
+    })
+
+</script>

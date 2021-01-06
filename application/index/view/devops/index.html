@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>运维看板</title>
+    <link rel="stylesheet" href="/static/css/rundata.css">
+
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 引入 ECharts 文件 -->
+    <script src="/static/js/echarts.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- 头部区域 -->
+        <div class="phpHeader"></div>
+        <!-- 中间区域 -->
+        <div class="TopWrapper">
+            <!-- 中间左侧 平坦访问量等 -->
+            <div class="topLf">
+                <!-- 上 -->
+                <div class="topLftop">
+                    <div class="topLftopItem padd">
+                        <div class="topLftopItemLt">
+                            <div>
+                                <img src="/devops_imgs/logo1 (1).png" alt="" />
+                            </div>
+                            <div class="pItemLtTxt">
+                                <div >今日访问总量</div>
+                                <div style="color:#88F066" id="todayVisitNums">{$num.todayVisitNums}</div>
+                            </div>
+                        </div>
+                        <div style="width: 94px; height: 80px">
+                            <img src="/devops_imgs/logo11 (1).png" alt="" />
+                        </div>
+                    </div>
+                    <div class="topLftopItem padd">
+                        <div class="topLftopItemLt">
+                            <div>
+                                <img src="/devops_imgs/logo2 (1).png" alt="" />
+                            </div>
+                            <div class="pItemLtTxt">
+                                <div >比昨日新增</div>
+                                <div style="color:#1CB1FB" id="yesNewAdd">{$num.yesNewAdd}</div>
+                            </div>
+                        </div>
+                        <div style="width: 94px; height: 80px">
+                            <img src="/devops_imgs/logo22.png" alt="" />
+                        </div>
+                    </div>
+                    <div class="topLftopItem padd">
+                        <div class="topLftopItemLt">
+                            <div>
+                                <img src="/devops_imgs/logo2 (1).png" alt="" />
+                            </div>
+                            <div class="pItemLtTxt">
+                                <div >历史访问总量</div>
+                                <div style="color:#E79606" id="historyNum">{$num.historyNum}</div>
+                            </div>
+                        </div>
+                        <div style="width: 94px; height: 80px">
+                            <img src="/devops_imgs/logo22.png" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <!-- 下 -->
+                <div class="topLfbottom padd">
+                    <p class="commonTit">
+                        <span></span>
+                        平台访问量
+                    </p>
+                    <div class="tableBox" id="tableBox">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="fz" style="display: flex;justify-content: flex-start;align-items: center;">
+                                        <span class="circle"></span>数据来源
+                                    </th>
+                                    {foreach devops_data as $key=>$item}
+                                        <th class="fz">{$item.data_name}</th>
+                                    {/foreach}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fz" style="display: flex;justify-content: flex-start;align-items: center;">
+                                        <span class="circle"></span>今日访问量
+                                    </td>
+                                    {foreach devops_data as $key=>$item}
+                                        <td style="color:#88F066">{$item.data_value}</td>
+                                    {/foreach}
+                                </tr>
+                                <tr>
+                                    <td class="fz" style="display: flex;justify-content: flex-start;align-items: center;">
+                                        <span class="circle"></span>历史访问量
+                                    </td>
+                                    {foreach devops_data as $key=>$item}
+                                        <td style="color:#E79606">{$item.history_num}</td>
+                                    {/foreach}
+                                </tr>
+                                <tr>
+                                    <td class="fz" style="display: flex;justify-content: flex-start;align-items: center;">
+                                        <span class="circle"></span>比昨日新增量
+                                    </td>
+                                    {foreach devops_data as $key=>$item}
+                                        <td style="color:#1CB1FB">{$item.difference}</td>
+                                    {/foreach}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- 中间右侧历史累计访问量 -->
+            <!-- 上右侧区域 -->
+            <div class="topRt padd">
+                <p class="commonTit">
+                    <span></span>
+                    历史累计访问量
+                </p>
+                <div>
+                    <div id="main" style="width:360px; height: 470px"></div>
+                </div>
+            </div>
+        </div>
+        <!-- 底部echarts图区域 -->
+        <div class="BomWrapper">
+            <div class="BomItemL padd">
+                <p class="commonTit">
+                    <span></span>
+                    数据统计
+                </p>
+                <div>
+                    <div id="main2" style="width:900px; height: 380px"></div>
+                </div>
+            </div>
+            <div class="BomItemR padd">
+                <p class="commonTit">
+                    <span></span>
+                    近30天访问量
+                </p>
+                <div>
+                    <div id="main3" style="width:1000px; height: 380px"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(function(){
+            window.location.reload();//刷新当前页面.
+        },60*60*1000)
+    </script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.ajax({
+            type:"POST",
+            url:"{:url('Devops/ajax_data')}",
+            data:{},
+            dataType:"json",
+            success:function(data){
+                history(data.history_visit_num);
+                data_detail(data.data_detail);
+                near(data.near_future_data);
+            }
+        })
+    })
+
+    function history(history_visit_num){
+        // ========================= 历史累计访问量 ==============================
+        var myChart = echarts.init(document.getElementById("main"));//初始化
+        var y = history_visit_num.title
+        var x = history_visit_num.num
+        let option = {
+            grid: {
+                left: '1%',
+                right: '8%',
+                bottom: '2%',
+                containLabel: true
+            },
+            xAxis: {
+                type: "value",
+                data: ["0", '2000', "5000", '8000', "10000", '12000', "15000", '18000', "20000"],
+                //   x轴字体颜色
+                // axisLine: {
+                //     lineStyle: {
+                //         color: "#fff",
+                //     },
+                // },
+                axisTick: {
+                    show: false, //隐藏刻度线
+                },
+                // x轴轴线颜色和字体颜色
+                axisLine: {
+                    lineStyle: {
+                        type: 'solid',
+                        color: '#00609B',
+                        width: '1'
+                    }
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                //设置网格线颜色
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: ['#315070'],
+                        width: 1,
+                        type: 'solid'
+                    }
+                }
+                // boundaryGap: [0, 0.01],
+            },
+            yAxis: {
+                type: "category",
+                // splitLine: { show: false }, //去除网格线
+                //   y轴字体颜色
+                // axisLine: {
+                //     lineStyle: {
+                //         color: "#fff",
+                //     },
+                // },
+                axisTick: {
+                    show: false, //隐藏刻度线
+                },
+                // y轴轴线颜色和字体颜色
+                axisLine: {
+                    lineStyle: {
+                        type: 'solid',
+                        color: '#00609B',
+                        width: '1'
+                    }
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                data:y,
+            },
+            series: [
+                {
+                    barWidth: "70%",
+                    itemStyle: {
+                        normal: {
+                            // barBorderRadius: [10, 10, 0, 0], // 设置柱状图圆角
+                            label: {
+                                show: true, //开启显示
+                                position: 'right', //在上方显示
+                                textStyle: { //数值样式
+                                    color: '#fff',
+                                    fontSize: 10
+                                },
+                            },
+                            //右，下，左，上（0，0，0，1）表示从正右开始向左渐变
+                            color: function (params) {
+                                var colorList = [
+                                    ["#594BE3", "#8D98F0"],
+                                    ["#4E93F9", "#021FCA"],
+                                    ["#15EFE6", "#60BBFF"],
+                                    ["#E48A2A", "#FCD299"],
+                                    ["#D23C92", "#FA971F"],
+                                    ["#4E93F9", "#021FCA"],
+                                    ["#594BE3", "#8D98F0"],
+                                    ["#10AC7E", "#76EBAF"],
+                                    ["#00FCFF", "#28B1FF"],
+                                ];
+                                var colorItem = colorList[params.dataIndex];
+                                return new echarts.graphic.LinearGradient(
+                                    0,
+                                    0.3,
+                                    0,
+                                    1,
+                                    [
+                                        {
+                                            offset: 0,
+                                            color: colorItem[0],
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: colorItem[1],
+                                        },
+                                    ],
+                                    false
+                                );
+                            },
+                        },
+                    },
+                    data:x,
+                    type: "bar",
+                    // showBackground: true, //显示背景色
+                },
+            ],
+        };
+        myChart.setOption(option);
+    }
+
+
+    function data_detail(data_detail){
+        // ========================= 数据统计 ==============================
+        var myChart2 = echarts.init(document.getElementById("main2"));
+        var y = data_detail.title
+        var x = data_detail.num
+        var c = data_detail.c
+        let option2 = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            legend: {
+                data: ['今日访问量', '较昨日新增'],
+                left: 510,
+                textStyle: {
+                    color: '#ffffff'//字体颜色
+                },
+            },
+            grid: {
+                left: '0%',
+                right: '15%',
+                bottom: '6%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: y,
+                    axisLine: {
+                        lineStyle: {
+                            color: "#fff",
+                        },
+                    },
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    splitArea: {show: false},
+                    //   y轴字体颜色
+                    axisLine: {
+                        lineStyle: {
+                            color: "#fff",
+                        },
+                    },
+                    //设置网格线颜色
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: ['#315070'],
+                            width: 1,
+                            type: 'solid'
+                        }
+                    },
+                }
+            ],
+            series: [
+                {
+                    name: '今日访问量',
+                    type: 'bar',
+                    stack: 'one',
+                    data: x,
+                    barWidth: 30,
+                    itemStyle: {
+                        normal: {
+                            color: '#2CDEEE'
+                        }
+                    },
+                },
+                {
+                    name: '较昨日新增',
+                    type: 'bar',
+                    stack: 'one',
+                    data: c,
+                    barWidth: 30,
+                    itemStyle: {
+                        normal: {
+                            color: '#4471FF'
+                        }
+                    },
+                },
+            ]
+        };
+        myChart2.setOption(option2);
+    }
+    function near(near_future_data) {
+        // ========================= 近30天访问量 ==============================
+        var myChart3 = echarts.init(document.getElementById("main3"));
+        var y = near_future_data.title
+        var x = near_future_data.num
+        var c = near_future_data.date
+        let option3 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                //   x轴字体颜色
+                axisLine: {
+                    lineStyle: {
+                        color: "#7AADFF",
+                    },
+                },
+                data:c
+            },
+            yAxis: {
+                type: 'value',
+                //   y轴字体颜色
+                axisLine: {
+                    lineStyle: {
+                        color: "#fff",
+                    },
+                },
+                //设置网格线颜色
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: ['#315070'],
+                        width: 1,
+                        type: 'solid'
+                    },
+
+                }
+            },
+            series: [{
+                data:x,
+                type: 'line',
+                areaStyle: {},
+                smooth: 0.6,
+
+                areaStyle: {
+                    normal: {
+                        color: '#3262C1' //改变区域颜色
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        color: '#3AC3FB', //改变折线点的颜色
+                        lineStyle: {
+                            color: '#32C5FF', //改变折线颜色
+                            width: 3,
+                        }
+                    }
+                },
+            }]
+        };
+        myChart3.setOption(option3);
+    }
+
+
+
+
+</script>
+</body>
+
+</html>

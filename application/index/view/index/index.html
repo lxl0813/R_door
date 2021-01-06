@@ -1,0 +1,102 @@
+<!--头部引入-->
+{include file="common:top"}
+{if Cookie::get('think_var')=='en_us'}
+	<script type="text/javascript">
+		$("#menu_div a:contains('Home')").attr("id","redcolor");
+	</script>
+{else/}
+	<script type="text/javascript">
+		$("#menu_div a:contains('首页')").attr("id","redcolor");
+	</script>
+{/if}
+
+
+<div id="middle_part"><div class="main-banner">
+	<div class="banner">
+		<ul id="mainBanner" style="width: 1899px; overflow: visible;">
+			<li style="background: url(/static/image/20160707_155347_382859.jpg) center center no-repeat; float: none; display: block; position: absolute; top: 0px; left: -3798px; width: 1899px;"><img src="/static/picture/20160707_155347_382859.jpg" alt="首页轮播图3" data-holder-rendered="true"></li>
+			<li style="background: url(/static/image/20160701_143343_818864.jpg) center center no-repeat; float: none; display: block; position: absolute; top: 0px; left: -1899px; width: 1899px;"><img src="/static/picture/20160701_143343_818864.jpg" alt="首页轮播图2" data-holder-rendered="true"></li>
+			<li style="background: url(/static/image/20160701_143332_787992.jpg) center center no-repeat; float: none; display: block; position: absolute; top: 0px; left: 0px; width: 1899px;"><img src="/static/picture/20160701_143332_787992.jpg" alt="首页轮播图1" data-holder-rendered="true"></li>
+		</ul>
+		<em class="arr-left" style="width: 1899px; overflow: visible;"></em>
+		<em class="arr-right" style="width: 1899px; overflow: visible;"></em>
+	</div>
+	<div class="banner-menu">
+		<a href="{:url('Industry/index')}"><em><i></i></em>{:lang('福布化纤平台')}</a>
+		<a href="{:url('Industry/wufang')}"><em><i></i></em>{:lang('福布无纺平台')}</a>
+		<!--<a href="news-show-10.html"><em><i></i></em>资本投资</a>-->
+		<!--<a href="news-show-9.html"><em><i></i></em>健康养老</a>-->
+		<!--<a href="news-show-7.html"><em><i></i></em>房产开发</a>-->
+		<!--<a href="news-show-11.html"><em><i></i></em>能源投资</a>-->
+		<!--<a href="news-show-13.html"><em><i></i></em>文化旅游</a>-->
+	</div>
+</div>
+	<div class="content">
+		<div class="index-tit">
+			<h5>{:lang('新闻中心')}</h5>
+			<h6>Media center</h6>
+		</div>
+		<div class="index-news">
+			<div class="fyy-section">
+				<div class="index-news-list">
+					<ul id="indexNews" style="width: 1540px;">
+						{volist name="news" id="data"}
+						<li>
+							<a href="{:url('News/news_show',['news_id'=>$data.id])}">
+								<img src="{$data.img}" alt="{$data.title}" data-holder-rendered="true">
+								<p>
+									{$data.title}
+								</p>
+							</a>
+						</li>
+						{/volist}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/static/js/jquery.event.drag-1.5.min.js"></script>
+	<script type="text/javascript" src="/static/js/jquery.touchSlider.js"></script>
+	<script type="text/javascript" src="/static/js/view.js"></script>
+	<script>
+		$(function(){
+			var indexNewsLiLen=$("#indexNews").find("li").length;
+			$("#indexNews").width(indexNewsLiLen*308);
+			//轮播
+			$dragBln = false;
+			$(".banner").touchSlider({
+				flexible : true,
+				speed : 300,
+				btn_prev : $(".arr-left"),
+				btn_next : $(".arr-right")
+			});
+			$(".banner").bind("mousedown", function() {
+				$dragBln = false;
+			});
+			$(".banner").bind("dragstart", function() {
+				$dragBln = true;
+			});
+			$(".banner li").click(function(){
+				if($dragBln) {
+					return false;
+				}
+			});
+			timer = setInterval(function(){
+				$(".arr-right").trigger("click");
+			}, 5000);
+			$(".banner").bind("touchstart",function(){
+				clearInterval(timer);
+			}).bind("touchend", function(){
+				timer = setInterval(function(){
+					$(".arr-right").click();
+				}, 5000);
+			});
+		});
+	</script>
+</div>
+{include file="common:foot"}
+</div>
+<div class="back-top">
+	<a id="backTop"></a>
+</div>
+</body></html>

@@ -1,0 +1,223 @@
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <script type="text/javascript" src="/static/js/time.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere"><b>上海让雷智能科技有限公司--客户营销系统--供应商报价新增</b></div>
+        <div style="height: 30px"></div>
+        <a href="javascript:window.history.back(-1)" target="_self" style="margin-left: 20px"><img src="/static/picture/go.png" title="返回上一页" style="height:20px"></a>
+        <div style="height: 50px"></div>
+        <div style="margin: auto;width:800px">
+            <form>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">供应商名称：</label>
+                    <input type="" list="sexlist" class="form-control" id="supplier_name"  placeholder="填写供应商名称" >
+                    <datalist id="sexlist">
+
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">产品：</label>
+                    <select id="product_id">
+                        <option value="0">选择产品</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">价格：</label>
+                    <input type="text" class="form-control" id="product_price"  placeholder="填写产品报价" >
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">价格有效期：</label>
+                    <input type="text"  id="start_time"  placeholder="开始日期" onClick="new Calendar().show(this)" class="inpMain form-control">
+                    -
+                    <input type="text"  id="end_time"  placeholder="结束日期" onClick="new Calendar().show(this)" class="inpMain form-control">
+                </div>
+
+                <div class="section">
+                    <label>报价时间</label>
+                    <div style="display: flex">
+                        <input type="text" name="date" id="date" placeholder="" onClick="new Calendar().show(this)" class="inpMain form-control" />
+                        <div style="display: flex; line-height: 34px;margin-left: 10px;">
+                            时：
+                            <select id="h">
+                                {volist name="h" id="data"}
+                                <option>{$data}</option>
+                                {/volist}
+                            </select>
+                            分：
+                            <select id="m">
+                                {volist name="m" id="data"}
+                                <option>{$data}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" id="admin_id" value="{$admin.id}" hidden>
+                <div class="form-group">
+                    <label for="exampleInputtext1">记录人：</label>
+                    <input type="text" class="form-control" id="admin_name" value="{$admin.name}" placeholder="填写记录人姓名" >
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputtext1">记录人联系电话</label>
+                    <input type="text" class="form-control" id="admin_phone" value="{$admin.phone}" placeholder="填写记录人联系电话" >
+                </div>
+
+
+            </form>
+            <div style="height: 20px"></div>
+            <button type="submit" id="submit" class="btn btn-default">确认提交</button>
+            <div style="height: 50px"></div>
+            <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+
+</div>
+<script type="application/javascript">
+
+    //供应商输入框动态匹配
+   $("#supplier_name").bind('propertychange input', function () {
+        var supplier_name =$(this).val().trim();
+       $.ajax({
+           type: "post",
+           url: "{:url('Customer/supplier_name_like_search')}",
+           data: {
+               supplier_name:supplier_name,
+           },
+           dataType: "json",
+           success: function (data) {
+               if (data.code == 200){
+                   var html="";
+                   html+="<datalist id='sexlist'>"
+                   $.each(data.supplier_name,function(i,val){
+                       html+="<option>" + val.suppliers_name + "</option>"
+                   })
+                   html+="</datalist>"
+                   $("#sexlist").replaceWith(html);
+               }
+           }
+       })
+   })
+
+    //供应商产品查询
+    $("#supplier_name").blur(function () {
+        var supplier_name =$(this).val().trim();
+        if(supplier_name==""){
+            layer.msg("请填写供应商名称！");return;
+        }
+        $.ajax({
+            type: "post",
+            url: "{:url('Customer/supplier_product_search')}",
+            data: {
+                supplier_name:supplier_name,
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200){
+                    var html="";
+                    html+="<select id='product_id'>",
+                    html+="<option value='0'>选择产品</option>",
+                    $.each(data.supplier_product_list , function (k,v) {
+                        html+="<option value="+ v.id +">" + v.product_name + "</option>"
+                    })
+                    html+="</select>"
+                    $("#product_id").replaceWith(html);
+
+                }
+
+                if(data.code == 500){
+                    layer.msg(data.msg);
+                }
+            }
+        })
+
+    })
+
+
+
+
+    //表单提交
+    $("#submit").click(function(){
+        var supplier_name = $("#supplier_name").val().trim();
+        var product_id    = $("#product_id").find("option:selected").val();
+        var product_price = $("#product_price").val();
+        var start_time    = $("#start_time").val();
+        var end_time      = $("#start_time").val();
+        var date          = $("#date").val();
+        var h             = $("#h").find("option:selected").val();
+        var m             = $("#m").find("option:selected").val();
+        var admin_name    = $("#admin_name").val();
+        var admin_phone   = $("#admin_phone").val();
+        var admin_id      = $("#admin_id").val();
+        if(product_id==0){
+            layer.msg("请选择所要报价的产品");return;
+        }
+        $.ajax({
+            type: "post",
+            url: "{:url('Customer/supplier_offer_price_add_do')}",
+            data: {
+                supplier_name:supplier_name,
+                supplier_product_id:product_id,
+                price:product_price,
+                start_time:start_time,
+                end_time:end_time,
+                date:date,
+                h:h,
+                m:m,
+                admin_name:admin_name,
+                admin_phone:admin_phone,
+                admin_id:admin_id,
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200) {
+                    layer.msg(data.msg);
+                    setTimeout(function(){
+                        window.location.href="{:url('Customer/purchaser_enquiry_index')}";//刷新当前页面.
+                    },1000)
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        })
+
+
+
+    })
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>
