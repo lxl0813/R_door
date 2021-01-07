@@ -24,7 +24,7 @@
     <!--左侧部分-->
     {include file="pub:left"}
     <!--中间部分-->
-    <div id="dcMain"> <!-- 当前位置 -->
+    <div id="dcMain">
         <div id="urHere"><b>上海让雷智能科技有限公司--运维看板--化纤中文平台</b></div>
         <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
             <div class="input-group">
@@ -32,7 +32,6 @@
                 <span class="input-group-addon" id="basic-addon2"><a href="{:url('Devops/data_name_index')}">看板信息点管理</a></span>
                 <span class="input-group-addon" id="basic-addon2"><a href="{:url('Devops/fiber_ch_add')}">添加今日数据</a></span>
             </div>
-
             <div style="margin-top: 20px;;text-align:center">
                 <table class="table table-hover">
                     <tr>
@@ -66,16 +65,18 @@
 </div>
 <script>
     $(".delete").click(function(){
-        var create_time = $(this).attr("id");
+        var create_time     =   $(this).attr("id");
+        var platform_name   =   '化纤中文平台';
         //询问框
         layer.confirm('您确定删除该日的记录？', {
             btn: ['是','否'] //按钮
         }, function(){
             $.ajax({
                 type: "post",
-                url: "{:url('Devops/devops_delete')}",
+                url: "{:url('Devops/fiber_ch_delete')}",
                 data: {
                     create_time:create_time,
+                    platform_name:platform_name,
                 },
                 dataType: "json",
                 success: function (data) {

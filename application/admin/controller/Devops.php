@@ -84,13 +84,12 @@ class Devops extends Common
     //化纤中文删除
     public function fiber_ch_delete()
     {
-        if(request()->isGet()){
-            return view();
-        }
-
-        if(request()->isPost())
+        $where=input();
+        if(Db::name('devops_value')->where($where)->delete())
         {
-
+            echo json_encode(['code'=>200,'msg'=>'删除成功！']);
+        }else{
+            echo json_encode(['code'=>500,'msg'=>'删除失败！']);
         }
     }
 
@@ -155,7 +154,13 @@ class Devops extends Common
     //化纤英文删除
     public function fiber_en_delete()
     {
-
+        $where=input();
+        if(Db::name('devops_value')->where($where)->delete())
+        {
+            echo json_encode(['code'=>200,'msg'=>'删除成功！']);
+        }else{
+            echo json_encode(['code'=>500,'msg'=>'删除失败！']);
+        }
     }
 
     //无纺中文列表
@@ -219,7 +224,13 @@ class Devops extends Common
     //无纺中文删除
     public function non_ch_delete()
     {
-
+        $where=input();
+        if(Db::name('devops_value')->where($where)->delete())
+        {
+            echo json_encode(['code'=>200,'msg'=>'删除成功！']);
+        }else{
+            echo json_encode(['code'=>500,'msg'=>'删除失败！']);
+        }
     }
 
     //无纺英文列表
@@ -283,7 +294,13 @@ class Devops extends Common
     //无纺英文删除
     public function non_en_delete()
     {
-
+        $where=input();
+        if(Db::name('devops_value')->where($where)->delete())
+        {
+            echo json_encode(['code'=>200,'msg'=>'删除成功！']);
+        }else{
+            echo json_encode(['code'=>500,'msg'=>'删除失败！']);
+        }
     }
 
     //制品中文列表
@@ -347,7 +364,13 @@ class Devops extends Common
     //制品中文删除
     public function zhi_ch_delete()
     {
-
+        $where=input();
+        if(Db::name('devops_value')->where($where)->delete())
+        {
+            echo json_encode(['code'=>200,'msg'=>'删除成功！']);
+        }else{
+            echo json_encode(['code'=>500,'msg'=>'删除失败！']);
+        }
     }
 
     //制品英文列表
@@ -411,7 +434,13 @@ class Devops extends Common
     //制品英文删除
     public function zhi_en_delete()
     {
-
+        $where=input();
+        if(Db::name('devops_value')->where($where)->delete())
+        {
+            echo json_encode(['code'=>200,'msg'=>'删除成功！']);
+        }else{
+            echo json_encode(['code'=>500,'msg'=>'删除失败！']);
+        }
     }
 
     //纱线中文列表
@@ -476,7 +505,13 @@ class Devops extends Common
     //纱线中文删除
     public function sha_ch_delete()
     {
-
+        $where=input();
+        if(Db::name('devops_value')->where($where)->delete())
+        {
+            echo json_encode(['code'=>200,'msg'=>'删除成功！']);
+        }else{
+            echo json_encode(['code'=>500,'msg'=>'删除失败！']);
+        }
     }
 
     //纱线英文列表
@@ -541,31 +576,14 @@ class Devops extends Common
     //纱线英文删除
     public function sha_en_delete()
     {
-
-    }
-
-
-
-
-    public function devops_delete()
-    {
-        $create_time=input('create_time');
-        if(Db::name('devops_value')->where('create_time',$create_time)->delete())
+        $where=input();
+        if(Db::name('devops_value')->where($where)->delete())
         {
             echo json_encode(['code'=>200,'msg'=>'删除成功！']);
         }else{
             echo json_encode(['code'=>500,'msg'=>'删除失败！']);
         }
     }
-
-
-    public function devops_update()
-    {
-
-    }
-
-
-
 
 
     //看板所展示信息点管理
