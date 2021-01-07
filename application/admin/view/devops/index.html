@@ -11,11 +11,6 @@
     <script type="text/javascript" src="/admin/js/global.js"></script>
     <!--bootstrop引入-->
     {include file="pub:bootstrop"}
-    <style type="text/css">
-        th{
-            text-align: center
-        }
-    </style>
 </head>
 <body>
 <div id="dcWrap">
@@ -27,97 +22,27 @@
     <div id="dcMain"> <!-- 当前位置 -->
         <div id="urHere"><b>上海让雷智能科技有限公司--运维看板</b></div>
         <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
-            <div class="input-group">
-                <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
-                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Devops/data_name_index')}">看板信息点管理</a></span>
-                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Devops/today_data_add')}">添加今日数据</a></span>
-            </div>
-
-
-
             <div>
-                <a href="">化纤中文平台</a>
+                <a href="{:url('fiber_ch_list')}">化纤中文平台</a>
                 <br>
-                <a href="">化纤英文平台</a>
+                <a href="{:url('fiber_en_list')}">化纤英文平台</a>
                 <br>
-                <a href="">无纺中文平台</a>
+                <a href="{:url('non_ch_list')}">无纺中文平台</a>
                 <br>
-                <a href="">无纺英文平台</a>
+                <a href="{:url('non_en_list')}">无纺英文平台</a>
                 <br>
-                <a href="">制品中文平台</a>
+                <a href="{:url('zhi_ch_list')}">制品中文平台</a>
                 <br>
-                <a href="">制品英文平台</a>
+                <a href="{:url('zhi_en_list')}">制品英文平台</a>
                 <br>
-                <a href="">纱线英文平台</a>
+                <a href="{:url('sha_ch_list')}">纱线中文平台</a>
                 <br>
-                <a href="">纱线英文平台</a>
-            </div>
-
-
-
-            <div style="margin-top: 20px;;text-align:center">
-                <table class="table table-hover">
-                    <tr>
-                        <th>序号</th>
-                        <th>创建时间</th>
-                        <th>创建人</th>
-                        <th>平台类型</th>
-                        <th>操作</th>
-                    </tr>
-                    {foreach $devops as $key=>$val}
-                        <tr>
-                            <td>{$key+1}</td>
-                            <td>{$val.create_time}</td>
-                            <td>{$val.create_by}</td>
-                            <td>{$val.platform_name}</td>
-                            <td>
-                                <a href="{:url('Devops/see_detail',['create_time'=>$val.create_time])}">查看</a>
-                                |
-                                <a class="delete" id="{$val.create_time}">删除</a>
-                                |
-                                <a>修改</a>
-                            </td>
-                        </tr>
-                    {/foreach}
-                </table>
+                <a href="{:url('sha_en_list')}">纱线英文平台</a>
             </div>
         </div>
         <!--引入尾部-->
         {include file="pub:foot"}
     </div>
 </div>
-<script>
-    $(".delete").click(function(){
-        var create_time = $(this).attr("id");
-        //询问框
-        layer.confirm('您确定删除该日的记录？', {
-            btn: ['是','否'] //按钮
-        }, function(){
-            $.ajax({
-                type: "post",
-                url: "{:url('Devops/devops_delete')}",
-                data: {
-                    create_time:create_time,
-                },
-                dataType: "json",
-                success: function (data) {
-                    if (data.code == 200) {
-                        layer.msg(data.msg);
-                        setTimeout(function(){
-                            window.location.reload();//刷新当前页面.
-                        },1000)
-                    }else{
-                        layer.msg(data.msg);
-                    }
-                }
-            })
-        }, function(){
-
-        });
-
-
-
-    })
-</script>
 </body>
 </html>

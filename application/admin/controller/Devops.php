@@ -13,17 +13,415 @@ class Devops extends Common
 
     public function index()
     {
+        return view();
+    }
+
+
+    /**
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * 化纤中文平台页面
+     */
+    public function fiber_ch_list()
+    {
         $data   =   Db::name('devops')
                     ->alias('d')
                     ->join('devops_value dv','d.id=dv.data_name_id')
                     ->where('d.state','1')
+                    ->where('dv.platform_name','化纤中文平台')
                     ->group('create_time')
                     ->field('dv.create_time,dv.create_by,dv.platform_name')
                     ->order('dv.create_time')
                     ->select();
-
-        return view('',['devops'=>$data]);
+        return view('',['fiber_ch_devops'=>$data]);
     }
+
+    //化纤中文添加
+    public function fiber_ch_add()
+    {
+        if(request()->isGet()){
+            $devops =   Db::name('devops')->where('state','1')->select();
+            return view('',['fiber_ch_title'=>$devops]);
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //化纤中文修改
+    public function fiber_ch_update()
+    {
+        if(request()->isGet()){
+            return view();
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //化纤中文删除
+    public function fiber_ch_delete()
+    {
+        if(request()->isGet()){
+            return view();
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //化纤英文列表
+    public function fiber_en_list()
+    {
+        $data   =   Db::name('devops')
+            ->alias('d')
+            ->join('devops_value dv','d.id=dv.data_name_id')
+            ->where('d.state','1')
+            ->where('dv.platform_name','化纤英文平台')
+            ->group('create_time')
+            ->field('dv.create_time,dv.create_by,dv.platform_name')
+            ->order('dv.create_time')
+            ->select();
+        return view('',['fiber_en_devops'=>$data]);
+    }
+
+    //化纤英文添加
+    public function fiber_en_add()
+    {
+        if(request()->isGet()){
+            $devops =   Db::name('devops')->where('state','1')->select();
+            return view('',['fiber_en_title'=>$devops]);
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //化纤英文修改
+    public function fiber_en_update()
+    {
+        if(request()->isGet()){
+            return view();
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //化纤英文删除
+    public function fiber_en_delete()
+    {
+
+    }
+
+    //无纺中文列表
+    public function non_ch_list()
+    {
+        $data   =   Db::name('devops')
+            ->alias('d')
+            ->join('devops_value dv','d.id=dv.data_name_id')
+            ->where('d.state','1')
+            ->where('dv.platform_name','无纺中文平台')
+            ->group('create_time')
+            ->field('dv.create_time,dv.create_by,dv.platform_name')
+            ->order('dv.create_time')
+            ->select();
+        return view('',['non_ch_devops'=>$data]);
+    }
+
+    //无纺中文添加
+    public function non_ch_add()
+    {
+        if(request()->isGet()){
+            $devops =   Db::name('devops')->where('state','1')->select();
+            return view('',['non_ch_title'=>$devops]);
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //无纺中文修改
+    public function non_ch_update()
+    {
+        if(request()->isGet()){
+            return view();
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //无纺中文删除
+    public function non_ch_delete()
+    {
+
+    }
+
+    //无纺英文列表
+    public function non_en_list()
+    {
+        $data   =   Db::name('devops')
+            ->alias('d')
+            ->join('devops_value dv','d.id=dv.data_name_id')
+            ->where('d.state','1')
+            ->where('dv.platform_name','无纺英文平台')
+            ->group('create_time')
+            ->field('dv.create_time,dv.create_by,dv.platform_name')
+            ->order('dv.create_time')
+            ->select();
+        return view('',['non_en_devops'=>$data]);
+    }
+
+    //无纺英文添加
+    public function non_en_add()
+    {
+        if(request()->isGet()){
+            $devops =   Db::name('devops')->where('state','1')->select();
+            return view('',['non_en_title'=>$devops]);
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //无纺英文修改
+    public function non_en_update()
+    {
+        if(request()->isGet()){
+            return view();
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //无纺英文删除
+    public function non_en_delete()
+    {
+
+    }
+
+    //制品中文列表
+    public function zhi_ch_list()
+    {
+        $data   =   Db::name('devops')
+            ->alias('d')
+            ->join('devops_value dv','d.id=dv.data_name_id')
+            ->where('d.state','1')
+            ->where('dv.platform_name','制品中文平台')
+            ->group('create_time')
+            ->field('dv.create_time,dv.create_by,dv.platform_name')
+            ->order('dv.create_time')
+            ->select();
+        return view('',['zhi_ch_devops'=>$data]);
+    }
+
+    //制品中文添加
+    public function zhi_ch_add()
+    {
+        if(request()->isGet()){
+            $devops =   Db::name('devops')->where('state','1')->select();
+            return view('',['zhi_ch_title'=>$devops]);
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //制品中文修改
+    public function zhi_ch_update()
+    {
+        if(request()->isGet()){
+            return view();
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //制品中文删除
+    public function zhi_ch_delete()
+    {
+
+    }
+
+    //制品英文列表
+    public function zhi_en_list()
+    {
+        $data   =   Db::name('devops')
+            ->alias('d')
+            ->join('devops_value dv','d.id=dv.data_name_id')
+            ->where('d.state','1')
+            ->where('dv.platform_name','制品英文平台')
+            ->group('create_time')
+            ->field('dv.create_time,dv.create_by,dv.platform_name')
+            ->order('dv.create_time')
+            ->select();
+        return view('',['zhi_en_devops'=>$data]);
+    }
+
+    //制品英文添加
+    public function zhi_en_add()
+    {
+        if(request()->isGet()){
+            $devops =   Db::name('devops')->where('state','1')->select();
+            return view('',['zhi_en_title'=>$devops]);
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //制品英文修改
+    public function zhi_en_update()
+    {
+        if(request()->isGet()){
+            return view();
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //制品英文删除
+    public function zhi_en_delete()
+    {
+
+    }
+
+    //纱线中文列表
+    public function sha_ch_list()
+    {
+        $data   =   Db::name('devops')
+            ->alias('d')
+            ->join('devops_value dv','d.id=dv.data_name_id')
+            ->where('d.state','1')
+            ->where('dv.platform_name','纱线中文平台')
+            ->group('create_time')
+            ->field('dv.create_time,dv.create_by,dv.platform_name')
+            ->order('dv.create_time')
+            ->select();
+        return view('',['sha_ch_devops'=>$data]);
+    }
+
+    //纱线中文添加
+    public function sha_ch_add()
+    {
+        if(request()->isGet()){
+            $devops =   Db::name('devops')->where('state','1')->select();
+            return view('',['sha_ch_title'=>$devops]);
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //纱线中文修改
+    public function sha_ch_update()
+    {
+        if(request()->isGet()){
+            return view();
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+
+    //纱线中文删除
+    public function sha_ch_delete()
+    {
+
+    }
+
+    //纱线英文列表
+    public function sha_en_list()
+    {
+        $data   =   Db::name('devops')
+            ->alias('d')
+            ->join('devops_value dv','d.id=dv.data_name_id')
+            ->where('d.state','1')
+            ->where('dv.platform_name','纱线英文平台')
+            ->group('create_time')
+            ->field('dv.create_time,dv.create_by,dv.platform_name')
+            ->order('dv.create_time')
+            ->select();
+        return view('',['sha_en_devops'=>$data]);
+    }
+
+    //纱线英文添加
+    public function sha_en_add()
+    {
+        if(request()->isGet()){
+            $devops =   Db::name('devops')->where('state','1')->select();
+            return view('',['sha_en_title'=>$devops]);
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //纱线英文修改
+    public function sha_en_update()
+    {
+        if(request()->isGet()){
+            return view();
+        }
+
+        if(request()->isPost())
+        {
+
+        }
+    }
+
+    //纱线英文删除
+    public function sha_en_delete()
+    {
+
+    }
+
+
+
+
+
+
+
+
+
 
     //今日数据添加页面
     public function today_data_add()
