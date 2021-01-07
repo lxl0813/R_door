@@ -30,7 +30,7 @@
             <div class="input-group">
                 <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
                 <span class="input-group-addon" id="basic-addon2"><a href="{:url('Devops/data_name_index')}">看板信息点管理</a></span>
-                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Devops/today_data_add')}">添加今日数据</a></span>
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Devops/non_ch_add')}">添加今日数据</a></span>
             </div>
 
             <div style="margin-top: 20px;;text-align:center">
@@ -42,20 +42,20 @@
                         <th>平台类型</th>
                         <th>操作</th>
                     </tr>
-                    {foreach $devops as $key=>$val}
-                    <tr>
-                        <td>{$key+1}</td>
-                        <td>{$val.create_time}</td>
-                        <td>{$val.create_by}</td>
-                        <td>{$val.platform_name}</td>
-                        <td>
-                            <a href="{:url('Devops/see_detail',['create_time'=>$val.create_time])}">查看</a>
-                            |
-                            <a class="delete" id="{$val.create_time}">删除</a>
-                            |
-                            <a>修改</a>
-                        </td>
-                    </tr>
+                    {foreach $non_ch_devops as $key=>$val}
+                        <tr>
+                            <td>{$key+1}</td>
+                            <td>{$val.create_time}</td>
+                            <td>{$val.create_by}</td>
+                            <td>{$val.platform_name}</td>
+                            <td>
+                                <a href="{:url('Devops/see_detail',['create_time'=>$val.create_time,'platform_name'=>'无纺中文平台'])}">查看</a>
+                                |
+                                <a class="delete" id="{$val.create_time}">删除</a>
+                                |
+                                <a>修改</a>
+                            </td>
+                        </tr>
                     {/foreach}
                 </table>
             </div>

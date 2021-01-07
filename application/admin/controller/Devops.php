@@ -47,9 +47,26 @@ class Devops extends Common
 
         if(request()->isPost())
         {
-
+            $data=input('array','');
+            $time=input('time','');
+            foreach ($data as $k=>$v)
+            {
+                $data[$k]                   =   explode('|',$v);
+                $datas[$k]['data_name_id']  =   $data[$k][0];
+                $datas[$k]['data_value']    =   $data[$k][1];
+                $datas[$k]['create_time']   =   $time;
+                $datas[$k]['create_by']     =   $this->cookie_admin()['name'];
+                $datas[$k]['platform_name'] =   '化纤中文平台';
+            }
+            try {
+                Db::name('devops_value')->insertAll($datas);
+            }catch (\Exception $e){
+                echo json_encode(['code'=>200,'msg'=>$e->getMessage()]);return;
+            }
+            echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
+
 
     //化纤中文修改
     public function fiber_ch_update()
@@ -102,7 +119,23 @@ class Devops extends Common
 
         if(request()->isPost())
         {
-
+            $data=input('array','');
+            $time=input('time','');
+            foreach ($data as $k=>$v)
+            {
+                $data[$k]                   =   explode('|',$v);
+                $datas[$k]['data_name_id']  =   $data[$k][0];
+                $datas[$k]['data_value']    =   $data[$k][1];
+                $datas[$k]['create_time']   =   $time;
+                $datas[$k]['create_by']     =   $this->cookie_admin()['name'];
+                $datas[$k]['platform_name'] =   '化纤英文平台';
+            }
+            try {
+                Db::name('devops_value')->insertAll($datas);
+            }catch (\Exception $e){
+                echo json_encode(['code'=>200,'msg'=>$e->getMessage()]);return;
+            }
+            echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
 
@@ -150,7 +183,23 @@ class Devops extends Common
 
         if(request()->isPost())
         {
-
+            $data=input('array','');
+            $time=input('time','');
+            foreach ($data as $k=>$v)
+            {
+                $data[$k]                   =   explode('|',$v);
+                $datas[$k]['data_name_id']  =   $data[$k][0];
+                $datas[$k]['data_value']    =   $data[$k][1];
+                $datas[$k]['create_time']   =   $time;
+                $datas[$k]['create_by']     =   $this->cookie_admin()['name'];
+                $datas[$k]['platform_name'] =   '无纺中文平台';
+            }
+            try {
+                Db::name('devops_value')->insertAll($datas);
+            }catch (\Exception $e){
+                echo json_encode(['code'=>200,'msg'=>$e->getMessage()]);return;
+            }
+            echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
 
@@ -198,7 +247,23 @@ class Devops extends Common
 
         if(request()->isPost())
         {
-
+            $data=input('array','');
+            $time=input('time','');
+            foreach ($data as $k=>$v)
+            {
+                $data[$k]                   =   explode('|',$v);
+                $datas[$k]['data_name_id']  =   $data[$k][0];
+                $datas[$k]['data_value']    =   $data[$k][1];
+                $datas[$k]['create_time']   =   $time;
+                $datas[$k]['create_by']     =   $this->cookie_admin()['name'];
+                $datas[$k]['platform_name'] =   '无纺英文平台';
+            }
+            try {
+                Db::name('devops_value')->insertAll($datas);
+            }catch (\Exception $e){
+                echo json_encode(['code'=>200,'msg'=>$e->getMessage()]);return;
+            }
+            echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
 
@@ -246,7 +311,23 @@ class Devops extends Common
 
         if(request()->isPost())
         {
-
+            $data=input('array','');
+            $time=input('time','');
+            foreach ($data as $k=>$v)
+            {
+                $data[$k]                   =   explode('|',$v);
+                $datas[$k]['data_name_id']  =   $data[$k][0];
+                $datas[$k]['data_value']    =   $data[$k][1];
+                $datas[$k]['create_time']   =   $time;
+                $datas[$k]['create_by']     =   $this->cookie_admin()['name'];
+                $datas[$k]['platform_name'] =   '制品中文平台';
+            }
+            try {
+                Db::name('devops_value')->insertAll($datas);
+            }catch (\Exception $e){
+                echo json_encode(['code'=>200,'msg'=>$e->getMessage()]);return;
+            }
+            echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
 
@@ -294,7 +375,23 @@ class Devops extends Common
 
         if(request()->isPost())
         {
-
+            $data=input('array','');
+            $time=input('time','');
+            foreach ($data as $k=>$v)
+            {
+                $data[$k]                   =   explode('|',$v);
+                $datas[$k]['data_name_id']  =   $data[$k][0];
+                $datas[$k]['data_value']    =   $data[$k][1];
+                $datas[$k]['create_time']   =   $time;
+                $datas[$k]['create_by']     =   $this->cookie_admin()['name'];
+                $datas[$k]['platform_name'] =   '制品英文平台';
+            }
+            try {
+                Db::name('devops_value')->insertAll($datas);
+            }catch (\Exception $e){
+                echo json_encode(['code'=>200,'msg'=>$e->getMessage()]);return;
+            }
+            echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
 
@@ -342,7 +439,23 @@ class Devops extends Common
 
         if(request()->isPost())
         {
-
+            $data=input('array','');
+            $time=input('time','');
+            foreach ($data as $k=>$v)
+            {
+                $data[$k]                   =   explode('|',$v);
+                $datas[$k]['data_name_id']  =   $data[$k][0];
+                $datas[$k]['data_value']    =   $data[$k][1];
+                $datas[$k]['create_time']   =   $time;
+                $datas[$k]['create_by']     =   $this->cookie_admin()['name'];
+                $datas[$k]['platform_name'] =   '纱线中文平台';
+            }
+            try {
+                Db::name('devops_value')->insertAll($datas);
+            }catch (\Exception $e){
+                echo json_encode(['code'=>200,'msg'=>$e->getMessage()]);return;
+            }
+            echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
 
@@ -388,12 +501,28 @@ class Devops extends Common
             $devops =   Db::name('devops')->where('state','1')->select();
             return view('',['sha_en_title'=>$devops]);
         }
-
         if(request()->isPost())
         {
-
+            $data=input('array','');
+            $time=input('time','');
+            foreach ($data as $k=>$v)
+            {
+                $data[$k]                   =   explode('|',$v);
+                $datas[$k]['data_name_id']  =   $data[$k][0];
+                $datas[$k]['data_value']    =   $data[$k][1];
+                $datas[$k]['create_time']   =   $time;
+                $datas[$k]['create_by']     =   $this->cookie_admin()['name'];
+                $datas[$k]['platform_name'] =   '纱线英文平台';
+            }
+            try {
+                Db::name('devops_value')->insertAll($datas);
+            }catch (\Exception $e){
+                echo json_encode(['code'=>200,'msg'=>$e->getMessage()]);return;
+            }
+            echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
+
 
     //纱线英文修改
     public function sha_en_update()
@@ -408,6 +537,7 @@ class Devops extends Common
         }
     }
 
+
     //纱线英文删除
     public function sha_en_delete()
     {
@@ -416,43 +546,6 @@ class Devops extends Common
 
 
 
-
-
-
-
-
-
-
-    //今日数据添加页面
-    public function today_data_add()
-    {
-        $devops =   Db::name('devops')->where('state','1')->select();
-        return view('',['devops'=>$devops]);
-    }
-
-    //今日数据添加
-    public function devops_add()
-    {
-        $data=input('array','');
-        $time=input('time','');
-        foreach ($data as $k=>$v)
-        {
-            $data[$k]                   =   explode('|',$v);
-            $datas[$k]['data_name_id']  =   $data[$k][0];
-            $datas[$k]['data_value']    =   $data[$k][1];
-            $datas[$k]['create_time']   =   $time;
-            $datas[$k]['create_by']     =   $this->cookie_admin()['name'];
-        }
-        try {
-            Db::name('devops_value')->insertAll($datas);
-        }catch (\Exception $e){
-            echo json_encode(['code'=>200,'msg'=>$e->getMessage()]);return;
-        }
-        Cache::rm('devops_data_biao');Cache::rm('devops_data_title');
-        echo json_encode(['code'=>200,'msg'=>'添加成功']);
-    }
-
-    
 
     public function devops_delete()
     {
@@ -470,6 +563,9 @@ class Devops extends Common
     {
 
     }
+
+
+
 
 
     //看板所展示信息点管理
@@ -506,12 +602,14 @@ class Devops extends Common
     //详情
     public function see_detail()
     {
-        $create_time=input('create_time');
+        $create_time    =   input('create_time');
+        $platform_name  =   input('platform_name');
         $data=Db::name('devops_value')
             ->alias('dv')
             ->leftJoin('devops d','dv.data_name_id=d.id')
             ->where('dv.create_time',$create_time)
-            ->field('d.data_name,dv.id,dv.data_value,dv.create_time')
+            ->where('platform_name',$platform_name)
+            ->field('d.data_name,dv.id,dv.data_value,dv.create_time,dv.platform_name')
             ->select();
         return view('',['devops_data'=>$data]);
     }

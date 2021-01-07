@@ -39,6 +39,7 @@
                 <table class="table table-hover">
                     <tr>
                         <th>序号</th>
+                        <th>平台</th>
                         <th>名称</th>
                         <th>值</th>
                         <th>时间</th>
@@ -46,9 +47,10 @@
                     {foreach $devops_data as $key=>$val}
                         <tr>
                             <td>{$key+1}</td>
-                            <th>{$val.data_name}</th>
-                            <th>{$val.data_value}</th>
-                            <th>{$val.create_time}</th>
+                            <td>{$val.platform_name}</td>
+                            <td>{$val.data_name}</td>
+                            <td>{$val.data_value}</td>
+                            <td>{$val.create_time}</td>
                         </tr>
                     {/foreach}
                 </table>
