@@ -10,7 +10,13 @@ use think\Validate;
 
 class Devops
 {
+    private $table_data  =   [];
     public function index()
+    {
+        return view();
+    }
+
+    public function devops_center()
     {
         //今日访问总量   昨日新增  历史访问总量
         $data=Db::name('devops')
@@ -18,7 +24,7 @@ class Devops
             ->leftJoin('devops_value dv','d.id=dv.data_name_id')
             ->where('d.state','1')
             ->where('dv.create_time',date('Y-m-d',time()))
-            ->field('d.id,d.data_name,dv.data_value')
+            ->field('d.id,d.data_name,dv.data_value,dv.create_time')
             ->select();
         if(empty($data)){
             $data=Db::name('devops')
@@ -27,7 +33,6 @@ class Devops
                 ->where('d.state','1')
                 ->order('dv.create_time desc')
                 ->order('dv.data_name_id')
-                //->where('dv.create_time',date("Y-m-d",strtotime("-1 day")))
                 ->field('d.id,d.data_name,dv.data_value,dv.create_time')
                 ->limit(9)
                 ->select();
@@ -36,7 +41,6 @@ class Devops
         $todayVisitNums=0;  //定义今日访问总数值
         $yesNewAdd=0;       //定义比昨日新增数值
         $historyNum=0;      //定义历史访问总量
-        
         foreach ($data as $key=>$item)
         {
             //该数据点的历史数据和
@@ -60,7 +64,7 @@ class Devops
         $datas['todayVisitNums']=$todayVisitNums;
         $datas['yesNewAdd']=$yesNewAdd;
         $datas['historyNum']=(int)$historyNum;
-        //var_dump($data);exit;
+        $this->table_data=$data;
         return view('',['devops_data'=>$data,'num'=>$datas]);
     }
 
@@ -73,21 +77,44 @@ class Devops
         echo json_encode(['history_visit_num'=>$history_visit_num,'data_detail'=>$data_detail,'near_future_data'=>$near_future_data]);
     }
 
+    //左上角每日访问量图表
+//    public function everyday_visit_num()
+//    {
+//        Db::name('devops')
+//            ->alias('d')
+//            ->
+//
+//    }
+
+
+
+
 
     //表格数据
     public function table_data()
     {
-        //今日访问总量   昨日新增  历史访问总量
         $data=Db::name('devops')
             ->alias('d')
             ->leftJoin('devops_value dv','d.id=dv.data_name_id')
             ->where('d.state','1')
             ->where('dv.create_time',date('Y-m-d',time()))
-            ->field('d.id,d.data_name,dv.data_value')
+            ->field('d.id,d.data_name,dv.data_value,dv.create_time')
             ->select();
-        $todayVisitNums     =   0;      //定义今日访问总数值
-        $yesNewAdd          =   0;      //定义比昨日新增数值
-        $historyNum         =   0;      //定义历史访问总量
+        if(empty($data)){
+            $data=Db::name('devops')
+                ->alias('d')
+                ->leftJoin('devops_value dv','d.id=dv.data_name_id')
+                ->where('d.state','1')
+                ->order('dv.create_time desc')
+                ->order('dv.data_name_id')
+                ->field('d.id,d.data_name,dv.data_value,dv.create_time')
+                ->limit(9)
+                ->select();
+        }
+
+        $todayVisitNums=0;  //定义今日访问总数值
+        $yesNewAdd=0;       //定义比昨日新增数值
+        $historyNum=0;      //定义历史访问总量
         foreach ($data as $key=>$item)
         {
             //该数据点的历史数据和
@@ -95,22 +122,24 @@ class Devops
                 ->where('data_name_id',$item['id'])
                 ->where('create_time','<',date('Y-m-d',time()))
                 ->sum('data_value');
+
             //该数据点和昨日数据点差值
             $data[$key]['difference']=$item['data_value']-(Db::name('devops_value')
                     ->where('data_name_id',$item['id'])
-                    ->where('create_time',date("Y-m-d",strtotime("-1 day")))
+                    ->where('create_time',date("Y-m-d",strtotime("-1 day",strtotime($item['create_time']))))
                     ->value('data_value'));
             //今日访问总量
-            $todayVisitNums         +=  $item['data_value'];
+            $todayVisitNums+=$item['data_value'];
             //比昨日新增总量
-            $yesNewAdd              +=  $data[$key]['difference'];
+            $yesNewAdd+=$data[$key]['difference'];
             //历史访问总量和
-            $historyNum             +=  $data[$key]['history_num'];
+            $historyNum+=$data[$key]['history_num'];
         }
-        $datas['todayVisitNums']    =   $todayVisitNums;
-        $datas['yesNewAdd']         =   $yesNewAdd;
-        $datas['historyNum']        =   (int)$historyNum;
+        $datas['todayVisitNums']=$todayVisitNums;
+        $datas['yesNewAdd']=$yesNewAdd;
+        $datas['historyNum']=(int)$historyNum;
         $data['data']=$datas;
+        var_dump($data);exit;
         return $data;
     }
 
@@ -149,7 +178,6 @@ class Devops
         unset($devops_data);
         return $data_detail;
     }
-
 
     //近30日访问量表
     public function near_future_data()
