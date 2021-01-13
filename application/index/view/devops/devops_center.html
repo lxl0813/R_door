@@ -1,458 +1,715 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/static/css/rundata.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/huaqian.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <!-- 引入 ECharts 文件 -->
     <script src="/static/js/echarts.min.js"></script>
+
 </head>
+
 <body>
-    <div class="wrapper">
-        <!-- 头部区域 -->
-        <div class="phpHeader"></div>
-        <!-- 中间区域 -->
-        <div class="TopWrapper">
-            <!-- 中间左侧 平坦访问量等 -->
-            <div class="topLf">
-                <!-- 上 -->
-                <div class="topLftop">
-                    <div class="topLftopItem padd">
-                        <div class="topLftopItemLt">
-                            <div>
-                                <img src="/devops_imgs/logo1 (1).png" alt="" />
-                            </div>
-                            <div class="pItemLtTxt">
-                                <div >今日访问总量</div>
-                                <div style="color:#88F066" id="todayVisitNums"></div>
-                            </div>
-                        </div>
-                        <div style="width: 94px; height: 80px">
-                            <img src="/devops_imgs/logo11 (1).png" alt="" />
-                        </div>
-                    </div>
-                    <div class="topLftopItem padd">
-                        <div class="topLftopItemLt">
-                            <div>
-                                <img src="/devops_imgs/logo2 (1).png" alt="" />
-                            </div>
-                            <div class="pItemLtTxt">
-                                <div >比昨日新增</div>
-                                <div style="color:#1CB1FB" id="yesNewAdd"></div>
-                            </div>
-                        </div>
-                        <div style="width: 94px; height: 80px">
-                            <img src="/devops_imgs/logo22.png" alt="" />
-                        </div>
-                    </div>
-                    <div class="topLftopItem padd">
-                        <div class="topLftopItemLt">
-                            <div>
-                                <img src="/devops_imgs/logo2 (1).png" alt="" />
-                            </div>
-                            <div class="pItemLtTxt">
-                                <div >历史访问总量</div>
-                                <div style="color:#E79606" id="historyNum"></div>
-                            </div>
-                        </div>
-                        <div style="width: 94px; height: 80px">
-                            <img src="/devops_imgs/logo22.png" alt="" />
-                        </div>
-                    </div>
+<div class="wrapper">
+    <div class="toptitle">化纤板块 运维中心</div>
+    <div class="topTime">2020年11月28日 09:20:48</div>
+    <div class="wbody">
+        <div class="wLeft">
+            <div class="wLeftbg1">
+                <div class="iconp">
+                    <img src="/devops_imgs/Licon1.png" alt="" style="width:65px;height:65px">
+                    <p>每日访问量</p>
                 </div>
-                <!-- 下 -->
-                <div class="topLfbottom padd">
-                    <p class="commonTit">
-                        <span></span>
-                        平台访问量
-                    </p>
-                    <div class="tableBox" id="tableBox">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="fz" style="display: flex;justify-content: flex-start;align-items: center;">
-                                        <span class="circle"></span>数据来源
-                                    </th>
-                                    {foreach devops_data as $key=>$item}
-                                    <th class="fz">{$item.data_name}</th>
-                                    {/foreach}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="fz" style="display: flex;justify-content: flex-start;align-items: center;">
-                                        <span class="circle"></span>今日访问量
-                                    </td>
-                                    {foreach devops_data as $key=>$item}
-                                        <td style="color:#88F066">{$item.data_value}</td>
-                                    {/foreach}
-                                </tr>
-                                <tr>
-                                    <td class="fz" style="display: flex;justify-content: flex-start;align-items: center;">
-                                        <span class="circle"></span>历史访问量
-                                    </td>
-                                    {foreach devops_data as $key=>$item}
-                                        <td style="color:#E79606">{$item.history_num}</td>
-                                    {/foreach}
-                                </tr>
-                                <tr>
-                                    <td class="fz" style="display: flex;justify-content: flex-start;align-items: center;">
-                                        <span class="circle"></span>比昨日新增量
-                                    </td>
-                                    {foreach devops_data as $key=>$item}
-                                        <td style="color:#1CB1FB">{$item.difference}</td>
-                                    {/foreach}
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+
+
+                <div>
+                    <div id="main" style="width:380px; height: 280px"></div>
                 </div>
             </div>
-            <!-- 中间右侧历史累计访问量 -->
-            <!-- 上右侧区域 -->
-            <div class="topRt padd">
-                <p class="commonTit">
-                    <span></span>
-                    历史累计访问量
-                </p>
+            <div class="wLeftbg2">
+                <div class="iconp">
+                    <img src="/devops_imgs/fangwenliang.png" alt="" style="width:65px;height:65px">
+                    <p>累计访问量</p>
+
+                </div>
+
                 <div>
-                    <div id="main" style="width:360px; height: 470px"></div>
+                    <div id="main2" style="width:380px; height: 400px"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="wCenter">
+            <div class="wCenterbg1">
+                <div style="display: flex; align-items: center;">
+                    <!-- <div style="display: flex;align-items: center;">
+                        <img src="/devops_imgs/cIcon1.png" alt="">
+                        <p>视频监控</p>
+                    </div> -->
+                    <div class="iconp">
+                        <img src="/devops_imgs/cIcon1.png" alt="" style="width:65px;height:65px">
+                        <p style="width: 103px;
+                            height: 38px;
+                            background: #8BDBFC;
+                            line-height: 38px;
+                            text-align: center;
+                            border-radius: 19px;color: black;">视频监控</p>
+                    </div>
+                    <div class="iconp" style="margin-left: 20px;">
+                            <span><img src="/devops_imgs/wangye.png" alt=""
+                                       style="vertical-align: middle;width: 20px;height: 20px;"></span>
+                        <p style="margin-left: 10px;">网页</p>
+                    </div>
+
+                </div>
+                <div class="wCenterbg1div"></div>
+
+            </div>
+            <div class="wCenterbg2">
+                <div class="iconp">
+                    <img src="/devops_imgs/usericon.png" alt="" style="width:65px;height:65px">
+                    <p>数据采集分析</p>
+                </div>
+
+                <div class="tableBox">
+
+                    <table>
+                        <thead>
+                        <tr>
+
+                            <th class="fz"
+                                style="display: flex;justify-content: flex-start;align-items: center;">
+                                <span></span>数据来源</th>
+                            <th class="fz">软文</th>
+                            <th class="fz">百度关键字</th>
+                            <th class="fz">今日头条</th>
+                            <th class="fz">公众号</th>
+                            <th class="fz">展会信息</th>
+                            <th class="fz">手机报</th>
+                            <th class="fz">行业资讯</th>
+                            <th class="fz">分析中心</th>
+                            <th class="fz">数据中心</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+
+                            <td class="fz"
+                                style="display: flex;justify-content: flex-start;align-items: center;">
+                                <span></span>今日访问量</td>
+                            <td class="t1">40</td>
+                            <td class="t1">15</td>
+                            <td class="t1">16</td>
+                            <td class="t1">12</td>
+                            <td class="t1">15</td>
+                            <td class="t1">312</td>
+                            <td class="t1">64</td>
+                            <td class="t1">16</td>
+                            <td class="t1">100</td>
+
+                        </tr>
+                        <tr>
+
+                            <td class="fz"
+                                style="display: flex;justify-content: flex-start;align-items: center;">
+                                <span></span>历史访问量</td>
+                            <td class="t2">3718</td>
+                            <td class="t2">2409</td>
+                            <td class="t2">2551</td>
+                            <td class="t2">1587</td>
+                            <td class="t2">1441</td>
+                            <td class="t2">12312</td>
+                            <td class="t2">4970</td>
+                            <td class="t2">2535</td>
+                            <td class="t2">0</td>
+
+                        </tr>
+                        <tr>
+
+                            <td class="fz"
+                                style="display: flex;justify-content: flex-start;align-items: center;">
+                                <span></span>比昨日新增量</td>
+                            <td class="t3">40</td>
+                            <td class="t3">15</td>
+                            <td class="t3">16</td>
+                            <td class="t3">12</td>
+                            <td class="t3">16</td>
+                            <td class="t3">312</td>
+                            <td class="t3">64</td>
+                            <td class="t3">16</td>
+                            <td class="t3">5</td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
                 </div>
             </div>
         </div>
-        <!-- 底部echarts图区域 -->
-        <div class="BomWrapper">
-            <div class="BomItemL padd">
-                <p class="commonTit">
-                    <span></span>
-                    数据统计
-                </p>
-                <div>
-                    <div id="main2" style="width:900px; height: 380px"></div>
+        <div class="wRight">
+            <div class="wRightbg1">
+
+                <div class="iconp">
+                    <img src="/devops_imgs/Licon1.png" alt="" style="width:65px;height:65px">
+                    <p>综合数据统计</p>
+                </div>
+
+                <div class="wRightTxt">
+                    <div class="wRightlist">
+                        <p>每日访问量总计</p>
+                        <p class="wRightlistnum">12546</p>
+                    </div>
+                    <div class="wRightLine"></div>
+                    <div class="wRightlist">
+                        <p>累计访问量总计</p>
+                        <p class="wRightlistnum">122323</p>
+                    </div>
                 </div>
             </div>
-            <div class="BomItemR padd">
-                <p class="commonTit">
-                    <span></span>
-                    近30天访问量
-                </p>
+            <div class="wRightbg2">
+                <div class="iconp">
+                    <img src="/devops_imgs/icon-contrastselect .png" alt="" style="width:65px;height:65px">
+                    <p>较昨日新增/减少</p>
+                </div>
+
                 <div>
-                    <div id="main3" style="width:1000px; height: 380px"></div>
+                    <div id="main3" style="width:400px; height: 240px"></div>
+                </div>
+            </div>
+            <div class="wRightbg3">
+
+                <div class="iconp">
+                    <img src="/devops_imgs/icon-contrastselect .png" alt="" style="width:65px;height:65px">
+                    <p>近30天访问量</p>
+                </div>
+
+                <div>
+                    <div id="main4" style="width:360px; height: 280px"></div>
                 </div>
             </div>
         </div>
     </div>
-</body>
+</div>
 
-<script>
-    setTimeout(function(){
-        window.location.reload();//刷新当前页面.
-    },60*60*1000)
-</script>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-        $.ajax({
-            type:"POST",
-            url:"{:url('Devops/ajax_data')}",
-            data:{},
-            dataType:"json",
-            success:function(data){
-                history(data.history_visit_num);
-                data_detail(data.data_detail);
-                near(data.near_future_data);
-                $("#todayVisitNums").text(data.datas.todayVisitNums);
-                $("#yesNewAdd").text(data.datas.yesNewAdd);
-                $("#historyNum").text(data.datas.historyNum);
-            }
-        })
-    })
 
-    function history(history_visit_num){
-        // ========================= 历史累计访问量 ==============================
-        var myChart = echarts.init(document.getElementById("main"));//初始化
-        var y = history_visit_num.title
-        var x = history_visit_num.num
-        let option = {
-            grid: {
-                left: '1%',
-                right: '8%',
-                bottom: '2%',
-                containLabel: true
+    // =====================================  每日访问量  ===========================================
+    var myChart = echarts.init(document.getElementById("main"));
+    let option = {
+        legend: {
+            show: true,
+            data: ['百度关键字', '今日头条', '公众号', '软文', '展会信息', '行业资讯', '分析中心', '手机报', '数据中心'],
+            icon: "react",   //  这个字段控制形状  类型包括 circle，rect ，roundRect，triangle，diamond，pin，arrow，none
+            itemWidth: 10,  // 设置宽度
+            itemHeight: 10, // 设置高度
+            itemGap: 8, // 设置间距
+            left: 'center',
+            bottom: 0,
+            textStyle: {
+                color: '#70C5FF'
             },
-            xAxis: {
-                type: "value",
-                data: ["0", '2000', "5000", '8000', "10000", '12000', "15000", '18000', "20000"],
-                //   x轴字体颜色
-                // axisLine: {
-                //     lineStyle: {
-                //         color: "#fff",
-                //     },
-                // },
-                axisTick: {
-                    show: false, //隐藏刻度线
-                },
-                // x轴轴线颜色和字体颜色
-                axisLine: {
-                    lineStyle: {
-                        type: 'solid',
-                        color: '#00609B',
-                        width: '1'
-                    }
-                },
-                axisLabel: {
-                    textStyle: {
-                        color: '#fff'
-                    }
-                },
-                //设置网格线颜色
-                splitLine: {
-                    show: true,
-                    lineStyle: {
-                        color: ['#315070'],
-                        width: 1,
-                        type: 'solid'
-                    }
-                }
-                // boundaryGap: [0, 0.01],
+        },
+        color: ['#30A3F1', '#E94A4B', '#DF8B1F', '#9E8A6A', '#58DDD8', '#7F7AE2', '#61B76F', '#77C8FF', '#E672FF'],
+        angleAxis: {
+            //极坐标系的角度轴
+            axisTick: {
+                //坐标轴刻度设置
+                show: false
             },
-            yAxis: {
-                type: "category",
-                // splitLine: { show: false }, //去除网格线
-                //   y轴字体颜色
-                // axisLine: {
-                //     lineStyle: {
-                //         color: "#fff",
-                //     },
-                // },
-                axisTick: {
-                    show: false, //隐藏刻度线
-                },
-                // y轴轴线颜色和字体颜色
-                axisLine: {
-                    lineStyle: {
-                        type: 'solid',
-                        color: '#00609B',
-                        width: '1'
-                    }
-                },
-                axisLabel: {
-                    textStyle: {
-                        color: '#fff'
-                    }
-                },
-                data:y,
+            splitLine: {
+                //分割线设置
+                show: false,
             },
-            series: [
-                {
-                    barWidth: "70%",
-                    itemStyle: {
-                        normal: {
-                            // barBorderRadius: [10, 10, 0, 0], // 设置柱状图圆角
-                            label: {
-                                show: true, //开启显示
-                                position: 'right', //在上方显示
-                                textStyle: { //数值样式
-                                    color: '#fff',
-                                    fontSize: 10
-                                },
-                            },
-                            //右，下，左，上（0，0，0，1）表示从正右开始向左渐变
-                            color: function (params) {
-                                var colorList = [
-                                    ["#594BE3", "#8D98F0"],
-                                    ["#4E93F9", "#021FCA"],
-                                    ["#15EFE6", "#60BBFF"],
-                                    ["#E48A2A", "#FCD299"],
-                                    ["#D23C92", "#FA971F"],
-                                    ["#4E93F9", "#021FCA"],
-                                    ["#594BE3", "#8D98F0"],
-                                    ["#10AC7E", "#76EBAF"],
-                                    ["#00FCFF", "#28B1FF"],
-                                ];
-                                var colorItem = colorList[params.dataIndex];
-                                return new echarts.graphic.LinearGradient(
-                                    0,
-                                    0.3,
-                                    0,
-                                    1,
-                                    [
-                                        {
-                                            offset: 0,
-                                            color: colorItem[0],
-                                        },
-                                        {
-                                            offset: 1,
-                                            color: colorItem[1],
-                                        },
-                                    ],
-                                    false
-                                );
-                            },
-                        },
-                    },
-                    data:x,
-                    type: "bar",
-                    // showBackground: true, //显示背景色
-                },
-            ],
-        };
-        myChart.setOption(option);
-    }
+            axisLabel: {
+                //刻度标签设置
+                show: false
+            },
+            axisLine: {
+                //坐标轴轴线设置
+                show: false,
+            },
+        },
+        radiusAxis: {
+            //极坐标系的径向轴
+            type: 'category',
+            z: 10,
+
+            axisTick: {
+                //坐标轴刻度设置
+                show: false
+            },
+            axisLine: {
+                //坐标轴轴线设置
+                show: false,
+            },
+        },
+        polar: {
+        },
+        series: [
+            {
+                type: 'bar',
+                data: [0.5],
+                coordinateSystem: 'polar',
+                name: '百度关键字',
+            }, {
+                type: 'bar',
+                data: [4],
+                coordinateSystem: 'polar',
+                name: '今日头条',
+            },
+
+            {
+                type: 'bar',
+                data: [1],
+                coordinateSystem: 'polar',
+                name: '公众号',
+            },
+            {
+                type: 'bar',
+                data: [1],
+                coordinateSystem: 'polar',
+                name: '软文',
+            },
+            {
+                type: 'bar',
+                data: [1],
+                coordinateSystem: 'polar',
+                name: '展会信息',
+            },
+            {
+                type: 'bar',
+                data: [1],
+                coordinateSystem: 'polar',
+                name: '行业资讯',
+            },
+            {
+                type: 'bar',
+                data: [1],
+                coordinateSystem: 'polar',
+                name: '分析中心',
+            },
+            {
+                type: 'bar',
+                data: [1],
+                coordinateSystem: 'polar',
+                name: '手机报',
+            },
+            {
+                type: 'bar',
+                data: [1],
+                coordinateSystem: 'polar',
+                name: '数据中心',
+            },
+        ],
+    };
+    myChart.setOption(option);
 
 
-    function data_detail(data_detail){
-        // ========================= 数据统计 ==============================
-        var myChart2 = echarts.init(document.getElementById("main2"));
-        var y = data_detail.title
-        var x = data_detail.num
-        var c = data_detail.c
-        let option2 = {
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    // =====================================  累计访问量  ===========================================
+
+    var myChart2 = echarts.init(document.getElementById("main2"));
+    let option2 = {
+        grid: {
+            left: '1%',
+            right: '8%',
+            bottom: '2%',
+            containLabel: true
+        },
+        xAxis: {
+            type: "value",
+
+            data: ["0", '2000', "5000", '8000', "10000", '12000', "15000", '18000', "20000"],
+            //   x轴字体颜色
+            // axisLine: {
+            //     lineStyle: {
+            //         color: "#fff",
+            //     },
+            // },
+            axisTick: {
+                show: false, //隐藏刻度线
+            },
+            // x轴轴线颜色和字体颜色
+            axisLine: {
+                lineStyle: {
+                    type: 'solid',
+                    color: '#00609B',
+                    width: '1'
                 }
             },
-            legend: {
-                data: ['今日访问量', '较昨日新增'],
-                left: 510,
+            axisLabel: {
                 textStyle: {
-                    color: '#ffffff'//字体颜色
-                },
-            },
-            grid: {
-                left: '0%',
-                right: '15%',
-                bottom: '6%',
-                containLabel: true
-            },
-            xAxis: [
-                {
-                    type: 'category',
-                    data: y,
-                    axisLine: {
-                        lineStyle: {
-                            color: "#fff",
-                        },
-                    },
+                    color: '#82C2ED'
                 }
-            ],
-            yAxis: [
-                {
-                    type: 'value',
-                    splitArea: {show: false},
-                    //   y轴字体颜色
-                    axisLine: {
-                        lineStyle: {
-                            color: "#fff",
-                        },
-                    },
-                    //设置网格线颜色
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: ['#315070'],
-                            width: 1,
-                            type: 'solid'
-                        }
-                    },
-                }
-            ],
-            series: [
-                {
-                    name: '今日访问量',
-                    type: 'bar',
-                    stack: 'one',
-                    data: x,
-                    barWidth: 30,
-                    itemStyle: {
-                        normal: {
-                            color: '#2CDEEE'
-                        }
-                    },
-                },
-                {
-                    name: '较昨日新增',
-                    type: 'bar',
-                    stack: 'one',
-                    data: c,
-                    barWidth: 30,
-                    itemStyle: {
-                        normal: {
-                            color: '#4471FF'
-                        }
-                    },
-                },
-            ]
-        };
-        myChart2.setOption(option2);
-    }
-    function near(near_future_data) {
-        // ========================= 近30天访问量 ==============================
-        var myChart3 = echarts.init(document.getElementById("main3"));
-        var y = near_future_data.title
-        var x = near_future_data.num
-        var c = near_future_data.date
-        let option3 = {
-            tooltip: {
-                trigger: 'axis'
             },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                //   x轴字体颜色
-                axisLine: {
-                    lineStyle: {
-                        color: "#7AADFF",
-                    },
-                },
-                data:c
-            },
-            yAxis: {
-                type: 'value',
-                //   y轴字体颜色
-                axisLine: {
-                    lineStyle: {
-                        color: "#fff",
-                    },
-                },
-                //设置网格线颜色
-                splitLine: {
-                    show: true,
-                    lineStyle: {
-                        color: ['#315070'],
-                        width: 1,
-                        type: 'solid'
-                    },
 
+            //设置网格线颜色
+            splitLine: {
+                show: false,
+                lineStyle: {
+                    color: ['#315070'],
+                    width: 1,
+                    type: 'solid'
+                }
+            }
+            // boundaryGap: [0, 0.01],
+        },
+        yAxis: {
+
+            type: "category",
+            // splitLine: { show: false }, //去除网格线
+            //   y轴字体颜色
+            // axisLine: {
+            //     lineStyle: {
+            //         color: "#fff",
+            //     },
+            // },
+            axisTick: {
+                show: false, //隐藏刻度线
+            },
+            // y轴轴线颜色和字体颜色
+            axisLine: {
+                lineStyle: {
+                    type: 'solid',
+                    color: '#00609B',
+                    width: '1'
                 }
             },
-            series: [{
-                data:x,
-                type: 'line',
-                areaStyle: {},
-                smooth: 0.6,
+            axisLabel: {
+                textStyle: {
+                    color: '#82C2ED'
+                }
+            },
+            data: [
 
-                areaStyle: {
-                    normal: {
-                        color: '#3262C1' //改变区域颜色
-                    }
-                },
+                "百度关键字",
+                "今日头条",
+                "公众号",
+                "软文",
+                "展会信息",
+                "行业资讯",
+                "分析中心",
+                "手机报",
+                "数据中心",
+            ],
+        },
+
+        series: [
+            {
+                barWidth: "70%",
                 itemStyle: {
                     normal: {
-                        color: '#3AC3FB', //改变折线点的颜色
-                        lineStyle: {
-                            color: '#32C5FF', //改变折线颜色
-                            width: 3,
-                        }
-                    }
+                        // barBorderRadius: [10, 10, 0, 0], // 设置柱状图圆角
+                        label: {
+                            // show: true, //开启显示
+                            position: 'right', //在上方显示
+                            textStyle: { //数值样式
+                                color: '#fff',
+                                fontSize: 10
+                            },
+                        },
+
+                        //右，下，左，上（0，0，0，1）表示从正右开始向左渐变
+                        color: function (params) {
+                            var colorList = [
+                                ["#2D9CE7", "#6FC0F7"],
+                                ["#E94A4B", "#EF6F6F"],
+                                ["#DF8B1F", "#F3B463"],
+                                ["#9E8A6A", "#B38945"],
+                                ["#33D0CA", "#73E7E3"],
+                                ["#7F7AE2", "#6861EF"],
+                                ["#61B76F", "#39D352"],
+                                ["#77C8FF", "#77C8FF"],
+                                ["#CF43ED", "#D962F3"],
+                            ];
+                            var colorItem = colorList[params.dataIndex];
+                            //console.log(colorItem);
+                            return new echarts.graphic.LinearGradient(
+                                0,
+                                0.3,
+                                0,
+                                1,
+                                [
+                                    {
+                                        offset: 0,
+                                        color: colorItem[0],
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: colorItem[1],
+                                    },
+                                ],
+                                false
+                            );
+                        },
+                    },
                 },
-            }]
-        };
-        myChart3.setOption(option3);
-    }
+                data: [20000, 22000, 15000, 5000, 5000, 18000, 4000, 8000, 5000],
+                type: "bar",
+                // showBackground: true, //显示背景色
+            },
+        ],
+    };
+    myChart2.setOption(option2);
+
+    // =====================================  较昨日新增/减少  ===========================================
+    var myChart3 = echarts.init(document.getElementById("main3"));
+    let option3 = {
+        grid: {
+            left: '1%',
+            right: '8%',
+            bottom: '2%',
+            containLabel: true
+        },
+        legend: {
+            show: true,
+            data: ['百度关键字', '今日头条', '公众号', '软文', '展会信息', '行业资讯', '分析中心', '手机报', '数据中心'],
+            icon: "react",   //  这个字段控制形状  类型包括 circle，rect ，roundRect，triangle，diamond，pin，arrow，none
+            itemWidth: 10,  // 设置宽度
+            itemHeight: 10, // 设置高度
+            itemGap: 8, // 设置间距
+            left: 'center',
+            bottom: 0,
+            textStyle: {
+                color: '#70C5FF'
+            },
+
+
+        },
+
+
+        color: ['#30A3F1', '#E94A4B', '#DF8B1F', '#9E8A6A', '#58DDD8', '#7F7AE2', '#61B76F', '#77C8FF', '#E672FF'],
+
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '50%'],
+                data: [
+                    { value: 335, name: '百度关键字' },
+                    { value: 166, name: '今日头条' },
+                    { value: 166, name: '公众号' },
+                    { value: 235, name: '视频广告' },
+                    { value: 166, name: '软文' },
+                    { value: 335, name: '展会信息' },
+                    { value: 310, name: '行业资讯' },
+                    { value: 274, name: '分析中心' },
+                    { value: 288, name: '手机报' },
+                    { value: 400, name: '数据中心' }
+                ].sort(function (a, b) { return a.value - b.value; }),
+
+
+                roseType: 'radius',
+                label: {
+                    show: true,
+                    formatter: '{b} : {c}',
+                    color: 'rgba(119, 200, 255, 1)'
+                },
+                labelLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(119, 200, 255, 1)'
+                    },
+                    smooth: 0.2,
+                    length: 10,
+                    length2: 20
+                },
+                // itemStyle: {
+                //     color: '#c23531',
+                //     shadowBlur: 200,
+                //     shadowColor: 'rgba(0, 0, 0, 0.5)'
+                // },
+
+                animationType: 'scale',
+                animationEasing: 'elasticOut',
+                animationDelay: function (idx) {
+                    return Math.random() * 200;
+                }
+            }
+        ]
+    };
+    myChart3.setOption(option3);
+    // =====================================  近30天访问量 ==========================================
+    var myChart4 = echarts.init(document.getElementById("main4"));
+    let option4 = {
+        color: ['#2085CA', '#DF1F20', '#DF8B1F', "#9E8A6A", "#61B7B4", "#6561B7", "#61B76F", "#77C8FF", "#E672FF"],
+        legend: {
+
+            data: ['百度关键字', '今日头条', '公众号', '软文', '展会信息', '行业资讯', '分析中心', '手机报', '数据中心'],
+            icon: "react",   //  这个字段控制形状  类型包括 circle，rect ，roundRect，triangle，diamond，pin，arrow，none
+            itemWidth: 10,  // 设置宽度
+            itemHeight: 10, // 设置高度
+            itemGap: 8, // 设置间距
+            left: 25,
+            top: 10,
+            textStyle: {
+                color: '#70C5FF'
+            },
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['0', '5-7', '5-11', '5.15', '5-19', '5-23', '5-27', '5-31'],
+            axisLabel: {
+                show: true,
+                textStyle: {
+                    color: '#70C5FF'
+                },
+
+            },
+            axisLine: {
+
+                lineStyle: {
+                    color: '#70C5FF',
+                    width: 1,//这里是为了突出显示加上的
+                }
+            },
+            splitLine: {    //网格线
+                lineStyle: {
+                    color: '#70C5FF',
+                    type: 'dashed',   //设置网格线类型 dotted：虚线   solid:实线
+                },
+                show: true //隐藏或显示
+            }
+
+
+
+
+
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                show: true,
+                textStyle: {
+                    color: '#70C5FF'
+                },
+
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#70C5FF',
+                    width: 1,//这里是为了突出显示加上的
+                }
+            },
+            splitLine: {
+                show: false
+            }
+
+
+        },
+        series: [
+            {
+                name: '百度关键字',
+                type: 'line',
+                stack: '总量',
+                data: [120, 132, 101, 134, 90, 230, 210],
+                smooth: true,
+                lineStyle: {
+                    color: '#2085CA' //改变折线颜色
+                }
+            },
+
+            {
+                name: '今日头条',
+                type: 'line',
+                stack: '总量',
+                data: [220, 182, 191, 234, 290, 330, 310],
+                smooth: true,
+                lineStyle: {
+                    color: '#DF1F20' //改变折线颜色
+                }
+            },
+            {
+                name: '公众号',
+                type: 'line',
+                stack: '总量',
+                data: [150, 232, 201, 154, 190, 330, 410],
+                smooth: true,
+                lineStyle: {
+                    color: '#DF8B1F' //改变折线颜色
+                }
+            },
+            {
+                name: '软文',
+                type: 'line',
+                stack: '总量',
+                data: [120, 132, 101, 134, 90, 230, 210],
+                smooth: true,
+                lineStyle: {
+                    color: '#9E8A6A' //改变折线颜色
+                }
+            },
+            {
+                name: '展会信息',
+                type: 'line',
+                stack: '总量',
+                data: [220, 182, 191, 234, 290, 330, 310],
+                smooth: true,
+                lineStyle: {
+                    color: '#61B7B4' //改变折线颜色
+                }
+            },
+
+            {
+                name: '行业资讯',
+                type: 'line',
+                stack: '总量',
+                data: [150, 232, 201, 154, 190, 330, 410],
+                smooth: true,
+                lineStyle: {
+                    color: '#6561B7' //改变折线颜色
+                }
+            },
+            {
+                name: '分析中心',
+                type: 'line',
+                stack: '总量',
+                data: [150, 232, 201, 154, 190, 330, 410],
+                smooth: true,
+                lineStyle: {
+                    color: '#61B76F' //改变折线颜色
+                }
+            },
+            {
+                name: '手机报',
+                type: 'line',
+                stack: '总量',
+                data: [150, 232, 201, 154, 190, 330, 410],
+                smooth: true,
+                lineStyle: {
+                    color: '#77C8FF' //改变折线颜色
+                }
+            },
+
+            {
+                name: '数据中心',
+                type: 'line',
+                stack: '总量',
+                data: [150, 232, 201, 154, 190, 330, 410],
+                smooth: true,
+                lineStyle: {
+                    color: '#E672FF' //改变折线颜色
+                }
+            },
+
+        ]
+    };
+    myChart4.setOption(option4);
 </script>
+
+</body>
+
 </html>

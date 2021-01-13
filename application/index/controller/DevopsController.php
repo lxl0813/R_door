@@ -6,6 +6,7 @@ namespace app\index\controller;
 
 use think\Db;
 use think\facade\Cache;
+use think\facade\Request;
 use think\Validate;
 
 class DevopsController
@@ -16,8 +17,10 @@ class DevopsController
         return view();
     }
 
-    public function devops_center()
+    public function devops_center(Request $request)
     {
+        $devops_type    =   input('devops_type');
+
         //今日访问总量   昨日新增  历史访问总量
         $data=Db::name('devops')
             ->alias('d')
@@ -76,15 +79,6 @@ class DevopsController
         $near_future_data   =   $this->near_future_data();      //近30天数据表
         echo json_encode(['history_visit_num'=>$history_visit_num,'data_detail'=>$data_detail,'near_future_data'=>$near_future_data]);
     }
-
-    //左上角每日访问量图表
-//    public function everyday_visit_num()
-//    {
-//        Db::name('devops')
-//            ->alias('d')
-//            ->
-//
-//    }
 
 
     //表格数据

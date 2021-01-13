@@ -1,26 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>运维看板</title>
+    <title>运维中心</title>
+    <link rel="stylesheet" href="/static/css/centerbtn.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 引入 ECharts 文件 -->
+    <script src="/static/js/echarts.min.js"></script>
 </head>
 
 <body>
+    <div class="wrapper">
+        <div class="toptitle">化纤板块 运维中心</div>
+        <div class="topTime">2020年11月28日 09:20:48</div>
+        <div class="wbody">
+            <div class="wbodyTxt">
 
+                <a class="wlist1" href="{:url('Devops/devops_center',['devops_type'=>'化纤中文平台'])}">
+                    <img src="/devops_imgs/button1.png" alt="">
+                </a>
 
-<a href="{:url('Devops/devops_center',['id'=>'化纤中文平台'])}">化纤中文平台</a>
-<a href="{:url('Devops/devops_center',['id'=>'化纤英文平台'])}">化纤英文平台</a>
-<a href="{:url('Devops/devops_center',['id'=>'无纺中文平台'])}">无纺中文平台</a>
-<a href="{:url('Devops/devops_center',['id'=>'无纺英文平台'])}">无纺英文平台</a>
-<a href="{:url('Devops/devops_center',['id'=>'制品中文平台'])}">制品中文平台</a>
-<a href="{:url('Devops/devops_center',['id'=>'制品英文平台'])}">制品英文平台</a>
-<a href="{:url('Devops/devops_center',['id'=>'纱线中文平台'])}">纱线中文平台</a>
-<a href="{:url('Devops/devops_center',['id'=>'纱线英文平台'])}">纱线英文平台</a>
+                <a class="wlist2" href="{:url('Devops/devops_center',['devops_type'=>'无纺中文平台'])}">
+                    <img src="/devops_imgs/button2.png" alt="">
+                </a>
 
+                <a class="wlist3" href="{:url('Devops/devops_center',['devops_type'=>'制品中文平台'])}">
+                    <img src="/devops_imgs/button3.png" alt="">
+                </a>
 
+                <a class="wlist4" href="{:url('Devops/devops_center',['devops_type'=>'纱线中文平台'])}">
+                   <img src="/devops_imgs/button4.png" alt="">
+                </a>
 
+                <a class="wlist5" href="{:url('Devops/devops_center',['devops_type'=>'化纤英文平台'])}">
+                   <img src="/devops_imgs/button5.png" alt="">
+                </a>
+
+                <a class="wlist6" href="{:url('Devops/devops_center',['devops_type'=>'无纺英文平台'])}">
+                   <img src="/devops_imgs/button6.png" alt="">
+                </a>
+
+                <a class="wlist7" href="{:url('Devops/devops_center',['devops_type'=>'制品英文平台'])}">
+                   <img src="/devops_imgs/button7.png" alt="">
+                </a>
+
+                <a class="wlist8" href="{:url('Devops/devops_center',['devops_type'=>'纱线英文平台'])}">
+                   <img src="/devops_imgs/button8.png" alt="">
+                </a>
+
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
