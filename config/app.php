@@ -47,9 +47,9 @@ return [
     //语言
     'lang_list'              => ['zh-cn','en_us'],
     // 应用类库后缀
-    'class_suffix'           => false,
+    'class_suffix'           => true,
     // 控制器类后缀
-    'controller_suffix'      => false,
+    'controller_suffix'      => true,
 
     // +----------------------------------------------------------------------
     // | 模块设置

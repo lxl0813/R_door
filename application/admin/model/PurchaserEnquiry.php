@@ -1,6 +1,6 @@
 <?php
 namespace app\admin\model;
-use app\admin\controller\Common;
+use app\admin\controller\CommonController;
 use think\Db;
 use think\facade\Cookie;
 use think\Model;
@@ -13,7 +13,7 @@ class PurchaserEnquiry extends Model{
      */
     //待报价询单查询
     public function stay_enquiry_search(){
-        $admin_id = (new Common())->admin_id();
+        $admin_id = (new CommonController())->admin_id();
         $list = Db::name('purchaser_enquiry')
             ->alias('pe')
             ->join('purchaser p','pe.purchaser_id=p.id')
