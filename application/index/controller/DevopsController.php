@@ -4,205 +4,138 @@
 namespace app\index\controller;
 
 
+use think\Controller;
 use think\Db;
 use think\facade\Cache;
 use think\facade\Request;
 use think\Validate;
 
-class DevopsController
+class DevopsController extends Controller
 {
-    private $table_data  =   [];
+
+    private $today_data;        //今日访问量（左上图）
+    private $history_data;      //历史数据量（左下图）
+    private $difference;        //较昨日差值（右上图）
+    private $near_future_data;  //近30天   （右下图）
+
+
     public function index()
     {
         return view();
     }
 
-    public function devops_center(Request $request)
+
+    public function devops_centers(Request $request)
     {
-        $devops_type    =   input('devops_type');
-
-        //今日访问总量   昨日新增  历史访问总量
-        $data=Db::name('devops')
-            ->alias('d')
-            ->leftJoin('devops_value dv','d.id=dv.data_name_id')
-            ->where('d.state','1')
-            ->where('dv.create_time',date('Y-m-d',time()))
-            ->field('d.id,d.data_name,dv.data_value,dv.create_time')
-            ->select();
-        if(empty($data)){
-            $data=Db::name('devops')
-                ->alias('d')
-                ->leftJoin('devops_value dv','d.id=dv.data_name_id')
-                ->where('d.state','1')
-                ->order('dv.create_time desc')
-                ->order('dv.data_name_id')
-                ->field('d.id,d.data_name,dv.data_value,dv.create_time')
-                ->limit(9)
-                ->select();
-        }
-
-        $todayVisitNums=0;  //定义今日访问总数值
-        $yesNewAdd=0;       //定义比昨日新增数值
-        $historyNum=0;      //定义历史访问总量
-        foreach ($data as $key=>$item)
-        {
-            //该数据点的历史数据和
-            $data[$key]['history_num']=Db::name('devops_value')
-                ->where('data_name_id',$item['id'])
-                ->where('create_time','<',date('Y-m-d',time()))
-                ->sum('data_value');
-
-            //该数据点和昨日数据点差值
-            $data[$key]['difference']=$item['data_value']-(Db::name('devops_value')
-                    ->where('data_name_id',$item['id'])
-                    ->where('create_time',date("Y-m-d",strtotime("-1 day",strtotime($item['create_time']))))
-                    ->value('data_value'));
-            //今日访问总量
-            $todayVisitNums+=$item['data_value'];
-            //比昨日新增总量
-            $yesNewAdd+=$data[$key]['difference'];
-            //历史访问总量和
-            $historyNum+=$data[$key]['history_num'];
-        }
-        $datas['todayVisitNums']=$todayVisitNums;
-        $datas['yesNewAdd']=$yesNewAdd;
-        $datas['historyNum']=(int)$historyNum;
-        $this->table_data=$data;
-        return view('',['devops_data'=>$data,'num'=>$datas]);
+        $devops_type                            =   $this->request->param('devops_type');
+        $data_analysis_result                   =   $this->data_analysis($devops_type);             //数据采集分析（表格）
+        $this->today_data['title']              =   $data_analysis_result['title'];                 //今日访问量标题（左上图）
+        $this->today_data['today_data']         =   $data_analysis_result['today_data'];            //今日访问量（左上图）
+        $this->history_data['title']            =   $data_analysis_result['title'];                 //历史数据量标题（左下图）
+        $this->history_data['history_data']     =   $data_analysis_result['history_data'];          //历史数据量和（左下图）
+        $this->difference['title']              =   $data_analysis_result['title'];                 //较昨日标题（右上图）
+        $this->difference['difference']         =   $data_analysis_result['difference'];            //较昨日差值（右上图）
+        //近30日的单点访问量
+        $this->near_future_data                 =   $this->near_future_data($devops_type);          //近30天数据（右下图）
+        //每日访问量总计
+        $data_analysis_result['today_data_sum'] =   array_sum($data_analysis_result['today_data']);
+        //累计访问量总计
+        $data_analysis_result['data_sum']       =   array_sum($data_analysis_result['history_data'])+$data_analysis_result['today_data_sum'];
+        return view();
     }
+
+
+
+    //数据采集分析（表格）
+    public function data_analysis($data)
+    {
+        $today_devops_data   =   Db::name('devops')
+                                ->alias('d')
+                                ->leftJoin('devops_value dv','d.id=dv.data_name_id')
+                                ->where('d.state','1')
+                                ->where('dv.platform_name',$data)
+                                ->where('dv.create_time',date('Y-m-d',time()))
+                                ->field('d.id,d.data_name,dv.data_value,dv.create_time')
+                                ->select();
+        $today_devops_data   =   $today_devops_data  ?   $today_devops_data  :   Db::name('devops')
+                                                                                ->alias('d')
+                                                                                ->leftJoin('devops_value dv','d.id=dv.data_name_id')
+                                                                                ->where('d.state','1')
+                                                                                ->where('dv.platform_name',$data)
+                                                                                ->where('dv.create_time',date("Y-m-d",strtotime("-1 day",time())))
+                                                                                ->field('d.id,d.data_name,dv.data_value,dv.create_time')
+                                                                                ->select();
+        $table_data =   [];
+        foreach ($today_devops_data as $key=>$item)
+        {
+            //关键词
+            $table_data['title'][]          =   $item['data_name'];
+            //今日数据量
+            $table_data['today_data'][]     =   $item['data_value'];
+            //历史数据量
+            $table_data['history_data'][]   =   Db::name('devops_value')
+                                                ->where('data_name_id',$item['id'])
+                                                ->where('create_time','<',date('Y-m-d',time()))
+                                                ->sum('data_value');
+            $table_data['difference'][]     =   $item['data_value']-(Db::name('devops_value')
+                                                ->where('data_name_id',$item['id'])
+                                                ->where('create_time',date("Y-m-d",strtotime("-1 day",strtotime($item['create_time']))))
+                                                ->value('data_value'));
+        }
+        unset($today_devops_data);
+        return $table_data;
+    }
+
+
 
     //页面数据ajax调取
     public function ajax_data()
     {
-        $history_visit_num  =   $this->history_visit_num();     //历史图表数据
-        $data_detail        =   $this->data_detail();           //数据图表
-        $near_future_data   =   $this->near_future_data();      //近30天数据表
-        echo json_encode(['history_visit_num'=>$history_visit_num,'data_detail'=>$data_detail,'near_future_data'=>$near_future_data]);
+        var_dump($this->near_future_data);exit;
+        echo json_encode(['today_data'=>$this->today_data,'history_data'=>$this->history_data,'difference'=>$this->difference,'near_future_data'=>$this->near_future_data]);
     }
 
 
-    //表格数据
-    public function table_data()
-    {
-        $data=Db::name('devops')
-            ->alias('d')
-            ->leftJoin('devops_value dv','d.id=dv.data_name_id')
-            ->where('d.state','1')
-            ->where('dv.create_time',date('Y-m-d',time()))
-            ->field('d.id,d.data_name,dv.data_value,dv.create_time')
-            ->select();
-        if(empty($data)){
-            $data=Db::name('devops')
-                ->alias('d')
-                ->leftJoin('devops_value dv','d.id=dv.data_name_id')
-                ->where('d.state','1')
-                ->order('dv.create_time desc')
-                ->order('dv.data_name_id')
-                ->field('d.id,d.data_name,dv.data_value,dv.create_time')
-                ->limit(9)
-                ->select();
-        }
-
-        $todayVisitNums=0;  //定义今日访问总数值
-        $yesNewAdd=0;       //定义比昨日新增数值
-        $historyNum=0;      //定义历史访问总量
-        foreach ($data as $key=>$item)
-        {
-            //该数据点的历史数据和
-            $data[$key]['history_num']  =   Db::name('devops_value')
-                                            ->where('data_name_id',$item['id'])
-                                            ->where('create_time','<',date('Y-m-d',time()))
-                                            ->sum('data_value');
-            //该数据点和昨日数据点差值
-            $data[$key]['difference']   =   $item['data_value']-(Db::name('devops_value')
-                                            ->where('data_name_id',$item['id'])
-                                            ->where('create_time',date("Y-m-d",strtotime("-1 day",strtotime($item['create_time']))))
-                                            ->value('data_value'));
-            //今日访问总量
-            $todayVisitNums             +=  $item['data_value'];
-            //比昨日新增总量
-            $yesNewAdd                  +=  $data[$key]['difference'];
-            //历史访问总量和
-            $historyNum                 +=  $data[$key]['history_num'];
-        }
-        $datas['todayVisitNums']        =   $todayVisitNums;
-        $datas['yesNewAdd']             =   $yesNewAdd;
-        $datas['historyNum']            =   (int)$historyNum;
-        $data['data']                   =   $datas;
-        var_dump($data);exit;
-        return $data;
-    }
-
-
-    //历史累计访问量图表
-    public function history_visit_num()
-    {
-        $devops_name                            =   Db::name('devops')->where('state','1')->order('id')->select();
-        foreach ($devops_name as $key=>$item)
-        {
-            $history_visit_num['title'][]       =   $item['data_name'];
-            $history_visit_num['num'][]         =   Db::name('devops_value')->where('data_name_id',$item['id'])->where('create_time','<',date('Y-m-d',time()))->sum('data_value');
-        }
-        unset($devops_name);
-        return $history_visit_num;
-    }
-
-
-    //数据图表
-    public function data_detail()
-    {
-        $devops_data                    =   Db::name('devops')->where('state','1')->order('id')->select();
-        foreach ($devops_data as $key=>$item)
-        {
-            $data_detail['title'][]     =   $item['data_name'];
-            $num                        =   Db::name('devops_value')->where('data_name_id',$item['id'])->where('create_time',date('Y-m-d',time()))->value('data_value');
-            if(empty($num)){
-                $num                    =   Db::name('devops_value')->where('data_name_id',$item['id'])->where('create_time',date('Y-m-d',strtotime("-1 day")))->value('data_value');
-                $data_detail['num'][]   =   $num;
-                $data_detail['c'][]     =   $num-Db::name('devops_value')->where('data_name_id',$item['id'])->where('create_time',date("Y-m-d",strtotime("-2 day")))->value('data_value');
-            }else{
-                $data_detail['num'][]   =   $num;
-                $data_detail['c'][]     =   $num-Db::name('devops_value')->where('data_name_id',$item['id'])->where('create_time',date("Y-m-d",strtotime("-1 day")))->value('data_value');
-            }
-        }
-        unset($devops_data);
-        return $data_detail;
-    }
 
     //近30日访问量表
-    public function near_future_data()
+    public function near_future_data($data)
     {
-        $devops_near                        =   Db::name('devops')->where('state','1')->order('id')->field('id,data_name')->select();
-        foreach ($devops_near as $key=>$item)
-        {
-            $near_future_data[$key]         =   Db::name('devops_value')->where('data_name_id',$item['id'])->where('create_time','<',date('Y-m-d',time()))->order('create_time')->limit(30)->field('data_value,create_time')->select();
+        $near_future_data   =   Db::name('devops')
+                                ->alias('d')
+                                ->leftJoin('devops_value dv' ,'d.id=dv.data_name_id')
+                                ->where('d.state','1')
+                                ->where('dv.platform_name',$data)
+                                ->where('dv.create_time','between',[date("Y-m-d",strtotime("-30 day",time())),date("Y-m-d",time())])
+                                ->order('dv.create_time')
+                                ->order('dv.data_name_id')
+                                ->select();
+        foreach ($near_future_data as $k => $v) {
+            $near[$v['create_time']][] = $v;
         }
-        foreach ($near_future_data as $key=>$item)
+        foreach ($near_future_data as $k => $v) {
+            $a[$v['data_name']][] = $v;
+        }
+        foreach ($near as $key=>$item)
         {
-            foreach ($item as $k=>$v)
+            $near_today_data['title'][]    =    array_column($item,'data_name');break;
+
+        }
+        foreach ($near as $key=>$item)
+        {
+            $near_today_data['date'][]     =    $key;
+        }
+        $near_today_data['title']=array_unique($near_today_data['title']);
+        $near_today_data['date']=array_unique($near_today_data['date']);
+
+        foreach ($a as $k=>$v)
+        {
+            foreach ($v as $k1=>$v1)
             {
-                $future_data[$key][]=$v['data_value'];
+                $near_today_data['data'][$k][]     =    $v1['data_value'];
             }
         }
-        $i = 0;
-        while($i < count(current($near_future_data))){
-            $data[] = array_column($future_data,$i);
-            $i++;
-        }
-        $sum=[];
-        foreach ($data as $key=>$item)
-        {
-            $sum['num'][$key]  =   array_sum($item);
-        }
-        foreach ($near_future_data[0] as $k=>$v)
-        {
-            $sum['date'][]=$v['create_time'];
-        }
-        foreach ($devops_near as $k=>$v)
-        {
-            $sum['title'][]=$v['data_name'];
-        }
-        return $sum;
+        unset($near_future_data,$a);
+        return $near_today_data;
     }
 
 
