@@ -15,6 +15,7 @@
 <body>
 <div class="wrapper">
     <div class="toptitle">化纤板块 运维中心</div>
+    <div class="prev">返回</div>
     <div class="topTime"></div>
     <div class="wbody">
         <div class="wLeft">
@@ -40,27 +41,112 @@
         <div class="wCenter">
             <div class="wCenterbg1">
                 <div style="display: flex; align-items: center;">
-                    <!-- <div style="display: flex;align-items: center;">
-                        <img src="/devops_imgs/cIcon1.png" alt="">
-                        <p>视频监控</p>
-                    </div> -->
-                    <div class="iconp">
+
+                    <div class="iconp" id="jiank">
                         <img src="/devops_imgs/cIcon1.png" alt="" style="width:65px;height:65px">
                         <p style="width: 103px;
+                            cursor: pointer;
                             height: 38px;
                             background: #8BDBFC;
                             line-height: 38px;
                             text-align: center;
                             border-radius: 19px;color: black;">视频监控</p>
                     </div>
-                    <div class="iconp" style="margin-left: 20px;">
+
+                    <div class="iconp" style="margin-left: 20px;" id="wangye">
                             <span><img src="/devops_imgs/wangye.png" alt=""
                                        style="vertical-align: middle;width: 20px;height: 20px;"></span>
-                        <p style="margin-left: 10px;">网页</p>
+                        <p style="margin-left: 10px;cursor: pointer;" >网页</p>
                     </div>
+
+                    <div class="iconp" style="display: flex">
+                        <p style="text-align: right;cursor: pointer;" >镜头切换</p>
+                        <span><img src="/devops_imgs/wangye.png" alt="" style="vertical-align: middle;width: 20px;height: 20px;"></span>
+                    </div>
+
                 </div>
-                <div class="wCenterbg1div"></div>
+
+                <!--    让雷办公室前    -->
+                <div class="wCenterbg1div" id="rl_front">
+                    <iframe
+                            src="https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/E66358911/1.live&autoplay=0&audio=1&accessToken=at.1y13xi883gkghsopdgtgceb14hjp2879-9nya4f3p7j-0oomoq3-8zfuh890q"
+                            width="727"
+                            height="427"
+                            id="open_rl_front"
+                            allowfullscreen
+                    >
+                    </iframe>
+                </div>
+
+                <!--    让雷办公室后    -->
+                <div class="wCenterbg1div" id="rl_after" hidden>
+                    <iframe
+                            src="https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/E66358911/4.live&autoplay=0&audio=1&accessToken=at.1y13xi883gkghsopdgtgceb14hjp2879-9nya4f3p7j-0oomoq3-8zfuh890q"
+                            width="727"
+                            height="427"
+                            id="open_rl_after"
+                            allowfullscreen
+                    >
+                    </iframe>
+                </div>
+
+                <!--    让雷办公室中     -->
+                <div class="wCenterbg1div" id="rl_midddle" hidden>
+                    <iframe
+                            src="https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/E66358911/3.live&autoplay=0&audio=1&accessToken=at.1y13xi883gkghsopdgtgceb14hjp2879-9nya4f3p7j-0oomoq3-8zfuh890q"
+                            width="727"
+                            height="427"
+                            id="open_rl_middle"
+                            allowfullscreen
+                    >
+                    </iframe>
+                </div>
+
+                <!--    让雷办公室角     -->
+                <div class="wCenterbg1div" id="rl_jiao" hidden>
+                    <iframe
+                            src="https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/E66358911/2.live&autoplay=0&audio=1&accessToken=at.1y13xi883gkghsopdgtgceb14hjp2879-9nya4f3p7j-0oomoq3-8zfuh890q"
+                            width="727"
+                            height="427"
+                            id="open_rl_jiao"
+                            allowfullscreen
+                    >
+                    </iframe>
+                </div>
+
+                <!--     济南工厂1     -->
+                <div class="wCenterbg1div" id="jn_1" >
+
+                </div>
+
+                <!--      济南工厂2     -->
+                <div class="wCenterbg1div" id="jn_2" hidden>
+                    <iframe
+                            src="https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/E66358911/4.live&autoplay=0&audio=1&accessToken=at.1y13xi883gkghsopdgtgceb14hjp2879-9nya4f3p7j-0oomoq3-8zfuh890q"
+                            width="727"
+                            height="427"
+                            id="ysopen"
+                            allowfullscreen
+                    >
+                    </iframe>
+                </div>
+
+
+                <div class="wCenterbg1div1" hidden>
+                    <div onclick="ifram()">
+                        <iframe
+                                src="https://www.chinafibermarketing.cn"
+                                width="727"
+                                height="427"
+                                id="ifwang"
+                                allowfullscreen
+                        >
+                        </iframe>
+                    </div>
+
+                </div>
             </div>
+
             <div class="wCenterbg2">
                 <div class="iconp">
                     <img src="/devops_imgs/usericon.png" alt="" style="width:65px;height:65px">
@@ -69,64 +155,40 @@
                 <div class="tableBox">
                     <table>
                         <thead>
-                        <tr>
-                            <th class="fz"
-                                style="display: flex;justify-content: flex-start;align-items: center;">
-                                <span></span>数据来源</th>
-                            <th class="fz">软文</th>
-                            <th class="fz">百度关键字</th>
-                            <th class="fz">今日头条</th>
-                            <th class="fz">公众号</th>
-                            <th class="fz">展会信息</th>
-                            <th class="fz">手机报</th>
-                            <th class="fz">行业资讯</th>
-                            <th class="fz">分析中心</th>
-                            <th class="fz">数据中心</th>
-                        </tr>
+                            <tr>
+                                <th class="fz" style="display: flex;justify-content: flex-start;align-items: center;">
+                                    <span></span>数据来源</th>
+                                {foreach $data_analysis_result.title as $key=>$item}
+                                    <th class="fz">{$item}</th>
+                                {/foreach}
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="fz"
-                                style="display: flex;justify-content: flex-start;align-items: center;">
-                                <span></span>今日访问量</td>
-                            <td class="t1">40</td>
-                            <td class="t1">15</td>
-                            <td class="t1">16</td>
-                            <td class="t1">12</td>
-                            <td class="t1">15</td>
-                            <td class="t1">312</td>
-                            <td class="t1">64</td>
-                            <td class="t1">16</td>
-                            <td class="t1">100</td>
-                        </tr>
-                        <tr>
-                            <td class="fz"
-                                style="display: flex;justify-content: flex-start;align-items: center;">
-                                <span></span>历史访问量</td>
-                            <td class="t2">3718</td>
-                            <td class="t2">2409</td>
-                            <td class="t2">2551</td>
-                            <td class="t2">1587</td>
-                            <td class="t2">1441</td>
-                            <td class="t2">12312</td>
-                            <td class="t2">4970</td>
-                            <td class="t2">2535</td>
-                            <td class="t2">0</td>
-                        </tr>
-                        <tr>
-                            <td class="fz"
-                                style="display: flex;justify-content: flex-start;align-items: center;">
-                                <span></span>比昨日新增量</td>
-                            <td class="t3">40</td>
-                            <td class="t3">15</td>
-                            <td class="t3">16</td>
-                            <td class="t3">12</td>
-                            <td class="t3">16</td>
-                            <td class="t3">312</td>
-                            <td class="t3">64</td>
-                            <td class="t3">16</td>
-                            <td class="t3">5</td>
-                        </tr>
+                            <tr>
+                                <td class="fz"
+                                    style="display: flex;justify-content: flex-start;align-items: center;">
+                                    <span></span>今日访问量</td>
+                                {foreach $data_analysis_result.today_data as $key=>$item}
+                                    <td class="t1">{$item}</td>
+                                {/foreach}
+
+                            </tr>
+                            <tr>
+                                <td class="fz"
+                                    style="display: flex;justify-content: flex-start;align-items: center;">
+                                    <span></span>历史访问量</td>
+                                {foreach $data_analysis_result.history_data as $key=>$item}
+                                    <td class="t2">{$item}</td>
+                                {/foreach}
+                            </tr>
+                            <tr>
+                                <td class="fz"
+                                    style="display: flex;justify-content: flex-start;align-items: center;">
+                                    <span></span>比昨日新增量</td>
+                                {foreach $data_analysis_result.difference as $key=>$item}
+                                    <td class="t3">{$item}</td>
+                                {/foreach}
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -141,12 +203,12 @@
                 <div class="wRightTxt">
                     <div class="wRightlist">
                         <p>每日访问量总计</p>
-                        <p class="wRightlistnum">12546</p>
+                        <p class="wRightlistnum">{$data_analysis_result.today_data_sum}</p>
                     </div>
                     <div class="wRightLine"></div>
                     <div class="wRightlist">
                         <p>累计访问量总计</p>
-                        <p class="wRightlistnum">122323</p>
+                        <p class="wRightlistnum">{$data_analysis_result.data_sum}</p>
                     </div>
                 </div>
             </div>
@@ -172,6 +234,141 @@
     </div>
 </div>
 
+
+<script>
+    function func(){
+        //获取被选中的option标签
+        var vs = $('select  option:selected').val();
+    }
+</script>
+
+<script>
+    // 添加DOM容器
+    function getkitToken() {
+        $.ajax({
+            type: "POST",
+            url: "{:url('Devops/getkitToken')}",
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                //console.log(data);return;
+            }
+        })
+
+
+        // const player = new ImouPlayer('#jn_1');
+        // // 播放器初始化
+        // player.setup({
+        //     src: [
+        //         {
+        //             url: 'imou://open.lechange.com/5K03C42PAZ34B44/0/1?streamId=1', // url拼接说明请见：2.2.3 轻应用播放地址说明
+        //             kitToken: 'Kt_54f8452ce4e14795b98b965ac11d728d', // 播放Token，通过接口getKitToken获取，具体请见：2.2.4 getKitToken接口协议说明
+        //         }
+        //     ], // 播放地址
+        //     width: 727, // 播放器宽度
+        //     height: 427, // 播放器高度
+        //     poster: '', // 封面图url
+        //     autoplay: false, // 是否自动播放
+        //     controls: true, // 是否展示控制栏
+        // });
+        // // 播放
+        // player.play();
+        // // 暂停
+        // player.pause();
+        // // 停止播放
+        // player.stop();
+        // // 销毁播放器
+        // player.destroy();
+        // // 进入全屏
+        // player.setFullScreen();
+        // // 退出全屏
+        // player.exitFullScreen();
+        // // 设置音量
+        // player.setVolume(0.5);
+        // // 设置多屏
+        // player.setMultiScreen(4);
+    }
+
+
+</script>
+
+<script>
+    //视频和网页的点击切换事件
+    $('#wangye').click(function(){
+        $("#jiank").children('p').removeAttr("style");
+        $(this).children('p').css('color','black');
+        $(this).children('p').css('background','#8BDBFC');
+        $(this).children('p').css('border-radius','19px');
+        $(this).children('p').css('line-height','38px');
+        $(this).children('p').css('text-align','center');
+        $(this).children('p').css('width','55px');
+        $("#jiank").children('p').css('cursor','pointer');
+        $(".wCenterbg1div").hide();
+        $(".wCenterbg1div1").show();
+
+    })
+
+    $('#jiank').click(function(){
+        $("#wangye").children('p').removeAttr("style");
+        $("#wangye").children('p').css("margin-left",'10px');
+        $(this).children('p').css('color','black');
+        $(this).children('p').css('background','#8BDBFC');
+        $(this).children('p').css('border-radius','19px');
+        $(this).children('p').css('line-height','38px');
+        $(this).children('p').css('width','103px');
+        $(this).children('p').css('text-align','center');
+        $("#wangye").children('p').css('cursor','pointer');
+        $(".wCenterbg1div1").hide();
+        $(".wCenterbg1div").show();
+    })
+
+    $(".prev").click(function(){
+        window.location.href="http://www.door.com/index/devops/index";
+    })
+
+    var IframeOnClick = {
+        resolution: 200,
+        iframes: [],
+        interval: null,
+        Iframe: function() {
+            this.element = arguments[0];
+            this.cb = arguments[1];
+
+            this.hasTracked = false;
+        },
+        track: function(element, cb) {
+            this.iframes.push(new this.Iframe(element, cb));
+            if (!this.interval) {
+                var _this = this;
+                this.interval = setInterval(function() { _this.checkClick(); }, this.resolution);
+            }
+        },
+
+        checkClick: function() {
+            if (document.activeElement) {
+                var activeElement = document.activeElement;
+                for (var i in this.iframes) {
+                    if (activeElement === this.iframes[i].element) { // user is in this Iframe
+                        if (this.iframes[i].hasTracked == false) {
+                            this.iframes[i].cb.apply(window, []);
+
+                            this.iframes[i].hasTracked = true;
+                        }
+                    } else {
+                        this.iframes[i].hasTracked = false;
+                    }
+                }
+            }
+        }
+    };
+
+    // 监听点击事件
+    IframeOnClick.track(document.getElementById("ifwang"), function(){
+        //做你想做的事情
+        window.location.href="https://www.chinafibermarketing.cn";
+    });
+
+</script>
 <script type="text/javascript">
     window.onload=function(){
         //每1秒刷新时间
@@ -202,31 +399,36 @@
         return num;
     }
 </script>
-
-
 <script type="text/javascript">
 
-    $(document).ready(function(){
+    $(document).ready(function() {
 
         $.ajax({
-            type:"POST",
-            url:"{:url('Devops/ajax_data')}",
-            data:{},
-            dataType:"json",
-            success:function(data){
-
+            type: "POST",
+            url: "{:url('Devops/ajax_data')}",
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                //console.log(data);return;
+                today(data.today_data)
+                history(data.history_data)
+                difference(data.difference)
+                future(data.near_future_data)
+                getkitToken();
             }
         })
+    })
 
-
-
+    function today(today_data) {
         // =====================================  每日访问量  ===========================================
         var myChart = echarts.init(document.getElementById("main"));
+        var title   =   today_data.title;
+        var data    =   today_data.today_data;
+        //console.log(data);
         let option = {
-
             legend: {
                 show: true,
-                data: ['百度关键字', '今日头条', '公众号', '软文', '展会信息', '行业资讯', '分析中心', '手机报', '数据中心'],
+                data: title,
                 icon: "react",   //  这个字段控制形状  类型包括 circle，rect ，roundRect，triangle，diamond，pin，arrow，none
                 itemWidth: 10,  // 设置宽度
                 itemHeight: 10, // 设置高度
@@ -273,68 +475,16 @@
             },
             polar: {
             },
-            series: [
-                {
-                    type: 'bar',
-                    data: [0.5],
-                    coordinateSystem: 'polar',
-                    name: '百度关键字',
-                }, {
-                    type: 'bar',
-                    data: [4],
-                    coordinateSystem: 'polar',
-                    name: '今日头条',
-                },
-
-                {
-                    type: 'bar',
-                    data: [1],
-                    coordinateSystem: 'polar',
-                    name: '公众号',
-                },
-                {
-                    type: 'bar',
-                    data: [1],
-                    coordinateSystem: 'polar',
-                    name: '软文',
-                },
-                {
-                    type: 'bar',
-                    data: [1],
-                    coordinateSystem: 'polar',
-                    name: '展会信息',
-                },
-                {
-                    type: 'bar',
-                    data: [1],
-                    coordinateSystem: 'polar',
-                    name: '行业资讯',
-                },
-                {
-                    type: 'bar',
-                    data: [1],
-                    coordinateSystem: 'polar',
-                    name: '分析中心',
-                },
-                {
-                    type: 'bar',
-                    data: [10],
-                    coordinateSystem: 'polar',
-                    name: '手机报',
-                },
-                {
-                    type: 'bar',
-                    data: [10],
-                    coordinateSystem: 'polar',
-                    name: '数据中心',
-                },
-            ],
+            series: data,
         };
         myChart.setOption(option);
+    }
 
-
+    function history(history_data) {
         // =====================================  累计访问量  ===========================================
         var myChart2 = echarts.init(document.getElementById("main2"));
+        var sum     =   history_data.history_data;
+        var title   =   history_data.title;
         let option2 = {
             grid: {
                 left: '1%',
@@ -345,7 +495,7 @@
             xAxis: {
                 type: "value",
 
-                data: ["0", '2000', "5000", '8000', "10000", '12000', "15000", '18000', "20000"],
+                data: sum,
                 //   x轴字体颜色
                 // axisLine: {
                 //     lineStyle: {
@@ -406,17 +556,7 @@
                         color: '#82C2ED'
                     }
                 },
-                data: [
-                    "百度关键字",
-                    "今日头条",
-                    "公众号",
-                    "软文",
-                    "展会信息",
-                    "行业资讯",
-                    "分析中心",
-                    "手机报",
-                    "数据中心",
-                ],
+                data: title
             },
 
             series: [
@@ -476,10 +616,13 @@
             ],
         };
         myChart2.setOption(option2);
+    }
 
-
+    function difference(difference) {
         // =====================================  较昨日新增/减少  ===========================================
         var myChart3 = echarts.init(document.getElementById("main3"));
+        var title   =   difference.title;
+        var differences  =   difference.difference;
         let option3 = {
             grid: {
                 left: '1%',
@@ -489,7 +632,7 @@
             },
             legend: {
                 show: true,
-                data: ['百度关键字', '今日头条', '公众号', '软文', '展会信息', '行业资讯', '分析中心', '手机报', '数据中心'],
+                data: title,
                 icon: "react",   //  这个字段控制形状  类型包括 circle，rect ，roundRect，triangle，diamond，pin，arrow，none
                 itemWidth: 10,  // 设置宽度
                 itemHeight: 10, // 设置高度
@@ -508,18 +651,7 @@
                     type: 'pie',
                     radius: '55%',
                     center: ['50%', '50%'],
-                    data: [
-                        { value: 335, name: '百度关键字' },
-                        { value: 166, name: '今日头条' },
-                        { value: 166, name: '公众号' },
-                        { value: 235, name: '视频广告' },
-                        { value: 166, name: '软文' },
-                        { value: 335, name: '展会信息' },
-                        { value: 310, name: '行业资讯' },
-                        { value: 274, name: '分析中心' },
-                        { value: 288, name: '手机报' },
-                        { value: 400, name: '数据中心' }
-                    ].sort(function (a, b) { return a.value - b.value; }),
+                    data: differences.sort(function (a, b) { return a.value - b.value; }),
                     roseType: 'radius',
                     label: {
                         show: true,
@@ -549,15 +681,18 @@
             ]
         };
         myChart3.setOption(option3);
+    }
 
-
+    function future(near_future_data) {
         // =====================================  近30天访问量 ==========================================
         var myChart4 = echarts.init(document.getElementById("main4"));
+        var title   =   near_future_data.title;
+        var date    =   near_future_data.date;
+        var data    =   near_future_data.data;
         let option4 = {
             color: ['#2085CA', '#DF1F20', '#DF8B1F', "#9E8A6A", "#61B7B4", "#6561B7", "#61B76F", "#77C8FF", "#E672FF"],
             legend: {
-
-                data: ['百度关键字', '今日头条', '公众号', '软文', '展会信息', '行业资讯', '分析中心', '手机报', '数据中心'],
+                data: title,
                 icon: "react",   //  这个字段控制形状  类型包括 circle，rect ，roundRect，triangle，diamond，pin，arrow，none
                 itemWidth: 10,  // 设置宽度
                 itemHeight: 10, // 设置高度
@@ -574,11 +709,10 @@
                 bottom: '3%',
                 containLabel: true
             },
-
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                data: ['0', '5-7', '5-11', '5.15', '5-19', '5-23', '5-27', '5-31'],
+                data: date,
                 axisLabel: {
                     show: true,
                     textStyle: {
@@ -620,108 +754,11 @@
                     show: false
                 }
             },
-            series: [
-                {
-                    name: '百度关键字',
-                    type: 'line',
-                    // stack: '总量',
-                    data: [120, 132, 101, 134, 90, 230, 210],
-                    smooth: true,
-                    lineStyle: {
-                        color: '#2085CA' //改变折线颜色
-                    }
-                },
-
-                {
-                    name: '今日头条',
-                    type: 'line',
-                    // stack: '总量',
-                    data: [220, 182, 191, 234, 290, 330, 310],
-                    smooth: true,
-                    lineStyle: {
-                        color: '#DF1F20' //改变折线颜色
-                    }
-                },
-                {
-                    name: '公众号',
-                    type: 'line',
-                    // stack: '总量',
-                    data: [150, 232, 201, 154, 190, 330, 410],
-                    smooth: true,
-                    lineStyle: {
-                        color: '#DF8B1F' //改变折线颜色
-                    }
-                },
-                {
-                    name: '软文',
-                    type: 'line',
-                    // stack: '总量',
-                    data: [120, 132, 101, 134, 90, 230, 210],
-                    smooth: true,
-                    lineStyle: {
-                        color: '#9E8A6A' //改变折线颜色
-                    }
-                },
-                {
-                    name: '展会信息',
-                    type: 'line',
-                    // stack: '总量',
-                    data: [220, 182, 191, 234, 290, 330, 310],
-                    smooth: true,
-                    lineStyle: {
-                        color: '#61B7B4' //改变折线颜色
-                    }
-                },
-
-                {
-                    name: '行业资讯',
-                    type: 'line',
-                    // stack: '总量',
-                    data: [150, 232, 201, 154, 190, 330, 410],
-                    smooth: true,
-                    lineStyle: {
-                        color: '#6561B7' //改变折线颜色
-                    }
-                },
-                {
-                    name: '分析中心',
-                    type: 'line',
-                    // stack: '总量',
-                    data: [150, 232, 201, 154, 190, 330, 410],
-                    smooth: true,
-                    lineStyle: {
-                        color: '#61B76F' //改变折线颜色
-                    }
-                },
-                {
-                    name: '手机报',
-                    type: 'line',
-                    // stack: '总量',
-                    data: [150, 232, 201, 154, 190, 330, 410],
-                    smooth: true,
-                    lineStyle: {
-                        color: '#77C8FF' //改变折线颜色
-                    }
-                },
-
-                {
-                    name: '数据中心',
-                    type: 'line',
-                    // stack: '总量',
-                    data: [150, 232, 201, 154, 190, 330, 410],
-                    smooth: true,
-                    lineStyle: {
-                        color: '#E672FF' //改变折线颜色
-                    }
-                },
-            ]
+            series: data
         };
         myChart4.setOption(option4);
-
-
-
-
-    })
+    }
+        
 
 </script>
 

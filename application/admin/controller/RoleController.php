@@ -42,7 +42,7 @@ class RoleController extends CommonController{
             Db::startTrans();
             try {
                 //添加角色
-                $role_id=Db::name('role')->insertGetId(['role_name'=>$role_name,'create_time'=>time()]);
+                $role_id=Db::name('role')->insertGetId(['role_name'=>$role_name,'create_time'=>date('Y-m-d H:i:s',time())]);
                 \app\admin\model\RoleModel::addNodeRole($role_id,$node_id);
                 // 提交事务
                 Db::commit();
