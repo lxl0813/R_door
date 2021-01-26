@@ -10,13 +10,10 @@ use function Composer\Autoload\includeFile;
 
 class DevopsController extends CommonController
 {
-
     public function index()
     {
         return view();
     }
-
-
     /**
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
@@ -36,7 +33,6 @@ class DevopsController extends CommonController
                     ->select();
         return view('',['fiber_ch_devops'=>$data]);
     }
-
     //化纤中文添加
     public function fiber_ch_add()
     {
@@ -58,6 +54,22 @@ class DevopsController extends CommonController
                 $datas[$k]['create_by']     =   $this->cookie_admin()['name'];
                 $datas[$k]['platform_name'] =   '化纤中文平台';
             }
+
+            /**
+             * 临时copy部分，8个平台数据同步，后期可能会调整。
+             */
+            $pt =   ['化纤英文平台','无纺中文平台','无纺英文平台','制品中文平台','制品英文平台','纱线中文平台','纱线英文平台'];
+            $copy   =   $datas;
+            for ($i=0; $i<=6; $i++)
+            {
+                foreach ($copy as $k=>$item)
+                {
+                    $copy[$k]['platform_name']   =  $pt[$i];
+                    $datas[]  =   $copy[$k];
+                }
+            }
+
+
             try {
                 Db::name('devops_value')->insertAll($datas);
             }catch (\Exception $e){
@@ -66,8 +78,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
-
-
     //化纤中文修改
     public function fiber_ch_update()
     {
@@ -80,7 +90,6 @@ class DevopsController extends CommonController
 
         }
     }
-
     //化纤中文删除
     public function fiber_ch_delete()
     {
@@ -92,7 +101,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>500,'msg'=>'删除失败！']);
         }
     }
-
     //化纤英文列表
     public function fiber_en_list()
     {
@@ -107,7 +115,6 @@ class DevopsController extends CommonController
             ->select();
         return view('',['fiber_en_devops'=>$data]);
     }
-
     //化纤英文添加
     public function fiber_en_add()
     {
@@ -137,7 +144,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
-
     //化纤英文修改
     public function fiber_en_update()
     {
@@ -150,7 +156,6 @@ class DevopsController extends CommonController
 
         }
     }
-
     //化纤英文删除
     public function fiber_en_delete()
     {
@@ -162,7 +167,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>500,'msg'=>'删除失败！']);
         }
     }
-
     //无纺中文列表
     public function non_ch_list()
     {
@@ -177,7 +181,6 @@ class DevopsController extends CommonController
             ->select();
         return view('',['non_ch_devops'=>$data]);
     }
-
     //无纺中文添加
     public function non_ch_add()
     {
@@ -207,7 +210,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
-
     //无纺中文修改
     public function non_ch_update()
     {
@@ -220,7 +222,6 @@ class DevopsController extends CommonController
 
         }
     }
-
     //无纺中文删除
     public function non_ch_delete()
     {
@@ -232,7 +233,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>500,'msg'=>'删除失败！']);
         }
     }
-
     //无纺英文列表
     public function non_en_list()
     {
@@ -247,7 +247,6 @@ class DevopsController extends CommonController
             ->select();
         return view('',['non_en_devops'=>$data]);
     }
-
     //无纺英文添加
     public function non_en_add()
     {
@@ -277,7 +276,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
-
     //无纺英文修改
     public function non_en_update()
     {
@@ -290,7 +288,6 @@ class DevopsController extends CommonController
 
         }
     }
-
     //无纺英文删除
     public function non_en_delete()
     {
@@ -302,7 +299,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>500,'msg'=>'删除失败！']);
         }
     }
-
     //制品中文列表
     public function zhi_ch_list()
     {
@@ -317,7 +313,6 @@ class DevopsController extends CommonController
             ->select();
         return view('',['zhi_ch_devops'=>$data]);
     }
-
     //制品中文添加
     public function zhi_ch_add()
     {
@@ -347,7 +342,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
-
     //制品中文修改
     public function zhi_ch_update()
     {
@@ -360,7 +354,6 @@ class DevopsController extends CommonController
 
         }
     }
-
     //制品中文删除
     public function zhi_ch_delete()
     {
@@ -372,7 +365,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>500,'msg'=>'删除失败！']);
         }
     }
-
     //制品英文列表
     public function zhi_en_list()
     {
@@ -387,7 +379,6 @@ class DevopsController extends CommonController
             ->select();
         return view('',['zhi_en_devops'=>$data]);
     }
-
     //制品英文添加
     public function zhi_en_add()
     {
@@ -417,7 +408,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
-
     //制品英文修改
     public function zhi_en_update()
     {
@@ -430,7 +420,6 @@ class DevopsController extends CommonController
 
         }
     }
-
     //制品英文删除
     public function zhi_en_delete()
     {
@@ -442,7 +431,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>500,'msg'=>'删除失败！']);
         }
     }
-
     //纱线中文列表
     public function sha_ch_list()
     {
@@ -457,7 +445,6 @@ class DevopsController extends CommonController
             ->select();
         return view('',['sha_ch_devops'=>$data]);
     }
-
     //纱线中文添加
     public function sha_ch_add()
     {
@@ -487,7 +474,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
-
     //纱线中文修改
     public function sha_ch_update()
     {
@@ -500,8 +486,6 @@ class DevopsController extends CommonController
 
         }
     }
-
-
     //纱线中文删除
     public function sha_ch_delete()
     {
@@ -513,7 +497,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>500,'msg'=>'删除失败！']);
         }
     }
-
     //纱线英文列表
     public function sha_en_list()
     {
@@ -528,7 +511,6 @@ class DevopsController extends CommonController
             ->select();
         return view('',['sha_en_devops'=>$data]);
     }
-
     //纱线英文添加
     public function sha_en_add()
     {
@@ -557,8 +539,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>200,'msg'=>'添加成功']);
         }
     }
-
-
     //纱线英文修改
     public function sha_en_update()
     {
@@ -571,8 +551,6 @@ class DevopsController extends CommonController
 
         }
     }
-
-
     //纱线英文删除
     public function sha_en_delete()
     {
@@ -584,15 +562,12 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>500,'msg'=>'删除失败！']);
         }
     }
-
-
     //看板所展示信息点管理
     public function data_name_index()
     {
         $devops    =   Db::name('devops')->select();
         return view('',['devops'=>$devops]);
     }
-
     //看板信息点删除
     public function data_delete()
     {
@@ -604,7 +579,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>500,'msg'=>'删除失败，稍后再试！']);return;
         }
     }
-
     //看板信息点状态修改
     public function data_update()
     {
@@ -616,7 +590,6 @@ class DevopsController extends CommonController
             echo json_encode(['code'=>500,'msg'=>'状态修改失败稍后再试！']);return;
         }
     }
-
     //详情
     public function see_detail()
     {
@@ -631,5 +604,14 @@ class DevopsController extends CommonController
             ->select();
         return view('',['devops_data'=>$data]);
     }
+
+
+
+
+
+
+
+
+
 
 }

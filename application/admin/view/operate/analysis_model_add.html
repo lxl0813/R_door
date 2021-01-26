@@ -1,0 +1,106 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>让雷--门户网站后台管理</title>
+    <meta name="Copyright" content="Douco Design." />
+    <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link href="/admin/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/admin/js/global.js"></script>
+    <script type="text/javascript" src="/static/js/time.js"></script>
+    <!--bootstrop引入-->
+    {include file="pub:bootstrop"}
+</head>
+<body>
+<div id="dcWrap">
+    <!--顶部-->
+    {include file="pub:top"}
+    <!--左侧部分-->
+    {include file="pub:left"}
+    <!--中间部分-->
+    <div id="dcMain">
+        <div id="urHere"><b>上海让雷智能科技有限公司--运营中心--分析模块表单分配</b></div>
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+            <div class="input-group">
+                <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Operate/operate_form_field')}">添加</a></span>
+            </div>
+            <div style="margin-top: 50px;width: 600px;margin: auto">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">平台</label>
+                        <select class="form-control" id="platform">
+                            <option value ="0">请选择平台</option>
+                            {foreach $platform_name as $key=>$item}
+                                <option value ="{$item.id}">{$item.platform_name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">分析模块</label>
+                        <input type="text" class="form-control" id="analysis_name" placeholder="模块名">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">表单字段</label>
+                        <input type="text" class="form-control" id="form_field" placeholder="表单字段名">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">记录人</label>
+                        <select class="form-control" id="people">
+                            <option value ="0">请选择表单字段记录人</option>
+                            {foreach $admin as $key=>$item}
+                                <option value ="{$item.id}">{$item.name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </form>
+                <button type="submit" id="submit" class="btn btn-default">提交</button>
+            </div>
+        </div>
+        <!--引入尾部-->
+        {include file="pub:foot"}
+    </div>
+</div>
+<script>
+    $("#submit").click(function(){
+        var platform_name   =   $("#platform option:selected").text();
+        var platform_id     =   $("#platform option:selected").val();
+        var people_name     =   $("#people option:selected").text();
+        var people_id       =   $("#people option:selected").val();
+        var form_field      =   $("#form_field").val();
+        var analysis_name   =   $("#analysis_name").val();
+        if(platform_id==0){
+            alert("请选择平台！");return;
+        }
+        if(people_id==0){
+            alert("请选择记录人！");return;
+        }
+        if(form_field==""){
+            alert("请填写表单字段！");return;
+        }
+        if(analysis_name==""){
+            alert("请填写分析模块！");return;
+        }
+
+        $.ajax({
+            type: "post",
+            url: "{:url('Operate/analysis_model_add_do')}",
+            data: {
+                platform_name:platform_name,
+                platform_id:platform_id,
+                people_name:people_name,
+                people_id:people_id,
+                form_field:form_field,
+                analysis_name:analysis_name,
+            },
+            dataType: "json",
+            success: function (data) {
+
+            }
+        })
+    })
+</script>
+</body>
+</html>

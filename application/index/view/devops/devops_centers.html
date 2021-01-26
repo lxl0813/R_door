@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta name="viewport" content="width=device-width, intial-scale=1, maxium-scale=1, user-scalable=no">
     <title>Document</title>
     <link rel="stylesheet" href="/static/css/huaqian.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/static/imouplayer.js"></script>
     <!-- 引入 ECharts 文件 -->
     <script src="/static/js/echarts.min.js"></script>
-
 </head>
-
 <body>
 <div class="wrapper">
-    <div class="toptitle">化纤板块 运维中心</div>
+    <div class="toptitle">{$devops_type} 运维中心</div>
     <div class="prev">返回</div>
     <div class="topTime"></div>
     <div class="wbody">
@@ -38,162 +37,110 @@
                 </div>
             </div>
         </div>
-        <div class="wCenter">
-            <div class="wCenterbg1">
-                <div style="display: flex; align-items: center;">
-
-                    <div class="iconp" id="jiank">
-                        <img src="/devops_imgs/cIcon1.png" alt="" style="width:65px;height:65px">
-                        <p style="width: 103px;
-                            cursor: pointer;
-                            height: 38px;
-                            background: #8BDBFC;
-                            line-height: 38px;
-                            text-align: center;
-                            border-radius: 19px;color: black;">视频监控</p>
+            <div class="wCenter">
+                <div class="wCenterbg1">
+                    <div style="display: flex; align-items: center;">
+                        <div class="iconp" id="rl">
+                            <img src="/devops_imgs/cIcon1.png" alt="" style="width:65px;height:65px">
+                            <p style="width: 103px;
+                                cursor: pointer;
+                                height: 38px;
+                                background: #8BDBFC;
+                                line-height: 38px;
+                                text-align: center;
+                                border-radius: 19px;color: black;">让雷监控</p>
+                        </div>
+                        <div class="iconp" id="zgc">
+                            <img src="/devops_imgs/cIcon1.png" alt="" style="width:65px;height:65px">
+                            <p style="width: 103px;
+                                cursor: pointer;
+                                border-radius: 19px;">缔荣监控</p>
+                        </div>
+                        <div class="iconp" id="gc">
+                            <img src="/devops_imgs/cIcon1.png" alt="" style="width:65px;height:65px">
+                            <p style="width: 103px;
+                                cursor: pointer;
+                                border-radius: 19px;">济南工厂</p>
+                        </div>
+                        <div class="iconp" style="margin-left: 20px;" id="wangye">
+                            <span><img src="/devops_imgs/wangye.png" alt="" style="vertical-align: middle;width: 20px;height: 20px;"></span>
+                            <p style="margin-left: 15px;cursor: pointer;" >网页</p>
+                        </div>
                     </div>
-
-                    <div class="iconp" style="margin-left: 20px;" id="wangye">
-                            <span><img src="/devops_imgs/wangye.png" alt=""
-                                       style="vertical-align: middle;width: 20px;height: 20px;"></span>
-                        <p style="margin-left: 10px;cursor: pointer;" >网页</p>
-                    </div>
-
-                    <div class="iconp" style="display: flex">
-                        <p style="text-align: right;cursor: pointer;" >镜头切换</p>
-                        <span><img src="/devops_imgs/wangye.png" alt="" style="vertical-align: middle;width: 20px;height: 20px;"></span>
-                    </div>
-
-                </div>
-
-                <!--    让雷办公室前    -->
-                <div class="wCenterbg1div" id="rl_front">
-                    <iframe
-                            src="https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/E66358911/1.live&autoplay=0&audio=1&accessToken=at.1y13xi883gkghsopdgtgceb14hjp2879-9nya4f3p7j-0oomoq3-8zfuh890q"
-                            width="727"
-                            height="427"
-                            id="open_rl_front"
-                            allowfullscreen
-                    >
-                    </iframe>
-                </div>
-
-                <!--    让雷办公室后    -->
-                <div class="wCenterbg1div" id="rl_after" hidden>
-                    <iframe
-                            src="https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/E66358911/4.live&autoplay=0&audio=1&accessToken=at.1y13xi883gkghsopdgtgceb14hjp2879-9nya4f3p7j-0oomoq3-8zfuh890q"
-                            width="727"
-                            height="427"
-                            id="open_rl_after"
-                            allowfullscreen
-                    >
-                    </iframe>
-                </div>
-
-                <!--    让雷办公室中     -->
-                <div class="wCenterbg1div" id="rl_midddle" hidden>
-                    <iframe
-                            src="https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/E66358911/3.live&autoplay=0&audio=1&accessToken=at.1y13xi883gkghsopdgtgceb14hjp2879-9nya4f3p7j-0oomoq3-8zfuh890q"
-                            width="727"
-                            height="427"
-                            id="open_rl_middle"
-                            allowfullscreen
-                    >
-                    </iframe>
-                </div>
-
-                <!--    让雷办公室角     -->
-                <div class="wCenterbg1div" id="rl_jiao" hidden>
-                    <iframe
-                            src="https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/E66358911/2.live&autoplay=0&audio=1&accessToken=at.1y13xi883gkghsopdgtgceb14hjp2879-9nya4f3p7j-0oomoq3-8zfuh890q"
-                            width="727"
-                            height="427"
-                            id="open_rl_jiao"
-                            allowfullscreen
-                    >
-                    </iframe>
-                </div>
-
-                <!--     济南工厂1     -->
-                <div class="wCenterbg1div" id="jn_1" >
-
-                </div>
-
-                <!--      济南工厂2     -->
-                <div class="wCenterbg1div" id="jn_2" hidden>
-                    <iframe
-                            src="https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/E66358911/4.live&autoplay=0&audio=1&accessToken=at.1y13xi883gkghsopdgtgceb14hjp2879-9nya4f3p7j-0oomoq3-8zfuh890q"
-                            width="727"
-                            height="427"
-                            id="ysopen"
-                            allowfullscreen
-                    >
-                    </iframe>
-                </div>
-
-
-                <div class="wCenterbg1div1" hidden>
-                    <div onclick="ifram()">
+                    <!--    监控区    -->
+                    <div class="wCenterbg1div" id="rl_k">
                         <iframe
-                                src="https://www.chinafibermarketing.cn"
+                                src="{$url}"
                                 width="727"
                                 height="427"
-                                id="ifwang"
+                                id="ysopen"
+                                frameborder="no"
                                 allowfullscreen
                         >
                         </iframe>
                     </div>
+                    <div class="wCenterbg1div1" id="gc_k" hidden></div>
+                    <!--    网页      -->
+                    <div class="wCenterbg1div1" id="wangye_k" hidden>
+                        <div onclick="ifram()">
+                            <iframe
+                                    src="https://www.chinafibermarketing.cn"
+                                    width="727"
+                                    height="427"
+                                    id="ifwang"
+                                    allowfullscreen
+                            >
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="wCenterbg2">
+                    <div class="iconp">
+                        <img src="/devops_imgs/usericon.png" alt="" style="width:65px;height:65px">
+                        <p>数据采集分析</p>
+                    </div>
+                    <div class="tableBox">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="fz" style="display: flex;justify-content: flex-start;align-items: center;">
+                                        <span></span>数据来源</th>
+                                    {foreach $data_analysis_result.title as $key=>$item}
+                                        <th class="fz">{$item}</th>
+                                    {/foreach}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fz"
+                                        style="display: flex;justify-content: flex-start;align-items: center;">
+                                        <span></span>今日访问量</td>
+                                    {foreach $data_analysis_result.today_data as $key=>$item}
+                                        <td class="t1">{$item}</td>
+                                    {/foreach}
 
+                                </tr>
+                                <tr>
+                                    <td class="fz"
+                                        style="display: flex;justify-content: flex-start;align-items: center;">
+                                        <span></span>历史访问量</td>
+                                    {foreach $data_analysis_result.history_data as $key=>$item}
+                                        <td class="t2">{$item}</td>
+                                    {/foreach}
+                                </tr>
+                                <tr>
+                                    <td class="fz"
+                                        style="display: flex;justify-content: flex-start;align-items: center;">
+                                        <span></span>比昨日新增量</td>
+                                    {foreach $data_analysis_result.difference as $key=>$item}
+                                        <td class="t3">{$item}</td>
+                                    {/foreach}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
-            <div class="wCenterbg2">
-                <div class="iconp">
-                    <img src="/devops_imgs/usericon.png" alt="" style="width:65px;height:65px">
-                    <p>数据采集分析</p>
-                </div>
-                <div class="tableBox">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="fz" style="display: flex;justify-content: flex-start;align-items: center;">
-                                    <span></span>数据来源</th>
-                                {foreach $data_analysis_result.title as $key=>$item}
-                                    <th class="fz">{$item}</th>
-                                {/foreach}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="fz"
-                                    style="display: flex;justify-content: flex-start;align-items: center;">
-                                    <span></span>今日访问量</td>
-                                {foreach $data_analysis_result.today_data as $key=>$item}
-                                    <td class="t1">{$item}</td>
-                                {/foreach}
-
-                            </tr>
-                            <tr>
-                                <td class="fz"
-                                    style="display: flex;justify-content: flex-start;align-items: center;">
-                                    <span></span>历史访问量</td>
-                                {foreach $data_analysis_result.history_data as $key=>$item}
-                                    <td class="t2">{$item}</td>
-                                {/foreach}
-                            </tr>
-                            <tr>
-                                <td class="fz"
-                                    style="display: flex;justify-content: flex-start;align-items: center;">
-                                    <span></span>比昨日新增量</td>
-                                {foreach $data_analysis_result.difference as $key=>$item}
-                                    <td class="t3">{$item}</td>
-                                {/foreach}
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
         <div class="wRight">
             <div class="wRightbg1">
                 <div class="iconp">
@@ -233,83 +180,54 @@
         </div>
     </div>
 </div>
-
-
 <script>
-    function func(){
-        //获取被选中的option标签
-        var vs = $('select  option:selected').val();
-    }
-</script>
-
-<script>
-    // 添加DOM容器
-    function getkitToken() {
-        $.ajax({
-            type: "POST",
-            url: "{:url('Devops/getkitToken')}",
-            data: {},
-            dataType: "json",
-            success: function (data) {
-                //console.log(data);return;
-            }
-        })
-
-
-        // const player = new ImouPlayer('#jn_1');
-        // // 播放器初始化
-        // player.setup({
-        //     src: [
-        //         {
-        //             url: 'imou://open.lechange.com/5K03C42PAZ34B44/0/1?streamId=1', // url拼接说明请见：2.2.3 轻应用播放地址说明
-        //             kitToken: 'Kt_54f8452ce4e14795b98b965ac11d728d', // 播放Token，通过接口getKitToken获取，具体请见：2.2.4 getKitToken接口协议说明
-        //         }
-        //     ], // 播放地址
-        //     width: 727, // 播放器宽度
-        //     height: 427, // 播放器高度
-        //     poster: '', // 封面图url
-        //     autoplay: false, // 是否自动播放
-        //     controls: true, // 是否展示控制栏
-        // });
-        // // 播放
-        // player.play();
-        // // 暂停
-        // player.pause();
-        // // 停止播放
-        // player.stop();
-        // // 销毁播放器
-        // player.destroy();
-        // // 进入全屏
-        // player.setFullScreen();
-        // // 退出全屏
-        // player.exitFullScreen();
-        // // 设置音量
-        // player.setVolume(0.5);
-        // // 设置多屏
-        // player.setMultiScreen(4);
-    }
-
-
-</script>
-
-<script>
-    //视频和网页的点击切换事件
-    $('#wangye').click(function(){
-        $("#jiank").children('p').removeAttr("style");
+    //让雷监控
+    $('#rl').click(function(){
+        $("#gc_k").hide();                                       //隐藏工厂监控
+        $(".wCenterbg1div").show();
+        $("#wangye_k").hide();
+        //办公室监控显示
+        $("#zgc").children('p').removeAttr("style");            //移除中关村监控按钮样式
+        $("#gc").children('p').removeAttr("style");             //移除工厂监控按钮样式
+        $("#wangye").children('p').removeAttr("style");         //移除网页按钮样式
         $(this).children('p').css('color','black');
         $(this).children('p').css('background','#8BDBFC');
         $(this).children('p').css('border-radius','19px');
         $(this).children('p').css('line-height','38px');
         $(this).children('p').css('text-align','center');
-        $(this).children('p').css('width','55px');
-        $("#jiank").children('p').css('cursor','pointer');
-        $(".wCenterbg1div").hide();
-        $(".wCenterbg1div1").show();
-
+        $(this).children('p').css('width','103px');
+        $("#gc").children('p').css('cursor','pointer');         //工厂小手
+        $("#zgc").children('p').css('cursor','pointer');        //中关村小手
+        $("#wangye").children('p').css('cursor','pointer');     //网页小手
+        var html =  "";
+        $.ajax({
+            type: "POST",
+            url: "{:url('Devops/ajaxGetAccessToken')}",
+            data: {
+                eqnumber:'E66358911',
+                passageway:'1'
+            },
+            dataType: "json",
+            success: function (data) {
+                if(data.code==200){
+                    html +="<div class='wCenterbg1div' id='rl_k'>";
+                    html +="<iframe src=" + data.url + " width='727' height='427' id='open_rl_front' allowfullscreen ></iframe>";
+                    html +="</div>";
+                    $(".wCenterbg1div").replaceWith(html);
+                }else{
+                    alert(data.msg);
+                }
+            }
+        })
     })
-
-    $('#jiank').click(function(){
+    //中关村监控
+    $('#zgc').click(function(){
+        $("#gc_k").hide();
+        $("#wangye_k").hide();//隐藏工厂监控
+        $(".wCenterbg1div").show();                                      //办公室监控显示
         $("#wangye").children('p').removeAttr("style");
+        $("#rl").children('p').removeAttr("style");
+        $("#gc").children('p').removeAttr("style");
         $("#wangye").children('p').css("margin-left",'10px');
         $(this).children('p').css('color','black');
         $(this).children('p').css('background','#8BDBFC');
@@ -318,14 +236,110 @@
         $(this).children('p').css('width','103px');
         $(this).children('p').css('text-align','center');
         $("#wangye").children('p').css('cursor','pointer');
-        $(".wCenterbg1div1").hide();
-        $(".wCenterbg1div").show();
+        $("#rl").children('p').css('cursor','pointer');
+        $("#gc").children('p').css('cursor','pointer');
+        var html =  "";
+        $.ajax({
+            type: "POST",
+            url: "{:url('Devops/ajaxGetAccessToken')}",
+            data: {
+                eqnumber:'E62524589',
+                passageway:'3'
+            },
+            dataType: "json",
+            success: function (data) {
+                if(data.code==200){
+                    html +="<div class='wCenterbg1div' id='zgc_k'>";
+                    html +="<iframe src=" + data.url + " width='727' height='427' id='open_rl_front' allowfullscreen ></iframe>";
+                    html +="</div>";
+                    $(".wCenterbg1div").replaceWith(html);
+                }else{
+                    alert(data.msg);
+                }
+            }
+        })
+    })
+    //工厂监控
+    $('#gc').click(function(){
+        $("#wangye_k").hide();
+        $("#wangye").children('p').removeAttr("style");
+        $("#rl").children('p').removeAttr("style");
+        $("#zgc").children('p').removeAttr("style");
+        $("#wangye").children('p').css("margin-left",'10px');
+        $(this).children('p').css('color','black');
+        $(this).children('p').css('background','#8BDBFC');
+        $(this).children('p').css('border-radius','19px');
+        $(this).children('p').css('line-height','38px');
+        $(this).children('p').css('width','103px');
+        $(this).children('p').css('text-align','center');
+        $("#wangye").children('p').css('cursor','pointer');
+        $("#rl").children('p').css('cursor','pointer');
+        $("#zgc").children('p').css('cursor','pointer');
+        //后台获取kitToken,URL访问监控视频
+        $.ajax({
+            type: "POST",
+            url: "{:url('Devops/jiNanJK')}",
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if(data.code=='200'){
+
+                    $(".wCenterbg1div").hide();
+                    $("#gc_k").show();
+                    const player = new ImouPlayer('#gc_k');
+                    // 播放器初始化
+                    player.setup({
+                        src: [
+                            {
+                                url: 'imou://open.lechange.com/5K03C42PAZ34B44/4/1?streamId=1',
+                                kitToken: data.kitToken[0]
+                            },
+                            {
+                                url: 'imou://open.lechange.com/5K03C42PAZ34B44/3/1?streamId=1',
+                                kitToken: data.kitToken[1]
+                            },
+                            {
+                                url: 'imou://open.lechange.com/5K03C42PAZ34B44/0/1?streamId=1',
+                                kitToken: data.kitToken[2]
+                            }
+                        ],
+                        width: 727,
+                        height: 427,
+                        poster: '',
+                        autoplay: true,
+                        controls: true,
+                    });
+                }else{
+                }
+            }
+        })
+    })
+    //网页
+    $('#wangye').click(function(){
+        $("#gc").children('p').removeAttr("style");
+        $("#rl").children('p').removeAttr("style");
+        $("#zgc").children('p').removeAttr("style");
+        $("#wangye").children('p').css("margin-left",'10px');
+        $(this).children('p').css('color','black');
+        $(this).children('p').css('background','#8BDBFC');
+        $(this).children('p').css('border-radius','19px');
+        $(this).children('p').css('line-height','38px');
+        $(this).children('p').css('width','103px');
+        $(this).children('p').css('text-align','center');
+        $("#wangye").children('p').css('cursor','pointer');
+        $("#rl").children('p').css('cursor','pointer');
+        $("#zgc").children('p').css('cursor','pointer');
+        $(".wCenterbg1div").hide();
+        $("#wangye_k").show();
+        $("#gc_k").hide();
     })
 
     $(".prev").click(function(){
-        window.location.href="http://www.door.com/index/devops/index";
+        window.location.href="http://www.shjlit.com/index/devops/index";
     })
 
+    //网页窗口监听点击跳转
     var IframeOnClick = {
         resolution: 200,
         iframes: [],
@@ -333,7 +347,6 @@
         Iframe: function() {
             this.element = arguments[0];
             this.cb = arguments[1];
-
             this.hasTracked = false;
         },
         track: function(element, cb) {
@@ -343,7 +356,6 @@
                 this.interval = setInterval(function() { _this.checkClick(); }, this.resolution);
             }
         },
-
         checkClick: function() {
             if (document.activeElement) {
                 var activeElement = document.activeElement;
@@ -361,13 +373,11 @@
             }
         }
     };
-
     // 监听点击事件
     IframeOnClick.track(document.getElementById("ifwang"), function(){
         //做你想做的事情
         window.location.href="https://www.chinafibermarketing.cn";
     });
-
 </script>
 <script type="text/javascript">
     window.onload=function(){
@@ -400,9 +410,7 @@
     }
 </script>
 <script type="text/javascript">
-
     $(document).ready(function() {
-
         $.ajax({
             type: "POST",
             url: "{:url('Devops/ajax_data')}",
@@ -479,7 +487,6 @@
         };
         myChart.setOption(option);
     }
-
     function history(history_data) {
         // =====================================  累计访问量  ===========================================
         var myChart2 = echarts.init(document.getElementById("main2"));
@@ -617,7 +624,6 @@
         };
         myChart2.setOption(option2);
     }
-
     function difference(difference) {
         // =====================================  较昨日新增/减少  ===========================================
         var myChart3 = echarts.init(document.getElementById("main3"));
@@ -682,7 +688,6 @@
         };
         myChart3.setOption(option3);
     }
-
     function future(near_future_data) {
         // =====================================  近30天访问量 ==========================================
         var myChart4 = echarts.init(document.getElementById("main4"));
@@ -758,10 +763,7 @@
         };
         myChart4.setOption(option4);
     }
-        
 
 </script>
-
 </body>
-
 </html>

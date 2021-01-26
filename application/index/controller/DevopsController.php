@@ -4,12 +4,26 @@
 namespace app\index\controller;
 use think\Controller;
 use think\Db;
+use think\Exception;
 use think\facade\Cache;
 use think\facade\Request;
 class DevopsController extends Controller
 {
+
     public function index()
     {
+//        $data   =   Db::name('devops_value')->select();
+//        $pt =   ['化纤英文平台','无纺中文平台','无纺英文平台','制品中文平台','制品英文平台','纱线中文平台','纱线英文平台'];
+//        //var_dump($data);exit;
+//        $copy   =   $data;
+//        for ($i=0; $i<=6; $i++) {
+//            foreach ($copy as $key => $item) {
+//                unset($copy[$key]['id']);
+//                $copy[$key]['platform_name']=$pt[$i];
+//                $a[]=$copy[$key];
+//            }
+//        }
+//        Db::name('devops_value')->insertAll($a);
         return view();
     }
     public function devops_centers(Request $request)
@@ -56,8 +70,12 @@ class DevopsController extends Controller
         $data_analysis_result['today_data_sum']     =   array_sum($data_analysis_result['today_data']);
         //累计访问量总计
         $data_analysis_result['data_sum']           =   array_sum($data_analysis_result['history_data'])+$data_analysis_result['today_data_sum'];
-        //var_dump($data_analysis_result);exit;
-        return view('',['data_analysis_result'=>$data_analysis_result]);
+
+        //初始获取办公室的监控accessToken;
+        $bgAccessToken    =   $this->getBgAccessToken();
+        $url    =   "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/E66358911/1.live&autoplay=0&audio=1&accessToken=".$bgAccessToken;
+
+        return view('',['data_analysis_result'=>$data_analysis_result,'url'=>$url,'devops_type'=>$devops_type]);
     }
     //数据采集分析（表格）
     public function data_analysis($data)
@@ -100,6 +118,18 @@ class DevopsController extends Controller
                                             ->where('dv.create_time',date("Y-m-d",strtotime("-3 day",time())))
                                             ->field('d.id,d.data_name,dv.data_value,dv.create_time')
                                             ->select();
+                    if(!$today_devops_data){
+                        $today_devops_data  =   Db::name('devops')
+                                                ->alias('d')
+                                                ->leftJoin('devops_value dv','d.id=dv.data_name_id')
+                                                ->where('d.state','1')
+                                                ->where('dv.platform_name',$data)
+                                                ->order('dv.create_time desc')
+                                                ->limit(9)
+                                                //->where('dv.create_time',date("Y-m-d",strtotime("-3 day",time())))
+                                                ->field('d.id,d.data_name,dv.data_value,dv.create_time')
+                                                ->select();
+                    }
                 }
             }
         }
@@ -197,26 +227,167 @@ class DevopsController extends Controller
         $near_future_data   =   Cache::get('near_future_data');
         echo json_encode(['today_data'=>$today_data,'history_data'=>$history_data,'difference'=>$difference,'near_future_data'=>$near_future_data]);
     }
-    //getkitToken获取
-    public function getkitToken(){
-        $post_data['system']['ver']="1.0";
-        $post_data['system']['appId']="lc22490f64d5c142d2";                 //使用的应用信息里的APP KEY
-        $post_data['system']['sign']="a29f288dfb3e494e8617542e79578c";      //根据
-        $post_data['system']['time']=time();
-        $post_data['system']['nonce']="fbf19fc6-17a1-4f73-a967-75easbc805a3";
-        $post_data['id']="98a7a257-c4e4-4db3-a2d3-s97a3836b87d";
-        $post_data['params']=(object)[];
-        $postdata = http_build_query($post_data);
-        $options = array(
-            'http' => array(
-                'method' => 'POST',
-                'header' => 'Content-type:application/json',
-                'content' => $postdata,
-                'timeout' => 15 * 60 // 超时时间（单位:s）
-            )
-        );
-        $context = stream_context_create($options);
-        $result = file_get_contents("https://openapi.lechange.cn/openapi/accessToken", false, $context);
-        return $result;
+
+
+    //济南工厂监控接口请求
+    public function jiNanJK()
+    {
+        $accessToken    =   $this->getAccessToken();
+        if($accessToken!=false){
+            $kitToken   =   $this->getkitToken($accessToken);
+            echo json_encode(['code'=>200,'kitToken'=>$kitToken]);
+        }else{
+            echo json_encode(['code'=>500,'msg'=>'accessToken获取失败!']);
+        }
     }
+
+
+    //工厂监控的accessToken获取
+    public function getAccessToken(){
+        $time                           =   time();                                             //时间戳           sign加密所需
+        $appSecret                      =   "a29f288dfb3e494e8617542e79578c";                   //账户appSecret    sign加密所需
+        $nonce                          =   md5(uniqid());                                      //32位随机数        sign加密所需
+        $initsign                       =   "time:$time".","."nonce:$nonce".","."appSecret:$appSecret";
+        $sign                           =   md5($initsign);
+        //接口请求参数
+        $post_data['system']['ver']     =   "1.0";
+        $post_data['system']['appId']   =   "lc22490f64d5c142d2";                               //使用的应用信息里的APP KEY
+        $post_data['system']['sign']    =   $sign;       //加密生成
+        $post_data['system']['time']    =   (string)$time;
+        $post_data['system']['nonce']   =   (string)$nonce;
+        $post_data['id']                =   (string)time();
+        $post_data['params']            =   (object)[];
+        $apiParams                      =   json_encode($post_data);
+        $accessTokenUrl                 =   "https://openapi.lechange.cn:443/openapi/accessToken";
+        $accessTokenResult              =   json_decode($this->postCurl($apiParams,$accessTokenUrl),true);
+        $accessToken                    =   $accessTokenResult['result']['data']['accessToken'];
+        if($accessTokenResult['result']['code']==0){
+            return $accessToken;
+        }else{
+            return false;
+        }
+    }
+
+    //kitToken获取
+    public function getKitToken($accessToken)
+    {
+        if(Cache::get('kitToken'))
+        {
+            return  $kitToken   =   Cache::get('kitToken');
+        }else{
+            $param=[
+                '0'=>[
+                    'token'     =>  $accessToken,
+                    'deviceId'  =>  '5K03C42PAZ34B44',
+                    'channelId' =>  '4',
+                    'type'      =>  '0',
+                ],
+                '1'=>[
+                    'token'     =>  $accessToken,
+                    'deviceId'  =>  '5K03C42PAZ34B44',
+                    'channelId' =>  '3',
+                    'type'      =>  '0',
+                ],
+                '2'=>[
+                    'token'     =>  $accessToken,
+                    'deviceId'  =>  '5K03C42PAZ34B44',
+                    'channelId' =>  '0',
+                    'type'      =>  '0',
+                ]
+            ];
+            $time                           =   time();                                             //时间戳           sign加密所需
+            $appSecret                      =   "a29f288dfb3e494e8617542e79578c";                   //账户appSecret    sign加密所需
+            //接口请求参数
+            $kitTokenUrl                    =   "https://openapi.lechange.cn:443/openapi/getKitToken";
+            foreach ($param as $k=>$v)
+            {
+                $nonce                       =   md5($time++);
+                $initsign                    =   "time:$time".","."nonce:$nonce".","."appSecret:$appSecret";
+                $sign                        =   md5($initsign);
+                $post_data['system']['ver']     =   "1.0";
+                $post_data['system']['appId']   =   "lc22490f64d5c142d2";                               //使用的应用信息里的APP KEY
+                $post_data['system']['sign']    =   $sign;       //加密生成
+                $post_data['system']['time']    =   (string)$time;
+                $post_data['system']['nonce']   =   (string)$nonce;
+                $post_data['id']                =   (string)time();
+                $post_data['params']=$v;
+                $kitTokenResult             =   json_decode($this->postCurl(json_encode($post_data),$kitTokenUrl),true);
+                if($kitTokenResult['result']['code']=='0'){
+                    $kitToken[]=$kitTokenResult['result']['data']['kitToken'];
+                }else{
+                    $kitToken[]=$kitTokenResult;
+                }
+            }
+            Cache::set('kitToken',$kitToken,60*60);
+            return $kitToken;
+        }
+    }
+
+    //
+    public function postCurl($params,$url)
+    {
+        $curl   =   curl_init();
+        $header =   ['Content-Type:'.'application/json'];
+        curl_setopt($curl,CURLOPT_HTTPHEADER,$header);
+        curl_setopt($curl,CURLOPT_URL,$url);
+        curl_setopt($curl,CURLOPT_HEADER,0);
+        curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($curl,CURLOPT_POST,true);
+        curl_setopt($curl,CURLOPT_POSTFIELDS,$params);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,false);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,false);
+        $return_str =   curl_exec($curl);
+        $errorMsg   =   curl_error($curl);
+        if($errorMsg){
+            throw new Exception($errorMsg);return;
+        }
+        curl_close($curl);
+        return $return_str;
+    }
+
+
+    //办公室监控的accessToken获取
+    public function getBgAccessToken()
+    {
+        $appKey     =   "780b4b1393894eeaad29b0037e08d9e2";
+        $appSecret  =   "a16d09c52fafd069d15a14589011e073";
+        $url        =   "https://open.ys7.com/api/lapp/token/get";
+        $param['appKey']    =   $appKey;
+        $param['appSecret'] =   $appSecret;
+        $curlPost = $param;
+        $ch = curl_init();//初始化curl
+        curl_setopt($ch, CURLOPT_URL,$url);//抓取指定网页
+        curl_setopt($ch, CURLOPT_HEADER, 0);//设置header
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//要求结果为字符串且输出到屏幕上
+        curl_setopt($ch, CURLOPT_POST, 1);//post提交方式
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        $data = json_decode(curl_exec($ch),true);//运行curl
+        $errorMsg   =   curl_error($ch);
+        if($errorMsg){
+            throw new Exception($errorMsg);return;
+        }
+        curl_close($ch);
+        if($data['code']==200){
+            $A=Cache::get('bgAccessToken');
+            if(!$A){
+                Cache::set('bgAccessToken',$data['data']['accessToken'],60*60*24*6);
+            }
+        }
+        return  $data['data']['accessToken'];
+    }
+
+    //办公室播放地址ajax获取
+    public function ajaxGetAccessToken(){
+        $ajax_data      =   input();
+        if(empty($ajax_data)){
+            echo json_encode(['code'=>500,'msg'=>'参数错误！']);
+        }
+        $accessToken    =   $this->getBgAccessToken();
+        $url            =   "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/".$ajax_data['eqnumber']."/".$ajax_data['passageway'].".live&autoplay=0&audio=1&accessToken=".$accessToken;
+        echo json_encode(['code'=>200,'url'=>$url]);
+    }
+
+
 }
