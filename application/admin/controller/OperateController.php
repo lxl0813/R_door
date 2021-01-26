@@ -94,7 +94,9 @@ class OperateController extends CommonController
             } catch (\Exception $e) {
                 // 回滚事务
                 Db::rollback();
+                echo json_encode(['code'=>500,'msg'=>$e->getMessage()]);
             }
+            echo json_encode(['code'=>200,'msg'=>'添加成功！']);
         }
 
     }
