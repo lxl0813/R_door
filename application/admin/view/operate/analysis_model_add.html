@@ -25,7 +25,7 @@
         <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
             <div class="input-group">
                 <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
-                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Operate/operate_form_field')}">添加</a></span>
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Operate/analysis_model_add')}">添加</a></span>
             </div>
             <div style="margin-top: 50px;width: 600px;margin: auto">
                 <form>
@@ -39,8 +39,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">分析模块</label>
-                        <input type="text" class="form-control" id="analysis_name" placeholder="模块名">
+                        <label for="exampleInputPassword1">分析模块&nbsp;&nbsp;&nbsp;&nbsp;<a id="model_add">新增模块</a></label>
+                        <div id="mo"></div>
+                        <input type="text" class="form-control" id="analysis" placeholder="模块名" style="display: none">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputFile">表单字段</label>
@@ -64,42 +65,128 @@
     </div>
 </div>
 <script>
+
+    $("#model_add").click(function(){
+        $("#analysis_model").hide();
+        $("#analysis").show();
+    })
+
+    $("#platform").change(function(){
+        var platform_id     =   $("#platform option:selected").val();
+        $.ajax({
+            type: "post",
+            url: "{:url('Operate/platformFindAnalysis')}",
+            data: {
+                platform_name_id:platform_id,
+            },
+            dataType: "json",
+            success: function (data) {
+                if(data.code==200){
+                    var html="";
+                    if (data.result==""){
+                        html+="<div id='mo'>"
+                        html+="<input type='text' class='form-control' id='analysis' placeholder='模块名'>"
+                        html+="</div>"
+                    }else{
+                        html+="<div id='mo'>"
+                        html+="<select class='form-control' id='analysis_model'><option value ='0'>请选择表单字段记录人</option>"
+                        $.each(data.result,function(k,v){
+                            html+="<option value ="+v.id+"> " + v.analysis_name + "</option>"
+                        })
+                        html+="</select>"
+                        html+="</div>"
+                    }
+                    $("#analysis").hide();
+                    $("#mo").replaceWith(html);
+                }
+            }
+        })
+    })
+
+
     $("#submit").click(function(){
         var platform_name   =   $("#platform option:selected").text();
         var platform_id     =   $("#platform option:selected").val();
         var people_name     =   $("#people option:selected").text();
         var people_id       =   $("#people option:selected").val();
         var form_field      =   $("#form_field").val();
-        var analysis_name   =   $("#analysis_name").val();
-        if(platform_id==0){
-            alert("请选择平台！");return;
-        }
-        if(people_id==0){
-            alert("请选择记录人！");return;
-        }
-        if(form_field==""){
-            alert("请填写表单字段！");return;
-        }
-        if(analysis_name==""){
-            alert("请填写分析模块！");return;
-        }
 
-        $.ajax({
-            type: "post",
-            url: "{:url('Operate/analysis_model_add_do')}",
-            data: {
-                platform_name:platform_name,
-                platform_id:platform_id,
-                people_name:people_name,
-                people_id:people_id,
-                form_field:form_field,
-                analysis_name:analysis_name,
-            },
-            dataType: "json",
-            success: function (data) {
-
+        var analysis        =   $("#analysis").val();
+        if(!analysis){
+            var analysis_name     =   $("#analysis_model option:selected").text();
+            var analysis_id       =   $("#analysis_model option:selected").val();
+            if(platform_id==0){
+                alert("请选择平台！");return;
             }
-        })
+            if(people_id==0){
+                alert("请选择记录人！");return;
+            }
+            if(form_field==""){
+                alert("请填写表单字段！");return;
+            }
+            if(analysis_name==""){
+                alert("请填写分析模块！");return;
+            }
+
+            $.ajax({
+                type: "post",
+                url: "{:url('Operate/analysis_model_add_do')}",
+                data: {
+                    platform_name:platform_name,
+                    platform_id:platform_id,
+                    people_name:people_name,
+                    people_id:people_id,
+                    form_field:form_field,
+                    analysis_name:analysis_name,
+                    analysis_id:analysis_id,
+                },
+                dataType: "json",
+                success: function (data) {
+                    if(data.code==200){
+                        alert(data.msg)
+                    }else{
+                        alert(data.msg)
+                    }
+                }
+            })
+
+        }else{
+            if(platform_id==0){
+                alert("请选择平台！");return;
+            }
+            if(people_id==0){
+                alert("请选择记录人！");return;
+            }
+            if(form_field==""){
+                alert("请填写表单字段！");return;
+            }
+            if(analysis_name==""){
+                alert("请填写分析模块！");return;
+            }
+            var analysis_name   =   analysis
+
+            $.ajax({
+                type: "post",
+                url: "{:url('Operate/analysis_model_add_do')}",
+                data: {
+                    platform_name:platform_name,
+                    platform_id:platform_id,
+                    people_name:people_name,
+                    people_id:people_id,
+                    form_field:form_field,
+                    analysis_name:analysis_name,
+                },
+                dataType: "json",
+                success: function (data) {
+                    if(data.code==200){
+                        alert(data.msg)
+                    }else{
+                        alert(data.msg)
+                    }
+                }
+            })
+        }
+
     })
 </script>
 </body>

@@ -11,7 +11,7 @@
     <script type="text/javascript" src="/admin/js/global.js"></script>
     <script type="text/javascript" src="/static/js/time.js"></script>
     <!--bootstrop引入-->
-<!--    {include file="pub:bootstrop"}-->
+    <!--    {include file="pub:bootstrop"}-->
 </head>
 <body>
 <div id="dcWrap">
@@ -21,40 +21,33 @@
     {include file="pub:left"}
     <!--中间部分-->
     <div id="dcMain">
-        <div id="urHere"><b>上海让雷智能科技有限公司--运营中心</b></div>
+        <div id="urHere"><b>上海让雷智能科技有限公司--运营中心--模块管理</b></div>
         <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
             <div class="input-group">
                 <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
-                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Operate/analysis_model_add')}">表单分配</a></span>
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Operate/analysis_model_data_add')}">添加模块数据</a></span>
             </div>
             <div style="margin: auto;padding-top: 50px">
                 <table class="table table-hover">
                     <tr>
                         <th>序号</th>
                         <th>运营平台</th>
-                        <th>运营者</th>
+                        <th>分析模块</th>
+                        <th>填写日期</th>
                         <th>操作</th>
                     </tr>
-                    {foreach $platform as $key=>$item}
+                    {foreach $result as $key=>$item}
                         <tr class="info">
                             <td>{$key++}</td>
                             <td>{$item.platform_name}</td>
-                            <td>{$item.note_taker_name}</td>
-                            <td><a href="">进入</a></td>
+                            <td>{$item.analysis_name}</td>
+                            <td>{$item.create_time}</td>
+                            <td>
+                                <a href="">删除</a>
+                                |
+                                <a href="">修改</a>
+                            </td>
                         </tr>
-                        {if isset($item.model)}
-                            {foreach $item.model as $k1=>$v1}
-                                <tr>
-                                    <td>{$v1.id}</td>
-                                    <td>{$v1.analysis_name}</td>
-                                    <td>{$v1.note_taker_name}</td>
-                                    <td>
-                                        <a href="{:url('Operate/analysis_model_admin',['analysis_name_id'=>$v1.analysis_name_id,'platform_name_id'=>$item['platform_name_id']])}">管理</a>
-                                    </td>
-                                </tr>
-                            {/foreach}
-                            {else}
-                        {/if}
                     {/foreach}
                 </table>
             </div>
