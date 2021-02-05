@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{$platform_name}运营中心</title>
+    <link rel="stylesheet" href="/static/operate/css/base.css">
+    <link rel="stylesheet" href="/static/operate/css/rundata2.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 引入 ECharts 文件 -->
+    <script src="/static/js/echarts.min.js"></script>
+</head>
+
+<body>
+    <input id="platform" hidden type="text" value="{$platform_name}">
+    <div class="wrapper">
+        <div class="toptitle">{$platform_name}运营中心</div>
+        <div><button class="btns">返回</button></div>
+        <div class="toptitleT">
+            <div class="topTime"></div>
+            <div class="topNav">
+                <div class="topNavItem"><a href="{:url('Devops/devops_centers',['devops_type'=>$platform_name])}" class="button">主屏</a></div>
+                <div class="topNavItem  choosed"><a href="" id="operate">运营</a></div>
+                <div class="topNavItem"><a href="{:url('Operate/marketingBigScreen',['platform_name'=>$platform_name])}" class="button">营销</a></div>
+                <div class="topNavItem"><a href="{:url('Operate/orderBigScreen',['platform_name'=>$platform_name])}" class="button">订单</a></div>
+                <div class="topNavItem"><a href="{:url('Operate/foreignBigScreen',['platform_name'=>$platform_name])}" class="button">外媒</a></div>
+                <div class="topNavItem"><a href="{:url('Operate/testBigScreen',['platform_name'=>$platform_name])}" class="button">测试</a></div>
+            </div>
+        </div>
+        <div class="wbody">
+            <div class="left">
+                <div class="leftTop">
+                    <div class="iconp">
+                        <img src="/static/operate/img/Licon1.png" alt="" style="width:65px;height:65px">
+                        <p>网站用户统计</p>
+                    </div>
+                    <div>
+                        <div id="main1" style="width:100%; height:300px"></div>
+                    </div>
+                </div>
+                <div class="leftBom">
+                    <div class="iconp">
+                        <img src="/static/operate/img/Licon1.png" alt="" style="width:65px;height:65px">
+                        <p>运营数据统计</p>
+                    </div>
+                    <div class="ContentArea">
+                        {foreach $form_field as $key=>$item}
+                            <div class="ContentItem">
+                                {if $item['form_field']=='网站浏览量'}
+                                    <img src="/static/operate/img/wangzhanjianshe.png" alt="">
+                                    <div class="Ctb">
+                                        <div class="Ctop">{$item.form_field}</div>
+                                        <div class="Cbom">{$item.nums}</div>
+                                    </div>
+                                {elseif $item['form_field']=='APP浏览量'}
+                                    <img src="/static/operate/img/app-3.png" alt="">
+                                    <div class="Ctb">
+                                        <div class="Ctop">{$item.form_field}</div>
+                                        <div class="Cbom">{$item.nums}</div>
+                                    </div>
+                                {elseif $item['form_field']=='产品单品数'}
+                                    <img src="/static/operate/img/danpinguanli.png" alt="">
+                                    <div class="Ctb">
+                                        <div class="Ctop">{$item.form_field}</div>
+                                        <div class="Cbom">{$item.nums}</div>
+                                    </div>
+                                {else}
+                                    <img src="/static/operate/img/chanpin.png" alt="">
+                                    <div class="Ctb">
+                                        <div class="Ctop">{$item.form_field}</div>
+                                        <div class="Cbom">{$item.nums}</div>
+                                    </div>
+                                {/if}
+                            </div>
+                        {/foreach}
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="rightTop">
+                    <div class="iconp">
+                        <img src="/static/operate/img/Licon1.png" alt="" style="width:65px;height:65px">
+                        <p>平台用户每日增量</p>
+                    </div>
+                    <div>
+                        <div id="main2" style="width:100%; height: 300px"></div>
+                    </div>
+                </div>
+                <div class="rightBom">
+                    <div class="iconp">
+                        <img src="/static/operate/img/Licon1.png" alt="" style="width:65px;height:65px">
+                        <p>每日运营数据</p>
+                    </div>
+                    <div>
+                        <div id="main3" style="width:100%; height: 300px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="application/javascript" src="/static/operate/js/toptime.js"></script>
+<script>
+
+    $(document).ready(function() {
+        var platform_name   =   $("#platform").val().trim();
+        $.ajax({
+            type: "POST",
+            url: "{:url('Operate/operateBigScreenAjax')}",
+            data: {
+                platform_name:platform_name,
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                left_top(data.left_top)
+                right_lower(data.right_lower)
+                right_top(data.right_top)
+            }
+        })
+    })
+    function left_top(data) {
+        // ===============================  网站用户统计  =======================================
+        var myChart1 = echarts.init(document.getElementById("main1"));
+        let option1 = {
+            // color: ['#DF8B1F', '#30A3F1', 'red',],
+            legend: {
+                width: 350,
+                bottom: 0,
+                textStyle: { //图例文字的样式
+                    color: '#70C5FF',
+                    fontSize: 12
+                },
+                data: ['采购商注册数量', '供应商总数量', '收费供应商数量', '免费供应商数量'],
+                itemWidth: 6,             // 图例图形宽度
+                itemHeight: 6,            // 图例图形高度
+                icon: "rect",             //  这个字段控制形状  类型包括 circle，rect ，roundRect，triangle，diamond，pin，arrow，none
+            },
+
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    selectedMode: 'single',
+                    radius: [0, '30%'],
+                    label: {
+                        position: 'inner',
+                        // fontSize: 12,
+                        textStyle: {
+                            fontWeight: 300,
+                            fontSize: 12,   //文字的字体大小
+                            color: '#ffffff',
+                        },
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: data.in
+                },
+                {
+                    name: '',
+                    type: 'pie',
+                    radius: ['45%', '60%'],
+                    labelLine: {
+                        length: 30,
+                    },
+                    label: {
+                        formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                        backgroundColor: '#F6F8FC',
+                        borderColor: '#8C8D8E',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        rich: {
+                            a: {
+                                color: '#6E7079',
+                                lineHeight: 22,
+                                align: 'center'
+                            },
+                            hr: {
+                                borderColor: '#8C8D8E',
+                                width: '100%',
+                                borderWidth: 1,
+                                height: 0
+                            },
+                            b: {
+                                color: '#4C5058',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                lineHeight: 33
+                            },
+                            per: {
+                                color: '#fff',
+                                backgroundColor: '#4C5058',
+                                padding: [3, 4],
+                                borderRadius: 4
+                            }
+                        }
+                    },
+                    data: data.wai
+                }
+            ]
+        };
+        myChart1.setOption(option1);
+    }
+    function right_top(data) {
+// ==============================  平台用户每日增量 ========================================
+        var myChart2 = echarts.init(document.getElementById("main2"));
+        let option2 = {
+            color: ['#32A7F6', '#0C66E0', '#E0930C'],
+            legend: {
+                right: 100,
+                data: data.title,
+                textStyle: { //图例文字的样式
+                    color: '#82C2ED',
+                    fontSize: 12
+                },
+                itemWidth: 12,             // 图例图形宽度
+                itemHeight: 5,            // 图例图形高度
+                icon: "rect",
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: data.date,
+                    //   x轴字体颜色
+                    axisLine: {
+                        lineStyle: {
+                            color: "#2C7C96",
+                        },
+                    },
+                    axisTick: {       //x轴刻度线
+                        show: false
+                    },
+                }
+            ],
+            yAxis: {
+                type: 'value',
+                min: 0, //y轴的最小值
+                max: 70, //y轴最大值
+                interval: 10, //值之间的间隔
+                //   y轴字体颜色
+                axisLine: {
+                    show: true, //这里的show用于设置是否显示y轴那一条线 默认为true
+                    lineStyle: {
+                        color: "#2C7C96",
+                        width: 1, //轴线的粗细 我写的是2 最小为0，值为0的时候线隐藏
+                    },
+                },
+                //设置网格线颜色
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: ['#2C7C96'],
+                        width: 1,
+                        type: 'solid'
+                    },
+                },
+                //用于设置y轴的字体
+                axisLabel: {
+                    show: true, //这里的show用于设置是否显示y轴下的字体 默认为true
+                    textStyle: { //textStyle里面写y轴下的字体的样式
+                        color: '#2C7C96',
+                        fontSize: 12
+                    }
+                },
+            },
+            series: data.data,
+        };
+        myChart2.setOption(option2);
+    }
+    function right_lower(data) {
+// ============================== 每日运营数据  ===================================
+        var myChart3 = echarts.init(document.getElementById("main3"));
+        let option3 = {
+            color: ['#309EE8', '#4DD9D4', '#EA5051', '#E69936'],
+            legend: {
+                right: 100,
+                data: data.title,
+                textStyle: { //图例文字的样式
+                    color: '#82C2ED',
+                    fontSize: 12
+                },
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: data.date,
+                    //   x轴字体颜色
+                    axisLine: {
+                        lineStyle: {
+                            color: "#2C7C96",
+                        },
+                    },
+                    axisTick: {       //x轴刻度线
+                        show: false
+                    },
+                }
+            ],
+            yAxis: {
+                type: 'value',
+                min: 0, //y轴的最小值
+                //max: 600, //y轴最大值
+                interval: 100, //值之间的间隔
+                //   y轴字体颜色
+                axisLine: {
+                    show: true, //这里的show用于设置是否显示y轴那一条线 默认为true
+                    lineStyle: {
+                        color: "#2C7C96",
+                        width: 1, //轴线的粗细 我写的是2 最小为0，值为0的时候线隐藏
+                    },
+                },
+                //设置网格线颜色
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: ['#2C7C96'],
+                        width: 1,
+                        type: 'solid'
+                    },
+                },
+                //用于设置y轴的字体
+                axisLabel: {
+                    show: true, //这里的show用于设置是否显示y轴下的字体 默认为true
+                    textStyle: { //textStyle里面写y轴下的字体的样式
+                        color: '#2C7C96',
+                        fontSize: 12
+                    }
+                },
+            },
+            series: data.data
+        };
+        myChart3.setOption(option3);
+    }
+</script>
+
+</html>

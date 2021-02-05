@@ -14,9 +14,10 @@
 <body>
 <div class="wrapper">
     <div class="toptitle">{$devops_type} 运维中心</div>
-    <div class="prev">返回</div>
+    <div class="prev" style="cursor:pointer;">返回</div>
     <div class="topTime"></div>
     <div class="wbody">
+        <a href="{:url('Operate/operateBigScreen',['platform_name'=>$devops_type])}">asasa</a>
         <div class="wLeft">
             <div class="wLeftbg1">
                 <div class="iconp">
@@ -70,12 +71,12 @@
                     <!--    监控区    -->
                     <div class="wCenterbg1div" id="rl_k">
                         <iframe
-                                src="{$url}"
-                                width="727"
-                                height="427"
-                                id="ysopen"
-                                frameborder="no"
-                                allowfullscreen
+                            src="{$url}"
+                            width="727"
+                            height="427"
+                            id="ysopen"
+                            frameborder="no"
+                            allowfullscreen
                         >
                         </iframe>
                     </div>
@@ -84,11 +85,11 @@
                     <div class="wCenterbg1div1" id="wangye_k" hidden>
                         <div onclick="ifram()">
                             <iframe
-                                    src="https://www.chinafibermarketing.cn"
-                                    width="727"
-                                    height="427"
-                                    id="ifwang"
-                                    allowfullscreen
+                                src="https://www.chinafibermarketing.cn"
+                                width="727"
+                                height="427"
+                                id="ifwang"
+                                allowfullscreen
                             >
                             </iframe>
                         </div>
@@ -501,7 +502,6 @@
             },
             xAxis: {
                 type: "value",
-
                 data: sum,
                 //   x轴字体颜色
                 // axisLine: {
@@ -525,7 +525,6 @@
                         color: '#82C2ED'
                     }
                 },
-
                 //设置网格线颜色
                 splitLine: {
                     show: false,
@@ -538,7 +537,6 @@
                 // boundaryGap: [0, 0.01],
             },
             yAxis: {
-
                 type: "category",
                 // splitLine: { show: false }, //去除网格线
                 //   y轴字体颜色
@@ -565,7 +563,6 @@
                 },
                 data: title
             },
-
             series: [
                 {
                     barWidth: "70%",
@@ -580,7 +577,6 @@
                                     fontSize: 10
                                 },
                             },
-
                             //右，下，左，上（0，0，0，1）表示从正右开始向左渐变
                             color: function (params) {
                                 var colorList = [

@@ -48,7 +48,7 @@
                                             {:str_repeat("　",2)}<input type="checkbox" value="{$v.id}" name="node_id[]" son_pid="{$v.pid}" class="son">{$v.node}
                                         </label>
                                     </div>
-                                    {if isset($v.son)}
+                                    {if isset($v['son'])}
                                         {foreach $v.son as $k1=>$v1}
                                             <div class="checkbox">
                                                 <label>

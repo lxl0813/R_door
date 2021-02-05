@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{$platform_name} 测试中心</title>
+    <link rel="stylesheet" href="/static/operate/css/base.css">
+    <link rel="stylesheet" href="/static/operate/css/testdata.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 引入 ECharts 文件 -->
+    <script src="/static/js/echarts.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="toptitle">{$platform_name}测试中心</div>
+        <div><button class="btns">返回</button></div>
+        <div class="toptitleT">
+            <div class="topTime"></div>
+            <div class="topNav">
+                <div class="topNavItem"><a href="{:url('Devops/devops_centers',['devops_type'=>$platform_name])}" class="button">主屏</a></div>
+                <div class="topNavItem"><a href="{:url('Operate/operateBigScreen',['platform_name'=>$platform_name])}" id="operate">运营</a></div>
+                <div class="topNavItem"><a href="{:url('Operate/marketingBigScreen',['platform_name'=>$platform_name])}" class="button">营销</a></div>
+                <div class="topNavItem"><a href="{:url('Operate/orderBigScreen',['platform_name'=>$platform_name])}" class="button">订单</a></div>
+                <div class="topNavItem"><a href="{:url('Operate/foreignBigScreen',['platform_name'=>$platform_name])}" class="button">外媒</a></div>
+                <div class="topNavItem choosed"><a href="" class="button">测试</a></div>
+            </div>
+        </div>
+        <div class="wbody">
+            <div class="left">
+                <div class="leftTop">
+                    <div class="iconp">
+                        <img src="/static/operate/img/icon-contrastselect .png" alt="" style="width:65px;height:65px">
+                        <p>测试数据总计</p>
+                    </div>
+                    <div>
+                        <div id="main1" style="width:100%; height:300px"></div>
+                    </div>
+                </div>
+                <div class="leftBom">
+                    <div class="iconp">
+                        <img src="/static/operate/img/Licon1.png" alt="" style="width:65px;height:65px">
+                        <p>每日测试采购信息量</p>
+                    </div>
+                    <div>
+                        <div id="main" style="width:100%; height:300px"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="rightTop">
+                    <div class="iconp">
+                        <img src="/static/operate/img/Licon1.png" alt="" style="width:65px;height:65px">
+                        <p>每日测试运输费用统计</p>
+                    </div>
+                    <div>
+                        <div id="main2" style="width:100%; height: 340px"></div>
+                    </div>
+                </div>
+                <div class="rightBom">
+                    <div class="iconp">
+                        <img src="/static/operate/img/Licon1.png" alt="" style="width:65px;height:65px">
+                        <p>测试订单交易</p>
+                    </div>
+                    <div>
+                        <div id="main3" style="width:100%; height: 300px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="application/javascript" src="/static/operate/js/toptime.js"></script>
+<script>
+    // 点击按钮进行切换
+    $('.topNavItem').click(function () {
+        $(this).addClass('choosed').siblings().removeClass('choosed')
+
+    })
+    // ===============================  网站用户统计  =======================================
+    var myChart1 = echarts.init(document.getElementById("main1"));
+    let option1 = {
+        color: ['#2782CD', '#FCA100', '#FD3F19', '#CF19FD'],
+        angleAxis: {//极坐标系的角度轴
+            axisTick: { //坐标轴刻度设置
+                show: false
+            },
+            splitLine: { //分割线设置
+                show: false,
+            },
+            axisLabel: { //刻度标签设置
+                show: false
+            },
+            axisLine: { //坐标轴轴线设置
+                show: false,
+            },
+
+        },
+        radiusAxis: {
+            type: 'category',
+            data: ['周一', '周二', '周三', '周四'],
+            z: 10,
+            axisTick: { //坐标轴刻度设置
+                show: false
+            },
+            axisLine: { //坐标轴轴线设置
+                show: false,
+            },
+        },
+        polar: {
+        },
+        series: [{
+            type: 'bar',
+            data: [1, 2, 3, 4],
+            coordinateSystem: 'polar',
+            name: '周一',
+            stack: 'a',
+            emphasis: {
+                focus: 'series'
+            }
+        }, {
+            type: 'bar',
+            data: [2, 4, 6, 8],
+            coordinateSystem: 'polar',
+            name: '周二',
+            stack: 'a',
+            emphasis: {
+                focus: 'series'
+            }
+        }, {
+            type: 'bar',
+            data: [1, 2, 3, 4],
+            coordinateSystem: 'polar',
+            name: '周三',
+            stack: 'a',
+            emphasis: {
+                focus: 'series'
+            }
+        }, {
+            type: 'bar',
+            data: [2, 4, 6, 8],
+            coordinateSystem: 'polar',
+            name: '周四',
+            stack: 'a',
+            emphasis: {
+                focus: 'series'
+            }
+        },],
+
+    };
+
+    myChart1.setOption(option1);
+    // ============================= 每日测试采购信息量 ========================================
+    var myChart = echarts.init(document.getElementById("main"));
+    let option = {
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            //   x轴字体颜色
+            axisLine: {
+                lineStyle: {
+                    color: "#56DAF2",
+                },
+            },
+            axisTick: {       //x轴刻度线
+                show: false
+            },
+            data: ['5-21', '5-22', '5-23', '5-24', '5-25', '5-26', '5-27']
+        },
+        yAxis: {
+            type: 'value',
+            //   y轴字体颜色
+            axisLine: {
+                show: true, //这里的show用于设置是否显示y轴那一条线 默认为true
+                lineStyle: {
+                    color: "#56DAF2",
+                },
+            },
+            //设置网格线颜色
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: ['#315070'],
+                    width: 1,
+                    type: 'solid'
+                },
+
+            }
+        },
+        series: [{
+            data: [30, 40, 69, 50, 40, 40, 40],
+            type: 'line',
+            areaStyle: {},
+            smooth: 0.6,
+
+            areaStyle: {
+                normal: {
+                    color: '#91E3F7' //改变区域颜色
+                }
+            },
+            symbol: "none",
+            itemStyle: {
+                normal: {
+                    // color: '#3AC3FB', //改变折线点的颜色
+                    lineStyle: {
+                        color: '#91E3F7', //改变折线颜色
+                        width: 3,
+                    }
+                }
+            },
+
+        }]
+    };
+
+    myChart.setOption(option);
+    // ==============================  每日测试运输费用统计 ========================================
+    var myChart2 = echarts.init(document.getElementById("main2"));
+    let option2 = {
+        tooltip: {
+            trigger: "axis",
+            axisPointer: {
+                // 坐标轴指示器，坐标轴触发有效
+                type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
+            },
+        },
+        grid: {
+            top: '3%',
+            left: "3%",
+            right: "4%",
+            bottom: "2%",
+            containLabel: true,
+        },
+        xAxis: [
+            {
+                type: "category",
+                data: ['5-24', '5-25', '5-26', '5-27', '5-28', '5-29', '5-30', '5-31', '6-1', '6-2',],
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: "#2C7C96",
+                    },
+                },
+                //   x轴字体颜色
+                axisLine: {
+                    lineStyle: {
+                        color: "#2C7C96",
+                    },
+                },
+                axisTick: {       //x轴刻度线
+                    show: false
+                },
+            },
+        ],
+        yAxis: [
+            {
+                type: "value",
+                min: 0, //y轴的最小值
+                max: 80, //y轴最大值 
+                interval: 10, //值之间的间隔
+                //   y轴字体颜色
+                axisLine: {
+                    show: true, //这里的show用于设置是否显示y轴那一条线 默认为true
+                    lineStyle: {
+                        color: "#2C7C96",
+                        width: 1, //轴线的粗细 我写的是2 最小为0，值为0的时候线隐藏
+                    },
+                },
+                //用于设置y轴的字体
+                axisLabel: {
+                    show: true, //这里的show用于设置是否显示y轴下的字体 默认为true
+                    textStyle: { //textStyle里面写y轴下的字体的样式
+                        color: '#2C7C96',
+                        fontSize: 12
+                    }
+                },
+                //设置网格线颜色
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: ['#2C7C96'],
+                        width: 1,
+                        type: 'solid'
+                    },
+                },
+            },
+        ],
+        series: [
+            {
+                // name: "计划",
+                type: "bar",
+                showBackground: true, //显示背景色
+                data: [55, 22, 50, 42, 41, 55, 22, 50, 42, 41,],
+                barWidth: "30%",
+                itemStyle: {
+                    normal: {
+                        //右，下，左，上（0，0，0，1）表示从正右开始向左渐变
+                        color: function (params) {
+                            var colorList = [
+                                ["#43A230", "#96E12B"],
+                                ["#43A230", "#96E12B"],
+                                ["#43A230", "#96E12B"],
+                                ["#43A230", "#96E12B"],
+                                ["#43A230", "#96E12B"],
+                                ["#43A230", "#96E12B"],
+                                ["#43A230", "#96E12B"],
+                                ["#43A230", "#96E12B"],
+                                ["#43A230", "#96E12B"],
+                                ["#43A230", "#96E12B"],
+
+
+                            ];
+                            var colorItem = colorList[params.dataIndex];
+                            console.log(colorItem);
+                            return new echarts.graphic.LinearGradient(
+                                0.3,
+                                0,
+                                0,
+                                1,
+                                [
+                                    {
+                                        offset: 0,
+                                        color: colorItem[0],
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: colorItem[1],
+                                    },
+                                ],
+                                false
+                            );
+                        },
+                    },
+                },
+            },
+
+        ],
+    };
+    myChart2.setOption(option2);
+    // ============================== 测试订单交易  ===================================
+    var myChart3 = echarts.init(document.getElementById("main3"));
+    let option3 = {
+        color: ['#F6C801', '#1FADFF'],
+        legend: {
+            right: 100,
+            top: 0,
+            data: ['测试订单交易-线上', '测试订单交易-线下'],
+            textStyle: { //图例文字的样式
+                color: '#82C2ED',
+                fontSize: 12
+            },
+            itemWidth: 10,             // 图例图形宽度
+            itemHeight: 10,            // 图例图形高度
+            icon: "rect",
+        },
+        grid: {
+
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: ['5-24', '5-25', '5-26', '5-27', '5-28', '5-29', '5-30', '5-31', '6-1', '6-2',],
+                //   x轴字体颜色
+                axisLine: {
+                    lineStyle: {
+                        color: "#2C7C96",
+                    },
+                },
+                axisTick: {       //x轴刻度线
+                    show: false
+                },
+            }
+
+        ],
+        yAxis: {
+            type: 'value',
+            min: 0, //y轴的最小值
+            max: 70, //y轴最大值 
+            interval: 10, //值之间的间隔
+            //   y轴字体颜色
+            axisLine: {
+                show: true, //这里的show用于设置是否显示y轴那一条线 默认为true
+                lineStyle: {
+                    color: "#2C7C96",
+                    width: 1, //轴线的粗细 我写的是2 最小为0，值为0的时候线隐藏
+                },
+            },
+            //设置网格线颜色
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: ['#2C7C96'],
+                    width: 1,
+                    type: 'solid'
+                },
+            },
+
+            //用于设置y轴的字体
+            axisLabel: {
+                show: true, //这里的show用于设置是否显示y轴下的字体 默认为true
+                textStyle: { //textStyle里面写y轴下的字体的样式
+                    color: '#2C7C96',
+                    fontSize: 12
+                }
+            },
+
+
+        },
+        series: [
+            {
+                name: '测试订单交易-线上',
+                type: 'line',
+                data: [18, 25, 34, 30, 40, 30, 30, 30, 30, 34,],
+                symbol: "none",
+            },
+            {
+                name: '测试订单交易-线下',
+                type: 'bar',
+                stack: '广告',
+                barWidth: '20',
+                data: [18, 25, 34, 30, 40, 30, 30, 30, 30, 34,],
+
+            },
+        ]
+    };
+    myChart3.setOption(option3);
+
+</script>
+
+</html>

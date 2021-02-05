@@ -197,7 +197,6 @@ class CommonController extends Controller{
         }
         //获取要去往的控制器和方法(转换成开头大写的格式)，判断该控制器是否是不需要权限的
         $access=ucfirst(strtolower(request()->controller()))."/".ucfirst(strtolower(request()->action()));
-        //var_dump($access);exit;
         //判断所要前往的路由是否在配置文件中；
         if(in_array($access,config("app.no_check_action"))){
             return true;
@@ -205,7 +204,6 @@ class CommonController extends Controller{
         $admin_id=Cookie::get("ranglei_admin")["admin_id"];//获取当前管理员的id
         //获取当前登录管理员的权限
         $myNode=$this->getAdminNodeId($admin_id);
-        //var_dump($access);exit;
         if(in_array($access,$myNode)){
             return true;
         }else{
@@ -219,16 +217,17 @@ class CommonController extends Controller{
         $role_id=$adminRoleModel->where("admin_id",$admin_id)->column("role_id");
         $roleNodeModel=new RoleNodeModel();
         $nodeModel=new NodeModel();
-        $role=$roleNodeModel->where('role_id','in',$role_id)->select();
+        $role=$roleNodeModel->where('role_id','in',$role_id)->select()->toArray();
         $myNode=[];
         foreach($role as $key=>$val){
-            $myNode[]=$nodeModel->where('id',$val->node_id)->find()->toArray();
+            $myNode[] =   $nodeModel->where('id',$val['node_id'])->find()->toArray();
         }
         $myAccess=[];
         foreach($myNode as $key=>$val){
             array_push($myAccess,ucfirst(strtolower($val["controller"]))."/".ucfirst(strtolower($val["action"])));
         }
         $myAccess=array_unique($myAccess);
+        //var_dump($myAccess);exit;
         return $myAccess;
     }
 

@@ -1608,7 +1608,6 @@ class Query
         } else {
             $where = $field ? [$field, $op, $condition, isset($param[2]) ? $param[2] : null] : null;
         }
-
         return $where;
     }
 

@@ -88,7 +88,6 @@ class DevopsController extends Controller
                                 ->where('dv.create_time',date('Y-m-d',time()))
                                 ->field('d.id,d.data_name,dv.data_value,dv.create_time')
                                 ->select();
-
         if($today_devops_data){
 
         }else{

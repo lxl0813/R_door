@@ -124,7 +124,6 @@ class Controller
             if (is_string($options['only'])) {
                 $options['only'] = explode(',', $options['only']);
             }
-
             $only = array_map(function ($val) {
                 return strtolower($val);
             }, $options['only']);
@@ -136,7 +135,6 @@ class Controller
             if (is_string($options['except'])) {
                 $options['except'] = explode(',', $options['except']);
             }
-
             $except = array_map(function ($val) {
                 return strtolower($val);
             }, $options['except']);

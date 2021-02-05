@@ -612,7 +612,6 @@ class Request
             }
             $this->baseFile = $url;
         }
-
         return $domain ? $this->domain() . $this->baseFile : $this->baseFile;
     }
 

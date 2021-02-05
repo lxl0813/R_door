@@ -3,6 +3,7 @@ namespace app\index\controller;
 
 use app\index\model\NewsModel;
 use think\Controller;
+use think\Exception;
 use think\facade\Cookie;
 
 class IndexController extends Controller
@@ -23,13 +24,12 @@ class IndexController extends Controller
             $field='id,title_ch,content_ch,img,time';
             $new=NewsModel::AllNews($field);
             foreach($new as $k=>$v){
-                $new[$k]['title']=$v['title_ch'];unset($new[$k]['title_ch']);
-                $new[$k]['content']=$v['content_ch'];unset($new[$k]['conent_ch']);
+                $new[$k]['title']   =$v['title_ch'];unset($new[$k]['title_ch']);
+                $new[$k]['content'] =$v['content_ch'];unset($new[$k]['conent_ch']);
             }
         }
         //只获取四个
         $news=array_slice($new,0,4);
         return view('',['news'=>$news]);
     }
-
 }

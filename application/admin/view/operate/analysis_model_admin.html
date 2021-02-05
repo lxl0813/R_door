@@ -11,7 +11,7 @@
     <script type="text/javascript" src="/admin/js/global.js"></script>
     <script type="text/javascript" src="/static/js/time.js"></script>
     <!--bootstrop引入-->
-    <!--    {include file="pub:bootstrop"}-->
+    {include file="pub:bootstrop"}
 </head>
 <body>
 <div id="dcWrap">
@@ -25,7 +25,7 @@
         <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
             <div class="input-group">
                 <input type="text" class="form-control" disabled aria-describedby="basic-addon2">
-                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Operate/analysis_model_data_add')}">添加模块数据</a></span>
+                <span class="input-group-addon" id="basic-addon2"><a href="{:url('Operate/analysis_model_data_add',$params)}">添加模块数据</a></span>
             </div>
             <div style="margin: auto;padding-top: 50px">
                 <table class="table table-hover">
@@ -43,7 +43,7 @@
                             <td>{$item.analysis_name}</td>
                             <td>{$item.create_time}</td>
                             <td>
-                                <a href="">删除</a>
+                                <a class="delete" name="{$item.platform_name}|{$item.analysis_name}|{$item.create_time}">删除</a>
                                 |
                                 <a href="">修改</a>
                             </td>
@@ -58,7 +58,35 @@
 </div>
 <script>
 
-    $("#submit").click(function(){
+    $(".delete").click(function(){
+        var param   =   $(this).attr('name');
+        layer.confirm('您确定删除该日的记录？', {
+            btn: ['是','否'] //按钮
+        }, function(){
+            $.ajax({
+                type: "post",
+                url: "{:url('Operate/platform_analysis_data_delete')}",
+                data: {
+                    param:param,
+                },
+                dataType: "json",
+                success: function (data) {
+                    if(data.code==200){
+                        layer.msg(result.msg);
+                        setTimeout(function(){
+                            window.location.reload();
+                        } ,1000)
+                    }else{
+                        alert(data.msg);
+                    }
+                }
+            })
+        }, function(){
+        });
+
+
+
+
 
     })
 

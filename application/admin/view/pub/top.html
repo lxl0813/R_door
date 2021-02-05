@@ -18,20 +18,15 @@
         var td=$(this); //为后面文本框变成文本铺垫
         var text=$(this).text();
         var input=$("<input type='text'  value='"+text+"' class='zhong'>");
-
         $(this).replaceWith( input );
-
         $('input').click(function(){
             return false;
         }); //阻止表单默认点击行为
         $('input').select(); //点击自动全选中表单的内容
         $('input').blur(function(){
-
             var nextxt=$(this).val();
-
             $(this).replaceWith(td)
             td.html(nextxt);
-            //alert(1);exit;
             $.ajax({
                 type: "post",
                 url: "{:url('Pub/index')}",

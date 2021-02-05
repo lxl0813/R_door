@@ -67,7 +67,7 @@
 <script>
 
     $("#model_add").click(function(){
-        $("#analysis_model").hide();
+        $("#mo").hide();
         $("#analysis").show();
     })
 
@@ -89,7 +89,7 @@
                         html+="</div>"
                     }else{
                         html+="<div id='mo'>"
-                        html+="<select class='form-control' id='analysis_model'><option value ='0'>请选择表单字段记录人</option>"
+                        html+="<select class='form-control' id='analysis_model'><option value ='0'>请选择分析模块</option>"
                         $.each(data.result,function(k,v){
                             html+="<option value ="+v.id+"> " + v.analysis_name + "</option>"
                         })
@@ -110,9 +110,7 @@
         var people_name     =   $("#people option:selected").text();
         var people_id       =   $("#people option:selected").val();
         var form_field      =   $("#form_field").val();
-
-        var analysis        =   $("#analysis").val();
-        if(!analysis){
+        if($("#analysis").is(":hidden")){
             var analysis_name     =   $("#analysis_model option:selected").text();
             var analysis_id       =   $("#analysis_model option:selected").val();
             if(platform_id==0){
@@ -127,18 +125,18 @@
             if(analysis_name==""){
                 alert("请填写分析模块！");return;
             }
-
             $.ajax({
                 type: "post",
                 url: "{:url('Operate/analysis_model_add_do')}",
                 data: {
                     platform_name:platform_name,
-                    platform_id:platform_id,
+                    platform_name_id:platform_id,
                     people_name:people_name,
-                    people_id:people_id,
+                    note_taker_name:people_name,
+                    note_taker_id:people_id,
                     form_field:form_field,
                     analysis_name:analysis_name,
-                    analysis_id:analysis_id,
+                    analysis_name_id:analysis_id,
                 },
                 dataType: "json",
                 success: function (data) {
@@ -149,7 +147,6 @@
                     }
                 }
             })
-
         }else{
             if(platform_id==0){
                 alert("请选择平台！");return;
@@ -163,16 +160,15 @@
             if(analysis_name==""){
                 alert("请填写分析模块！");return;
             }
-            var analysis_name   =   analysis
-
+            var analysis_name   =   $("#analysis").val();
             $.ajax({
                 type: "post",
                 url: "{:url('Operate/analysis_model_add_do')}",
                 data: {
                     platform_name:platform_name,
-                    platform_id:platform_id,
-                    people_name:people_name,
-                    people_id:people_id,
+                    platform_name_id:platform_id,
+                    note_taker_name:people_name,
+                    note_taker_id:people_id,
                     form_field:form_field,
                     analysis_name:analysis_name,
                 },

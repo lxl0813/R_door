@@ -48,35 +48,37 @@
                                 <a href="">编辑</a>
                             </td>
                         </tr>
-                        {foreach $item['son'] as $k=>$v}
-                            <tr>
-                                <td style="background-color: #EFFAFF">{$v.id}</td>
-                                <td style="background-color: #EFFAFF">{$v.node}</td>
-                                <td style="background-color: #EFFAFF">{$v.controller}</td>
-                                <td style="background-color: #EFFAFF">{$v.action}</td>
-                                <td style="background-color: #EFFAFF">
-                                    <a href="">删除</a>
-                                    |
-                                    <a href="">编辑</a>
-                                </td>
-                            </tr>
-                            {if isset($v.son)}
-                                {foreach $v.son as $k1=>$v1}
-                                    <tr>
-                                        <td style="text-align: center">{$v1.id}</td>
-                                        <td style="text-align: center">{$v1.node}</td>
-                                        <td style="text-align: center">{$v1.controller}</td>
-                                        <td style="text-align: center">{$v1.action}</td>
-                                        <td style="text-align: center">
-                                            <a href="">删除</a>
-                                            |
-                                            <a href="">编辑</a>
-                                        </td>
-                                    </tr>
-                                {/foreach}
-                            {else}
-                            {/if}
-                        {/foreach}
+                        {if isset($item['son'])}
+                            {foreach $item['son'] as $k=>$v}
+                                <tr>
+                                    <td style="background-color: #EFFAFF">{$v.id}</td>
+                                    <td style="background-color: #EFFAFF">{$v.node}</td>
+                                    <td style="background-color: #EFFAFF">{$v.controller}</td>
+                                    <td style="background-color: #EFFAFF">{$v.action}</td>
+                                    <td style="background-color: #EFFAFF">
+                                        <a href="">删除</a>
+                                        |
+                                        <a href="">编辑</a>
+                                    </td>
+                                </tr>
+                                {if isset($v['son'])}
+                                    {foreach $v.son as $k1=>$v1}
+                                        <tr>
+                                            <td style="text-align: center">{$v1.id}</td>
+                                            <td style="text-align: center">{$v1.node}</td>
+                                            <td style="text-align: center">{$v1.controller}</td>
+                                            <td style="text-align: center">{$v1.action}</td>
+                                            <td style="text-align: center">
+                                                <a href="">删除</a>
+                                                |
+                                                <a href="">编辑</a>
+                                            </td>
+                                        </tr>
+                                    {/foreach}
+                                {else}
+                                {/if}
+                            {/foreach}
+                        {/if}
                     {/foreach}
                 </table>
             </div>

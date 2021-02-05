@@ -11,7 +11,7 @@
     <script type="text/javascript" src="/admin/js/global.js"></script>
     <script type="text/javascript" src="/static/js/time.js"></script>
     <!--bootstrop引入-->
-<!--    {include file="pub:bootstrop"}-->
+    {include file="pub:bootstrop"}
 </head>
 <body>
 <div id="dcWrap">
@@ -40,7 +40,7 @@
                             <td>{$key++}</td>
                             <td>{$item.platform_name}</td>
                             <td>{$item.note_taker_name}</td>
-                            <td><a href="">进入</a></td>
+                            <td></td>
                         </tr>
                         {if isset($item.model)}
                             {foreach $item.model as $k1=>$v1}
