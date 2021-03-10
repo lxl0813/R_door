@@ -64,7 +64,6 @@ class CultureController extends Controller{
             $new['time_year']=date('Y',$new['time']);
             $new['time_m']= date('m',$new['time']);
             $new['time_d']= date('d',$new['time']);
-            //htmlspecialchars_decode($new['content']);
         }else{
             //所要获取的字段
             $field='id ,title_ch,content_ch,img,time';
@@ -74,7 +73,6 @@ class CultureController extends Controller{
             $new['time_year']=date('Y',$new['time']);
             $new['time_m']= date('m',$new['time']);
             $new['time_d']= date('d',$new['time']);
-            //htmlspecialchars_decode($new['content']);
         }
         return view('',['new'=>$new]);
     }

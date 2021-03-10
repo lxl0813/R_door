@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <meta name="viewport" content="width=device-width, intial-scale=1, maxium-scale=1, user-scalable=no">
     <title>Document</title>
     <link rel="stylesheet" href="/static/css/huaqian.css">
@@ -17,7 +17,7 @@
     <div class="prev" style="cursor:pointer;">返回</div>
     <div class="topTime"></div>
     <div class="wbody">
-        <a href="{:url('Operate/operateBigScreen',['platform_name'=>$devops_type])}">asasa</a>
+<!--        <a href="{:url('Operate/operateBigScreen',['platform_name'=>$devops_type])}">asasa</a>-->
         <div class="wLeft">
             <div class="wLeftbg1">
                 <div class="iconp">
@@ -38,110 +38,110 @@
                 </div>
             </div>
         </div>
-            <div class="wCenter">
-                <div class="wCenterbg1">
-                    <div style="display: flex; align-items: center;">
-                        <div class="iconp" id="rl">
-                            <img src="/devops_imgs/cIcon1.png" alt="" style="width:65px;height:65px">
-                            <p style="width: 103px;
+        <div class="wCenter">
+            <div class="wCenterbg1">
+                <div style="display: flex; align-items: center;">
+                    <div class="iconp" id="rl">
+                        <img src="/devops_imgs/cIcon1.png" alt="" style="width:65px;height:65px">
+                        <p style="width: 103px;
                                 cursor: pointer;
                                 height: 38px;
                                 background: #8BDBFC;
                                 line-height: 38px;
                                 text-align: center;
                                 border-radius: 19px;color: black;">让雷监控</p>
-                        </div>
-                        <div class="iconp" id="zgc">
-                            <img src="/devops_imgs/cIcon1.png" alt="" style="width:65px;height:65px">
-                            <p style="width: 103px;
+                    </div>
+                    <div class="iconp" id="zgc">
+                        <img src="/devops_imgs/cIcon1.png" alt="" style="width:65px;height:65px">
+                        <p style="width: 103px;
                                 cursor: pointer;
                                 border-radius: 19px;">缔荣监控</p>
-                        </div>
-                        <div class="iconp" id="gc">
-                            <img src="/devops_imgs/cIcon1.png" alt="" style="width:65px;height:65px">
-                            <p style="width: 103px;
+                    </div>
+                    <div class="iconp" id="gc">
+                        <img src="/devops_imgs/cIcon1.png" alt="" style="width:65px;height:65px">
+                        <p style="width: 103px;
                                 cursor: pointer;
                                 border-radius: 19px;">济南工厂</p>
-                        </div>
-                        <div class="iconp" style="margin-left: 20px;" id="wangye">
-                            <span><img src="/devops_imgs/wangye.png" alt="" style="vertical-align: middle;width: 20px;height: 20px;"></span>
-                            <p style="margin-left: 15px;cursor: pointer;" >网页</p>
-                        </div>
                     </div>
-                    <!--    监控区    -->
-                    <div class="wCenterbg1div" id="rl_k">
-                        <iframe
+                    <div class="iconp" style="margin-left: 20px;" id="wangye">
+                        <span><img src="/devops_imgs/wangye.png" alt="" style="vertical-align: middle;width: 20px;height: 20px;"></span>
+                        <p style="margin-left: 15px;cursor: pointer;" >网页</p>
+                    </div>
+                </div>
+                <!--    监控区    -->
+                <div class="wCenterbg1div" id="rl_k">
+                    <iframe
                             src="{$url}"
                             width="727"
                             height="427"
                             id="ysopen"
                             frameborder="no"
                             allowfullscreen
-                        >
-                        </iframe>
-                    </div>
-                    <div class="wCenterbg1div1" id="gc_k" hidden></div>
-                    <!--    网页      -->
-                    <div class="wCenterbg1div1" id="wangye_k" hidden>
-                        <div onclick="ifram()">
-                            <iframe
+                    >
+                    </iframe>
+                </div>
+                <div class="wCenterbg1div1" id="gc_k" hidden></div>
+                <!--    网页      -->
+                <div class="wCenterbg1div1" id="wangye_k" hidden>
+                    <div onclick="ifram()">
+                        <iframe
                                 src="https://www.chinafibermarketing.cn"
                                 width="727"
                                 height="427"
                                 id="ifwang"
                                 allowfullscreen
-                            >
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-                <div class="wCenterbg2">
-                    <div class="iconp">
-                        <img src="/devops_imgs/usericon.png" alt="" style="width:65px;height:65px">
-                        <p>数据采集分析</p>
-                    </div>
-                    <div class="tableBox">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="fz" style="display: flex;justify-content: flex-start;align-items: center;">
-                                        <span></span>数据来源</th>
-                                    {foreach $data_analysis_result.title as $key=>$item}
-                                        <th class="fz">{$item}</th>
-                                    {/foreach}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="fz"
-                                        style="display: flex;justify-content: flex-start;align-items: center;">
-                                        <span></span>今日访问量</td>
-                                    {foreach $data_analysis_result.today_data as $key=>$item}
-                                        <td class="t1">{$item}</td>
-                                    {/foreach}
-
-                                </tr>
-                                <tr>
-                                    <td class="fz"
-                                        style="display: flex;justify-content: flex-start;align-items: center;">
-                                        <span></span>历史访问量</td>
-                                    {foreach $data_analysis_result.history_data as $key=>$item}
-                                        <td class="t2">{$item}</td>
-                                    {/foreach}
-                                </tr>
-                                <tr>
-                                    <td class="fz"
-                                        style="display: flex;justify-content: flex-start;align-items: center;">
-                                        <span></span>比昨日新增量</td>
-                                    {foreach $data_analysis_result.difference as $key=>$item}
-                                        <td class="t3">{$item}</td>
-                                    {/foreach}
-                                </tr>
-                            </tbody>
-                        </table>
+                        >
+                        </iframe>
                     </div>
                 </div>
             </div>
+            <div class="wCenterbg2">
+                <div class="iconp">
+                    <img src="/devops_imgs/usericon.png" alt="" style="width:65px;height:65px">
+                    <p>数据采集分析</p>
+                </div>
+                <div class="tableBox">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="fz" style="display: flex;justify-content: flex-start;align-items: center;">
+                                <span></span>数据来源</th>
+                            {foreach $data_analysis_result.title as $key=>$item}
+                            <th class="fz">{$item}</th>
+                            {/foreach}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="fz"
+                                style="display: flex;justify-content: flex-start;align-items: center;">
+                                <span></span>今日访问量</td>
+                            {foreach $data_analysis_result.today_data as $key=>$item}
+                            <td class="t1">{$item}</td>
+                            {/foreach}
+
+                        </tr>
+                        <tr>
+                            <td class="fz"
+                                style="display: flex;justify-content: flex-start;align-items: center;">
+                                <span></span>历史访问量</td>
+                            {foreach $data_analysis_result.history_data as $key=>$item}
+                            <td class="t2">{$item}</td>
+                            {/foreach}
+                        </tr>
+                        <tr>
+                            <td class="fz"
+                                style="display: flex;justify-content: flex-start;align-items: center;">
+                                <span></span>比昨日新增量</td>
+                            {foreach $data_analysis_result.difference as $key=>$item}
+                            <td class="t3">{$item}</td>
+                            {/foreach}
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div class="wRight">
             <div class="wRightbg1">
                 <div class="iconp">
@@ -285,7 +285,6 @@
             success: function (data) {
                 console.log(data);
                 if(data.code=='200'){
-
                     $(".wCenterbg1div").hide();
                     $("#gc_k").show();
                     const player = new ImouPlayer('#gc_k');

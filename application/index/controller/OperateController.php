@@ -7,11 +7,12 @@ use app\index\model\AnalysisFormModel;
 use app\index\model\AnalysisNameModel;
 use think\Controller;
 use think\Db;
+use think\Exception;
 use think\Request;
+use think\session\driver\Redis;
+
 class OperateController extends Controller
 {
-
-
     public function platformFindAnalysis($platform_name)
     {
         $analysis_model =   AnalysisNameModel::where($platform_name)->select();
@@ -24,6 +25,7 @@ class OperateController extends Controller
      */
     public function operateBigScreen(Request $request)
     {
+
         $platform_name      =   $request->param();
         //取该平台下的分析模块信息
         $analysis_model     =   $this->platformFindAnalysis($platform_name);
@@ -44,8 +46,9 @@ class OperateController extends Controller
      * @param  Request $request   platform_name(平台名称)  analysis_name_id(模块id)
      * @return array
      */
-    public function operateBigScreenAjax(Request $request)    {
-        $param              =   $request->request();
+    public function operateBigScreenAjax(Request $request)
+    {
+        $param      =   $request->request();
         //运营中心右上角相关数据
         $right_top  =   $this->operate_right_top($param);
         //运营中心左上角相关数据
@@ -152,8 +155,8 @@ class OperateController extends Controller
             }
         }
         return $new;
-
     }
+
     //运营中心右下角统计图
     public function operate_right_lower($param)
     {
@@ -205,27 +208,12 @@ class OperateController extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * 营销大屏页面
      * @return \think\response\View
      */
     public function marketingBigScreen(Request $request)
     {
-        echo 123;exit;
         $platform_name  =   $request->input();
         //取分析模块信息
         $analysis_model =   $this->platformFindAnalysis($platform_name);
@@ -242,7 +230,6 @@ class OperateController extends Controller
         $result =   AnalysisFormModel::analysisFormWithValue($param);
         var_dump($result);
     }
-
 
     /**
      * 订单大屏页面
@@ -299,7 +286,7 @@ class OperateController extends Controller
     {
         $platform_name      =   $request->param();
         //取该平台下的分析模块信息
-        $analysis_model     =   $this->platformFindAnalysis($platform_name);//$analysis_model     =   $this->status($analysis_model,'运营数据分析');
+        $analysis_model     =   $this->platformFindAnalysis($platform_name);
         //查询该平台下的运营数据分析模块ID
         $platform_name['analysis_name_id']   =   AnalysisNameModel::where($platform_name)->where(['analysis_name'=>'测试订单数据分析'])->value('id');
         $where              =   $platform_name;
@@ -312,6 +299,7 @@ class OperateController extends Controller
         }
         return view('',['model'=>$analysis_model,'platform_name'=>$platform_name['platform_name'],'form_field'=>$form_field]);
     }
+
     /**
      * 测试大屏 ajax数据获取
      * @param Request $request

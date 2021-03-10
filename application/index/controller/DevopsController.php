@@ -12,18 +12,18 @@ class DevopsController extends Controller
 
     public function index()
     {
-//        $data   =   Db::name('devops_value')->select();
-//        $pt =   ['化纤英文平台','无纺中文平台','无纺英文平台','制品中文平台','制品英文平台','纱线中文平台','纱线英文平台'];
-//        //var_dump($data);exit;
-//        $copy   =   $data;
-//        for ($i=0; $i<=6; $i++) {
-//            foreach ($copy as $key => $item) {
-//                unset($copy[$key]['id']);
-//                $copy[$key]['platform_name']=$pt[$i];
-//                $a[]=$copy[$key];
-//            }
-//        }
-//        Db::name('devops_value')->insertAll($a);
+        // $data   =   Db::name('devops_value')->select();
+        // $pt =   ['化纤英文平台','无纺中文平台','无纺英文平台','制品中文平台','制品英文平台','纱线中文平台','纱线英文平台'];
+        // //var_dump($data);exit;
+        // $copy   =   $data;
+        // for ($i=0; $i<=6; $i++) {
+        //     foreach ($copy as $key => $item) {
+        //         unset($copy[$key]['id']);
+        //         $copy[$key]['platform_name']=$pt[$i];
+        //         $a[]=$copy[$key];
+        //     }
+        // }
+        // Db::name('devops_value')->insertAll($a);
         return view();
     }
     public function devops_centers(Request $request)
@@ -81,53 +81,54 @@ class DevopsController extends Controller
     public function data_analysis($data)
     {
         $today_devops_data   =   Db::name('devops')
-                                ->alias('d')
-                                ->leftJoin('devops_value dv','d.id=dv.data_name_id')
-                                ->where('d.state','1')
-                                ->where('dv.platform_name',$data)
-                                ->where('dv.create_time',date('Y-m-d',time()))
-                                ->field('d.id,d.data_name,dv.data_value,dv.create_time')
-                                ->select();
+            ->alias('d')
+            ->leftJoin('devops_value dv','d.id=dv.data_name_id')
+            ->where('d.state','1')
+            ->where('dv.platform_name',$data)
+            ->where('dv.create_time',date('Y-m-d',time()))
+            ->field('d.id,d.data_name,dv.data_value,dv.create_time')
+            ->select();
+
         if($today_devops_data){
 
         }else{
             $today_devops_data  =   Db::name('devops')
-                                    ->alias('d')
-                                    ->leftJoin('devops_value dv','d.id=dv.data_name_id')
-                                    ->where('d.state','1')
-                                    ->where('dv.platform_name',$data)
-                                    ->where('dv.create_time',date("Y-m-d",strtotime("-1 day",time())))
-                                    ->field('d.id,d.data_name,dv.data_value,dv.create_time')
-                                    ->select();
+                ->alias('d')
+                ->leftJoin('devops_value dv','d.id=dv.data_name_id')
+                ->where('d.state','1')
+                ->where('dv.platform_name',$data)
+                ->where('dv.create_time',date("Y-m-d",strtotime("-1 day",time())))
+                ->field('d.id,d.data_name,dv.data_value,dv.create_time')
+                ->select();
             if(!$today_devops_data){
                 $today_devops_data  =   Db::name('devops')
-                                        ->alias('d')
-                                        ->leftJoin('devops_value dv','d.id=dv.data_name_id')
-                                        ->where('d.state','1')
-                                        ->where('dv.platform_name',$data)
-                                        ->where('dv.create_time',date("Y-m-d",strtotime("-2 day",time())))
-                                        ->field('d.id,d.data_name,dv.data_value,dv.create_time')
-                                        ->select();
+                    ->alias('d')
+                    ->leftJoin('devops_value dv','d.id=dv.data_name_id')
+                    ->where('d.state','1')
+                    ->where('dv.platform_name',$data)
+                    ->where('dv.create_time',date("Y-m-d",strtotime("-2 day",time())))
+                    ->field('d.id,d.data_name,dv.data_value,dv.create_time')
+                    ->select();
                 if(!$today_devops_data){
                     $today_devops_data  =   Db::name('devops')
-                                            ->alias('d')
-                                            ->leftJoin('devops_value dv','d.id=dv.data_name_id')
-                                            ->where('d.state','1')
-                                            ->where('dv.platform_name',$data)
-                                            ->where('dv.create_time',date("Y-m-d",strtotime("-3 day",time())))
-                                            ->field('d.id,d.data_name,dv.data_value,dv.create_time')
-                                            ->select();
+                        ->alias('d')
+                        ->leftJoin('devops_value dv','d.id=dv.data_name_id')
+                        ->where('d.state','1')
+                        ->where('dv.platform_name',$data)
+                        ->where('dv.create_time',date("Y-m-d",strtotime("-3 day",time())))
+                        ->field('d.id,d.data_name,dv.data_value,dv.create_time')
+                        ->select();
                     if(!$today_devops_data){
                         $today_devops_data  =   Db::name('devops')
-                                                ->alias('d')
-                                                ->leftJoin('devops_value dv','d.id=dv.data_name_id')
-                                                ->where('d.state','1')
-                                                ->where('dv.platform_name',$data)
-                                                ->order('dv.create_time desc')
-                                                ->limit(9)
-                                                //->where('dv.create_time',date("Y-m-d",strtotime("-3 day",time())))
-                                                ->field('d.id,d.data_name,dv.data_value,dv.create_time')
-                                                ->select();
+                            ->alias('d')
+                            ->leftJoin('devops_value dv','d.id=dv.data_name_id')
+                            ->where('d.state','1')
+                            ->where('dv.platform_name',$data)
+                            ->order('dv.create_time desc')
+                            ->limit(9)
+                            //->where('dv.create_time',date("Y-m-d",strtotime("-3 day",time())))
+                            ->field('d.id,d.data_name,dv.data_value,dv.create_time')
+                            ->select();
                     }
                 }
             }
@@ -141,13 +142,13 @@ class DevopsController extends Controller
             $table_data['today_data'][]     =   $item['data_value'];
             //历史数据量
             $table_data['history_data'][]   =   Db::name('devops_value')
-                                                ->where('data_name_id',$item['id'])
-                                                ->where('create_time','<',date('Y-m-d',time()))
-                                                ->sum('data_value');
+                ->where('data_name_id',$item['id'])
+                ->where('create_time','<',date('Y-m-d',time()))
+                ->sum('data_value');
             $table_data['difference'][]     =   $item['data_value']-(Db::name('devops_value')
-                                                ->where('data_name_id',$item['id'])
-                                                ->where('create_time',date("Y-m-d",strtotime("-1 day",strtotime($item['create_time']))))
-                                                ->value('data_value'));
+                    ->where('data_name_id',$item['id'])
+                    ->where('create_time',date("Y-m-d",strtotime("-1 day",strtotime($item['create_time']))))
+                    ->value('data_value'));
         }
         unset($today_devops_data);
         return $table_data;
@@ -156,14 +157,14 @@ class DevopsController extends Controller
     public function near_future_data($data)
     {
         $near_future_data   =   Db::name('devops')
-                                ->alias('d')
-                                ->leftJoin('devops_value dv' ,'d.id=dv.data_name_id')
-                                ->where('d.state','1')
-                                ->where('dv.platform_name',$data)
-                                ->where('dv.create_time','between',[date("Y-m-d",strtotime("-30 day",time())),date("Y-m-d",time())])
-                                ->order('dv.create_time')
-                                ->order('dv.data_name_id')
-                                ->select();
+            ->alias('d')
+            ->leftJoin('devops_value dv' ,'d.id=dv.data_name_id')
+            ->where('d.state','1')
+            ->where('dv.platform_name',$data)
+            ->where('dv.create_time','between',[date("Y-m-d",strtotime("-30 day",time())),date("Y-m-d",time())])
+            ->order('dv.create_time')
+            ->order('dv.data_name_id')
+            ->select();
         foreach ($near_future_data as $k => $v) {
             $near[$v['create_time']][] = $v;
         }
